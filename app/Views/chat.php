@@ -40,7 +40,8 @@ use function PHPSTORM_META\type;
         </div>
 
         <div class="row sideBar">
-          <div class="row sideBar-body">
+        <?php foreach($recentChat as $rc): ?>
+          <div class="row sideBar-body contact" user-id=<?= $rc->username ?> user-name=<?= $rc->name ?>>
             <div class="col-sm-3 col-xs-3 sideBar-avatar">
               <div class="avatar-icon">
                 <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
@@ -49,7 +50,7 @@ use function PHPSTORM_META\type;
             <div class="col-sm-9 col-xs-9 sideBar-main">
               <div class="row">
                 <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
+                  <span class="name-meta"><?= $rc->username ?>
                 </span>
                 </div>
                 <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
@@ -59,6 +60,7 @@ use function PHPSTORM_META\type;
               </div>
             </div>
           </div>
+          <?php endforeach ?>
 
         </div>
       </div>

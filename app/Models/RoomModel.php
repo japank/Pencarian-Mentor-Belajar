@@ -62,5 +62,20 @@ class RoomModel extends Model
         return $room;
     }
 
+    function getRecentMessage(){
+        $userModel = new \App\Models\UsersModel2();
+        $roomUserModel = new \App\Models\RoomUserModel();
+        $usernow = session()->get('username');
+
+        $query = $this->db->query("SELECT * FROM users WHERE username IN 
+        (SELECT username FROM room_user where id_room IN 
+        (SELECT id_room FROM room_user where username = 
+        (SELECT username FROM users where username='$usernow'))
+        && username != '$usernow' && id_room IN (SELECT id_room FROM chat))
+        ");
+
+        return $query->getResult();
+    }
+
 
 }

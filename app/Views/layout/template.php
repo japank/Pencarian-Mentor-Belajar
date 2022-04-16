@@ -81,7 +81,7 @@
     <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
 
-    <a href="<?= base_url(); ?>/courses.html" class="get-started-btn">Get Started</a>
+    <!-- <a href="<?= base_url(); ?>/courses.html" class="get-started-btn">Get Started</a> -->
 
 </div>
 </header><!-- End Header -->

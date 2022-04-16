@@ -152,6 +152,17 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 14px;
   display: inline-block;
 }
+.tombol-putih {
+  margin-left: 0px;
+  background: #ffffff;
+  color: #000000;
+  border-radius: 50px;
+  padding: 8px 25px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 14px;
+  display: inline-block;
+}
 .get-started-btn:hover {
   background: #3ac162;
   color: #fff;
@@ -1446,7 +1457,8 @@ section {
   margin-left: 8px;
 }
 
-{box-sizing: border-box;}
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
 
 /* Button used to open the chat form - fixed at the bottom of the page */
 .open-button {
@@ -1749,15 +1761,15 @@ body {
   width: 40px;
   height: 40px
 }
-
+/* kanan */
 .direct-chat-text {
   border-radius: 5px;
   position: relative;
   padding: 5px 10px;
-  background: #d2d6de;
+  background: #5fcf80;
   border: 1px solid #d2d6de;
   margin: 5px 0 0 50px;
-  color: #444
+  color: rgb(255, 255, 255)
 }
 
 .direct-chat-msg,
@@ -1776,7 +1788,7 @@ body {
   right: 100%;
   top: 15px;
   border: solid transparent;
-  border-right-color: #d2d6de;
+  border-right-color: #0055ff;
   content: ' ';
   height: 0;
   width: 0;
@@ -1794,7 +1806,7 @@ body {
   right: 100%;
   top: 15px;
   border: solid transparent;
-  border-right-color: #d2d6de;
+  border-right-color: #0051f300;
   content: ' ';
   height: 0;
   width: 0;
@@ -1826,11 +1838,11 @@ body {
 .right .direct-chat-img {
   float: right
 }
-
+/* kiriiii */
 .direct-chat-warning .right>.direct-chat-text {
-  background: #5fcf80;
-  border-color: #5fcf80;
-  color: #fff
+  background: #d2d6de;
+  border-color: #d2d6de;
+  color: rgb(53, 53, 53)
 }
 
 .right .direct-chat-text {

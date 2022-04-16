@@ -42,6 +42,7 @@ $routes->get('/location', 'Location::index');
 $routes->get('/tes', 'Home::tes');
 $routes->get('/chat', 'Chat::index');
 $routes->post('/chat/getRoomByUser/(:any)', 'Chat::getRoomByUser/$1');
+$routes->get('/trainers', 'Trainers::index');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

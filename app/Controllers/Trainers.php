@@ -10,8 +10,11 @@ class Trainers extends BaseController
     {
         $users = new UsersModel();
         $usernow = session()->get('username');
-        $data['users'] = $users->getjarak();
-        return view('trainers', $data);
+        $trainers = $users->getjarak();
+        return view('trainers',[
+        'trainers'=>$trainers,
+        'username'=>$usernow,
+        ]);
     }
 
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8">
+<meta charset="<?= csrf_meta() ?>">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
 <title>Trainers - Mentor Bootstrap Template</title>
@@ -36,8 +36,8 @@
 ======================================================== -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 </head>
 
 <body>
@@ -81,7 +81,7 @@
     <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
 
-    <!-- <a href="<?= base_url(); ?>/courses.html" class="get-started-btn">Get Started</a> -->
+    <a href="<?= base_url(); ?>/courses.html" class="get-started-btn">Get Started</a>
 
 </div>
 </header><!-- End Header -->

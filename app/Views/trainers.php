@@ -7,7 +7,7 @@
 <!-- ======= Breadcrumbs ======= -->
 <div class="breadcrumbs">
     <div class="container">
-    <h4 style="text-align:left">Lokasi Anda</h4>
+    <h4 style="text-align:left">Hai <?= $usernow = session()->get('username'); ?> ! Lokasi Anda adalah</h4>
     <p style="text-align:left"><?= session()->get('address');?></p><br/>
     <p style="text-align:left"><a href="<?= site_url('location'); ?>" class="tombol-putih" ><b>Ubah Lokasi</b></a></p>    </div>
 </div><!-- End Breadcrumbs -->
@@ -20,7 +20,7 @@
             $no = 1;
 
             $usernow = session()->get('username');
-            foreach ($users as $row){
+            foreach ($trainers as $row){
             ?>
         <div class="col-lg-6">
         <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
@@ -33,7 +33,7 @@
                                <a href="
                                 <?= base_url(); ?>/<?= base_url("users/pilih/$row->username"); ?>
                                "><i class="ri-instagram-fill"></i></a>
-                               <a ><i class="ri-twitter-fill" onclick="openForm()"></i></a>
+                               <a ><i class="ri-twitter-fill contact" user-id='<?= $row->username ?>' user-name='<?= $row->name ?>'></i></a>
             </div>
             </div>
         </div>
@@ -49,17 +49,15 @@
 </section><!-- End Team Section -->
 </main><!-- End #main -->
 <div class="form-popup" id="myForm">
-<div class="col-md-4"></div>
-<div class="col-md-4"></div>
-<div class="col-md-4">
+<div class="col-sm-8 col-sm-push-4">
                 <div class="box box-warning direct-chat direct-chat-warning">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Chat Messages</h3>
-                        <div class="box-tools pull-right"> <span data-toggle="tooltip" title="" class="badge bg-yellow" data-original-title="3 New Messages">20</span> <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> </button>  <button type="button" class="btn btn-box-tool" data-widget="remove" onclick="closeForm()"><i class="fa fa-times"></i> </button> </div>
+                        <h3 class="box-title" id="recipient-name">Chat Messages</h3>
+                        <div class="box-tools pull-right"> <span data-toggle="tooltip" title="" class="badge bg-yellow" data-original-title="3 New Messages">20</span> <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> </button>  <button type="button" class="btn btn-box-tool close-chat" data-widget="remove"><i class="fa fa-times"></i> </button> </div>
                     </div>
-                    <div class="box-body">
-                        <div class="direct-chat-messages">
-                            <div class="direct-chat-msg">
+                    <div class="box-body" >
+                        <div class="direct-chat-messages" id="conversation" >
+                            <!-- <div class="direct-chat-msg"> 
                                 <div class="direct-chat-text"> For what reason would it be advisable for me to think about business content? </div>
                                 <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span> </div> 
                             </div>
@@ -74,13 +72,15 @@
                             <div class="direct-chat-msg right ">
                                 <div class="direct-chat-text"> Thank you for your believe in our supports </div>
                                 <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span> </div>
-                            </div>
-                                                </div>
+                            </div>-->
+                        </div> 
                     </div>
                     <div class="box-footer">
-                        <form action="#" method="post">
-                            <div class="input-group"> <input type="text" name="message" placeholder="Type Message ..." class="form-control"> <span class="input-group-btn"> <button type="button" class="btn btn-warning btn-flat" style=" background: #5fcf80;border-color: #5fcf80">Send</button> </span> </div>
-                        </form>
+                            <div class="input-group">
+                            <?= csrf_field() ?> 
+                                <input type="text" name="message"  id="comment" placeholder="Type Message ..." class="form-control"> <span class="input-group-btn"> 
+                                    <button type="button" id="send-message" class="btn btn-warning btn-flat" style=" background: #5fcf80;border-color: #5fcf80">Send</button> </span> 
+                            </div>
                     </div>
                 </div>
             </div>
@@ -147,14 +147,135 @@
             </div>
 </form>
 </div> -->
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
-function openForm() {
-document.getElementById("myForm").style.display = "block";
-}
+$('document').ready(function(){
+    var meta = document.getElementsByTagName("meta")[0];
+    var tokenHash = meta.content;
+    $.ajaxPrefilter(function(options,originalOptions,jqXHR) {
+        jqXHR.setRequestHeader('X-CSRF-Token', tokenHash);  });
 
-function closeForm() {
-document.getElementById("myForm").style.display = "none";
-}
+    var roomId;
+
+    var socket = new WebSocket('ws://127.0.0.1:8080');
+
+    socket.onopen = function(e){
+        console.log('Connection Estabilished');
+    }
+
+    socket.onmessage = function(e){
+        var data = JSON.parse(e.data);
+        console.log(data);
+        var targetUserId = data.currentUserId;
+        var incomingMessage = data.message;
+        var targetRoomId = data.id_room;
+
+        if(targetUserId!='<?= $username ?>' && targetRoomId==roomId){
+        var template = `<div class="direct-chat-msg right ">
+                            <div class="direct-chat-text">`+incomingMessage+`</div>
+                            <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-left">`+created+`</span> </div>
+                        </div>
+                        `;
+        $("#conversation").append(template);
+        $("#conversation").scrollTop($("#conversation")[0].scrollHeight);
+        }
+    }
+
+    $('.contact').on('click', function(){
+        document.getElementById("myForm").style.display = "block";
+        var contactId = $(this).attr('user-id');
+        var contactName = $(this).attr('user-name');
+        $('#conversation').html('');
+
+        $("#recipient-name").html(contactName);
+        $.ajax({
+        url: "<?= site_url('Chat/getRoomByUser') ?>",
+        type: 'GET',
+        data: {
+            'contactId' : contactId,
+        },
+        dataType:'json',
+        success : function(data){
+            console.log(data);
+            roomId = data.id_room;
+            getChats();
+        }
+        });
+
+    }),
+
+    $('.close-chat').on('click', function(){
+    document.getElementById("myForm").style.display = "none";
+    });
+
+    function getChats(){
+        $.ajax({
+        url: "<?= site_url('Chat/getChatsByRoomId') ?>",
+        type: 'POST',
+        data: {
+            'roomId': roomId,
+        },
+        dataType:'json',
+        success : function(data){
+            console.log(data);
+            for (var i=0;i<data.length;i++){
+            var message = data[i].message;
+            var created = data[i].created;
+            var id_user = data[i].username;
+            var template = null;
+            if(id_user == '<?= $username ?>'){
+                template =  `<div class="direct-chat-msg">
+                                <div class="direct-chat-text"> `+message+`</div>
+                                <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-right">`+created+`</span> </div> 
+                            </div>`;
+            }else{
+                template = `<div class="direct-chat-msg right ">
+                                <div class="direct-chat-text">`+message+`</div>
+                                <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-left">`+created+`</span> </div>
+                            </div>`;
+            }
+            $("#conversation").append(template);
+            $("#conversation").scrollTop($("#conversation")[0].scrollHeight);
+            }
+        } 
+        });
+    }
+
+    $('#send-message').on('click', function(){
+        var message = $("#comment").val();
+        $("#comment").val('');
+        var data = {
+        'message': message,
+        'id_room' : roomId,
+        'currentUserId' : '<?= $username ?>',
+        };
+        socket.send(JSON.stringify(data));
+        sendMessage(message);
+    });
+
+
+    function sendMessage(message){
+        $.ajax({
+        url : "<?= site_url('Chat/sendMessage') ?>",
+        type : 'POST',
+        data : {
+            'message' : message,
+            'id_room' : roomId,
+
+        },
+        dataType: 'json',
+        success : function(data){
+            console.log(data);
+            var template = `<div class="direct-chat-msg">
+                                <div class="direct-chat-text">`+data.message+`</div>
+                                <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-right">`+data.created+`</span> </div> 
+                            </div>`;
+        $('#conversation').append(template);
+        }
+        })
+    }
+
+
+});
 </script>
 <?= $this->endSection() ?>

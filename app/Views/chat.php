@@ -171,7 +171,7 @@ use function PHPSTORM_META\type;
               `+incomingMessage+`
               </div>
               <span class="message-time pull-right">
-                Sun
+              `+created+`
               </span>
             </div>
           </div>
@@ -238,7 +238,7 @@ use function PHPSTORM_META\type;
               `+message+`
               </div>
               <span class="message-time pull-right">
-                Sun
+              `+created+`
               </span>
             </div>
           </div>
@@ -283,7 +283,7 @@ use function PHPSTORM_META\type;
                 `+data.message+`
               </div>
               <span class="message-time pull-right">
-                Sun
+              `+created+`
               </span>
             </div>
           </div>

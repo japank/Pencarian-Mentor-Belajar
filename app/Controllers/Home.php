@@ -16,6 +16,6 @@ class Home extends BaseController
 
     public function tes()
     {
-        return view('chat');
+        return view('tes');
     }
 }

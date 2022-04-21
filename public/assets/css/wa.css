@@ -79,6 +79,7 @@
   font-size: 12px;
   text-align: right;
   color: #000000;
+  font-style: italic;
 
 }
 
@@ -88,9 +89,18 @@
     font-size: 12px;
     text-align: right;
     color: #ffffff;
+    font-style: italic;
   
   }
-
+  .message-time-sender2 {
+    margin: 0 !important;
+    margin-right: 50px !important;
+    font-size: 12px;
+    text-align: right;
+    color: #000000;
+    font-style: italic;
+  
+  }
 .receiver {
   width: auto !important;
   padding: 4px 10px 7px !important;

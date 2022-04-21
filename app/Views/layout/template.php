@@ -88,6 +88,7 @@
 </header><!-- End Header -->
 <?= $this->renderSection('home')?>
 <?= $this->renderSection('trainer')?>
+<?= $this->renderSection('chat')?>
 <!-- ======= Footer ======= -->
 <footer id="footer">
 

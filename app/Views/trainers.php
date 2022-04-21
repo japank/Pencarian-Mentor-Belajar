@@ -171,11 +171,18 @@ $('document').ready(function(){
         var targetRoomId = data.id_room;
 
         if(targetUserId!='<?= $username ?>' && targetRoomId==roomId){
-        var template = `<div class="direct-chat-msg right ">
-                            <div class="direct-chat-text">`+incomingMessage+`</div>
-                            <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-left">`+created+`</span> </div>
-                        </div>
-                        `;
+        var template = `<div class="row message-body">
+            <div class="col-sm-12 message-main-receiver">
+            <div class="receiver">
+                <div class="message-text">
+                `+incomingMessage+`
+                </div>
+                <span class="message-time pull-right">
+                'a'
+                </span>
+            </div>
+            </div>
+        </div>`;
         $("#conversation").append(template);
         $("#conversation").scrollTop($("#conversation")[0].scrollHeight);
         }
@@ -224,15 +231,31 @@ $('document').ready(function(){
             var id_user = data[i].username;
             var template = null;
             if(id_user == '<?= $username ?>'){
-                template =  `<div class="direct-chat-msg">
-                                <div class="direct-chat-text"> `+message+`</div>
-                                <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-right">`+created+`</span> </div> 
-                            </div>`;
-            }else{
-                template = `<div class="direct-chat-msg right ">
-                                <div class="direct-chat-text">`+message+`</div>
-                                <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-left">`+created+`</span> </div>
-                            </div>`;
+                template =  `<div class="row message-body">
+                <div class="col-sm-12 message-main-sender">
+                <div class="sender">
+                    <div class="message-text-sender">
+                    `+message+`
+                    </div>
+                    <span class="message-time-sender pull-right">
+                    `+created+`
+                    </span>
+                </div>
+                </div>
+            </div>`;
+                }else{
+                    template = `<div class="row message-body">
+                <div class="col-sm-12 message-main-receiver">
+                <div class="receiver">
+                    <div class="message-text">
+                    `+message+`
+                    </div>
+                    <span class="message-time pull-right">
+                    `+created+`
+                    </span>
+                </div>
+                </div>
+            </div>`;
             }
             $("#conversation").append(template);
             $("#conversation").scrollTop($("#conversation")[0].scrollHeight);
@@ -266,10 +289,18 @@ $('document').ready(function(){
         dataType: 'json',
         success : function(data){
             console.log(data);
-            var template = `<div class="direct-chat-msg">
-                                <div class="direct-chat-text">`+data.message+`</div>
-                                <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-right">`+data.created+`</span> </div> 
-                            </div>`;
+        var template =  `        <div class="row message-body">
+        <div class="col-sm-12 message-main-sender">
+        <div class="sender">
+            <div class="message-text">
+            `+data.message+`
+            </div>
+            <span class="message-time pull-right">
+            'c'
+            </span>
+        </div>
+        </div>
+    </div>`;
         $('#conversation').append(template);
         }
         })

@@ -42,7 +42,15 @@ $routes->get('/location', 'Location::index');
 $routes->get('/tes', 'Home::tes');
 $routes->get('/chat', 'Chat::index');
 $routes->post('/chat/getRoomByUser/(:any)', 'Chat::getRoomByUser/$1');
-$routes->get('/trainers', 'Trainers::index');
+$routes->get('/mentor', 'Mentor::index');
+$routes->get('/mentor/request', 'Mentor::indexrequest');
+$routes->get('/mentor/request/(:any)', 'Mentor::request/$1');
+$routes->post('/mentor/process/(:any)', 'Mentor::process/$1');
+$routes->get('/mentor/edit/(:num)', 'Mentor::edit/$1');
+$routes->post('/mentor/update/(:num)', 'Mentor::update/$1');
+$routes->get('/mentor/delete/(:num)', 'Mentor::delete/$1');
+
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

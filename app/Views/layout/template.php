@@ -54,7 +54,7 @@
     <nav id="navbar" class="navbar order-last order-lg-0">
     <ul>
         <li><a href="<?= base_url(); ?>/">Home</a></li>
-        <li><a class="active" href="<?= base_url(); ?>/trainers">Trainers</a></li>
+        <li><a class="active" href="<?= base_url(); ?>/mentor">Mentor</a></li>
         <li><a href="<?= base_url(); ?>/chat">Chat</a></li>
         <!-- <li><a href="<?= base_url(); ?>/courses.html">Courses</a></li>
         <li><a href="<?= base_url(); ?>/events.html">Events</a></li>
@@ -77,7 +77,7 @@
             <li><a href="<?= base_url(); ?>/#">Drop Down 4</a></li>
         </ul>
         </li>-->
-        <li><a href="<?= base_url(); ?>/contact.html">Contact</a></li>
+        <li><a href="<?= base_url(); ?>/mentor/request">Request</a></li>
     </ul>
     <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
@@ -89,6 +89,7 @@
 <?= $this->renderSection('home')?>
 <?= $this->renderSection('trainer')?>
 <?= $this->renderSection('chat')?>
+<?= $this->renderSection('content') ?>
 <!-- ======= Footer ======= -->
 <footer id="footer">
 

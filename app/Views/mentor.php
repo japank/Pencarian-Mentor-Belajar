@@ -20,7 +20,7 @@
             $no = 1;
 
             $usernow = session()->get('username');
-            foreach ($trainers as $row){
+            foreach ($mentor as $row){
             ?>
         <div class="col-lg-6">
         <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
@@ -30,10 +30,8 @@
             <span><?= number_format((float)$row->jarak_km, 2, '.', ''); ?> km</span>
             <p><?= $row->address; ?></p>
             <div class="social">
-                               <a href="
-                                <?= base_url(); ?>/<?= base_url("users/pilih/$row->username"); ?>
-                               "><i class="ri-instagram-fill"></i></a>
-                               <a ><i class="ri-twitter-fill contact" user-id='<?= $row->username ?>' user-name='<?= $row->name ?>'></i></a>
+                <a href="<?= base_url("mentor/request/$row->username"); ?>"><i class="ri-instagram-fill"></i></a>
+                <a ><i class="ri-twitter-fill contact" user-id='<?= $row->username ?>' user-name='<?= $row->name ?>'></i></a>
             </div>
             </div>
         </div>

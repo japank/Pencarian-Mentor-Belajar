@@ -50,7 +50,8 @@ $routes->get('/mentor/edit/(:num)', 'Mentor::edit/$1');
 $routes->post('/mentor/update/(:num)', 'Mentor::update/$1');
 $routes->get('/mentor/delete/(:num)', 'Mentor::delete/$1');
 $routes->get('/mentor/verification/(:num)', 'Mentor::verification/$1');
-
+$routes->get('/logbook', 'Logbook::index');
+$routes->get('/logbook/(:any)', 'Logbook::logbook/$1');
 
 /*
  * --------------------------------------------------------------------

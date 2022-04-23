@@ -26,4 +26,15 @@ class RequestMentorModel extends Model
         ->getWhere(['username_mentor' => $usernow])->getResultArray();
     }
 
+    public function getSiswaMentored(){
+        $usernow = session()->get('username');
+        $query = $this->db->query("
+        SELECT * FROM users WHERE username IN 
+        (SELECT username_siswa FROM request_mentor WHERE username_mentor = '$usernow')
+        ");
+
+        return $query->getResult();
+        
+    }
+
 }

@@ -56,8 +56,8 @@
         <li><a href="<?= base_url(); ?>/">Home</a></li>
         <li><a class="active" href="<?= base_url(); ?>/mentor">Mentor</a></li>
         <li><a href="<?= base_url(); ?>/chat">Chat</a></li>
-        <!-- <li><a href="<?= base_url(); ?>/courses.html">Courses</a></li>
-        <li><a href="<?= base_url(); ?>/events.html">Events</a></li>
+        <li><a href="<?= base_url(); ?>/logbook">Logbook</a></li>
+        <!-- <li><a href="<?= base_url(); ?>/events.html">Events</a></li>
         <li><a href="<?= base_url(); ?>/pricing.html">Pricing</a></li> 
 
         <li class="dropdown"><a href="<?= base_url(); ?>/#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
@@ -82,7 +82,7 @@
     <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
 
-    <a href="<?= base_url(); ?>/courses.html" class="get-started-btn">Get Started</a>
+    <a href="<?= base_url(); ?>/logout" class="get-started-btn"><?= session()->get('username')?></a>
 
 </div>
 </header><!-- End Header -->

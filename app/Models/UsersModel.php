@@ -19,7 +19,7 @@ class UsersModel extends Model
 
         $query = $this->db->query("SELECT *, 
         (((acos(sin((".$latnow."*pi()/180)) * sin((`latitude`*pi()/180)) + cos((".$latnow."*pi()/180)) * cos((`latitude`*pi()/180)) * cos(((".$longnow."- `longitude`)*pi()/180)))) * 180/pi()) * 60 * 1.1515 * 1.609344)
-        as jarak_km FROM users HAVING role = 'pendamping' ORDER BY jarak_km ASC
+        as jarak_km FROM users where username != '$usernow' HAVING role = 'pendamping' ORDER BY jarak_km ASC
 
         ");
 

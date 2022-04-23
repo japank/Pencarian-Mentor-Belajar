@@ -19,4 +19,11 @@ class RequestMentorModel extends Model
         ->getWhere(['username_siswa' => $usernow])->getResultArray();
     }
 
+    public function getRequestMentoringByMentor(){
+        $usernow = session()->get('username');
+        return $this->db->table('request_mentor')
+        ->join('users','users.username=request_mentor.username_siswa')
+        ->getWhere(['username_mentor' => $usernow])->getResultArray();
+    }
+
 }

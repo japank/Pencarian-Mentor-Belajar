@@ -26,13 +26,25 @@ class Mentor extends BaseController
 
     public function indexrequest()
     {
-        $requestMentor = new RequestMentorModel();
-        $requestMentorList = $this->requestMentor->getRequestMentoring();
-        $usernow = session()->get('username');
-        return view('mentor_request_list',[
-        'username'=>$usernow,
-        'requestMentorList' => $requestMentorList,
+        $tes = session()->get('role');
+        if($tes == 'siswa'){
+            $requestMentor = new RequestMentorModel();
+            $requestMentorList = $this->requestMentor->getRequestMentoring();
+            $usernow = session()->get('username');
+            return view('mentor_request_list',[
+            'username'=>$usernow,
+            'requestMentorList' => $requestMentorList,
+            ]);
+
+        } else {
+            $requestMentor = new RequestMentorModel();
+            $requestMentorList = $this->requestMentor->getRequestMentoringbyMentor();
+            $usernow = session()->get('username');
+            return view('mentor_request_list_bymentor',[
+            'username'=>$usernow,
+            'requestMentorList' => $requestMentorList,
         ]);
+        }
     }
 
     public function request($username){
@@ -93,5 +105,18 @@ class Mentor extends BaseController
         session()->setFlashdata('message', 'Hapus Pengajuan Peminjaman Aset Berhasil');
         return redirect()->to('/mentor/request');
     }
+
+
+    public function verification($id){
+        $requestMentor = new RequestMentorModel();
+        $usernow = session()->get('username');
+
+        $requestMentor->update($id, [
+            'status_request' => $this->request->getVar('status_request'),
+        ]);
+        session()->setFlashdata('message', 'Berhasil');
+        return redirect()->to('/mentor/request');
+    }
+
 
 }

@@ -25,6 +25,7 @@ class Login extends BaseController
                     'username' => $dataUser->username,
                     'name' => $dataUser->name,
                     'address' => $dataUser->address,
+                    'role' => $dataUser->role,
                     'latitude' => $dataUser->latitude,
                     'longitude' => $dataUser->longitude,
                     'logged_in' => TRUE

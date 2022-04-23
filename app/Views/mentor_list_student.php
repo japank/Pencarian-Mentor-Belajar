@@ -29,7 +29,7 @@
             <span> km</span>
             <p><?= $row->address; ?></p>
             <div class="social">
-                <a href="<?= base_url("logbook/$row->username"); ?>"><i class="ri-book-fill"></i></a>
+                <a href="<?= base_url("logbook/details/$row->username"); ?>"><i class="ri-book-fill"></i></a>
             </div>
             </div>
         </div>

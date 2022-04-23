@@ -24,10 +24,8 @@ class Mentor extends BaseController
         ]);
     }
 
-    public function indexrequest()
+    public function indexRequestBySiswa()
     {
-        $tes = session()->get('role');
-        if($tes == 'siswa'){
             $requestMentor = new RequestMentorModel();
             $requestMentorList = $this->requestMentor->getRequestMentoring();
             $usernow = session()->get('username');
@@ -35,8 +33,12 @@ class Mentor extends BaseController
             'username'=>$usernow,
             'requestMentorList' => $requestMentorList,
             ]);
+        }
+    
 
-        } else {
+    public function indexRequestByMentor()
+    {
+
             $requestMentor = new RequestMentorModel();
             $requestMentorList = $this->requestMentor->getRequestMentoringbyMentor();
             $usernow = session()->get('username');
@@ -45,7 +47,8 @@ class Mentor extends BaseController
             'requestMentorList' => $requestMentorList,
         ]);
         }
-    }
+
+
 
     public function request($username){
         $dataMentor = $this->users->find($username);
@@ -115,7 +118,7 @@ class Mentor extends BaseController
             'status_request' => $this->request->getVar('status_request'),
         ]);
         session()->setFlashdata('message', 'Berhasil');
-        return redirect()->to('/mentor/request');
+        return redirect()->to('/mentor/requested');
     }
 
 

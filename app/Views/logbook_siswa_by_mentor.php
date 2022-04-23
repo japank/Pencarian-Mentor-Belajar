@@ -17,12 +17,15 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <?php endif; ?>
+                <?php endif; ?>   
+                <a href="<?= base_url('/logbook/add/'. $username_siswa); ?>" class="btn btn-success btn-icon-split" >
+                    <span class="text">Tambah Logbook</span>
+                    </a>
                     <hr>
                     <!-- Page Heading -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Logbook Siswa</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Logbook Siswa <?= $username_siswa?></h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -48,8 +51,8 @@
                                             <td><?= $row->description; ?>
                                             <td>
                                                 <?php $dataedit = $row->id_logbook;?>
-                                            <a title="Edit" href="<?= base_url("mentor/edit/$dataedit") ?>" class="btn btn-info mt-2" style="width:75px;">Edit</a>
-                                            <a title="Delete" href="<?= base_url("mentor/delete/$dataedit") ?>" class="btn btn-danger mt-2" onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a></p>
+                                            <a title="Edit" href="<?= base_url("logbook/edit/$dataedit") ?>" class="btn btn-info mt-2" style="width:75px;">Edit</a>
+                                            <a title="Delete" href="<?= base_url("logbook/delete/$dataedit") ?>" class="btn btn-danger mt-2" onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a></p>
                                                 </td>
                                             </tr>
                                         <?php

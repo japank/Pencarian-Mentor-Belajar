@@ -56,28 +56,31 @@
         <li><a href="<?= base_url(); ?>/">Home</a></li>
         <li><a class="active" href="<?= base_url(); ?>/mentor">Mentor</a></li>
         <li><a href="<?= base_url(); ?>/chat">Chat</a></li>
-        <li><a href="<?= base_url(); ?>/logbook">Logbook</a></li>
         <!-- <li><a href="<?= base_url(); ?>/events.html">Events</a></li>
         <li><a href="<?= base_url(); ?>/pricing.html">Pricing</a></li> 
-
-        <li class="dropdown"><a href="<?= base_url(); ?>/#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+-->
+<?php 
+    $tes = session()->get('role');
+    if($tes == 'pendamping'){
+?>
+        <li class="dropdown"><a href="<?= base_url(); ?>/#"><span>Logbook</span> <i class="bi bi-chevron-down"></i></a>
         <ul>
-            <li><a href="<?= base_url(); ?>/#">Drop Down 1</a></li>
-            <li class="dropdown"><a href="<?= base_url(); ?>/#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-            <ul>
-                <li><a href="<?= base_url(); ?>/#">Deep Drop Down 1</a></li>
-                <li><a href="<?= base_url(); ?>/#">Deep Drop Down 2</a></li>
-                <li><a href="<?= base_url(); ?>/#">Deep Drop Down 3</a></li>
-                <li><a href="<?= base_url(); ?>/#">Deep Drop Down 4</a></li>
-                <li><a href="<?= base_url(); ?>/#">Deep Drop Down 5</a></li>
-            </ul>
-            </li>
-            <li><a href="<?= base_url(); ?>/#">Drop Down 2</a></li>
-            <li><a href="<?= base_url(); ?>/#">Drop Down 3</a></li>
-            <li><a href="<?= base_url(); ?>/#">Drop Down 4</a></li>
+            <li><a href="<?= base_url(); ?>/mylogbook">Logbook Saya</a></li>
+            <li><a href="<?= base_url(); ?>/logbook">Logbook Siswa</a></li>
         </ul>
-        </li>-->
+        </li>
+
+        <li class="dropdown"><a href="<?= base_url(); ?>/#"><span>Request</span> <i class="bi bi-chevron-down"></i></a>
+        <ul>
+            <li><a href="<?= base_url(); ?>/mentor/request">Request Mentor</a></li>
+            <li><a href="<?= base_url(); ?>/mentor/requested">Request Jadi Mentor</a></li>
+        </ul>
+        </li>
+<?php }else{ ?>
         <li><a href="<?= base_url(); ?>/mentor/request">Request</a></li>
+        <li><a href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
+<?php }
+?>
     </ul>
     <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->

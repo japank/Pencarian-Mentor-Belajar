@@ -42,17 +42,28 @@ $routes->get('/location', 'Location::index');
 $routes->get('/tes', 'Home::tes');
 $routes->get('/chat', 'Chat::index');
 $routes->post('/chat/getRoomByUser/(:any)', 'Chat::getRoomByUser/$1');
+
 $routes->get('/mentor', 'Mentor::index');
-$routes->get('/mentor/request', 'Mentor::indexrequest');
+$routes->get('/mentor/request', 'Mentor::indexRequestBySiswa');
+$routes->get('/mentor/requested', 'Mentor::indexRequestByMentor');
 $routes->get('/mentor/request/(:any)', 'Mentor::request/$1');
 $routes->post('/mentor/process/(:any)', 'Mentor::process/$1');
 $routes->get('/mentor/edit/(:num)', 'Mentor::edit/$1');
 $routes->post('/mentor/update/(:num)', 'Mentor::update/$1');
 $routes->get('/mentor/delete/(:num)', 'Mentor::delete/$1');
 $routes->get('/mentor/verification/(:num)', 'Mentor::verification/$1');
-$routes->get('/logbook', 'Logbook::index');
-$routes->get('/logbook/(:any)', 'Logbook::logbook/$1');
 
+$routes->get('/mylogbook', 'Logbook::index');
+$routes->get('/logbook', 'Logbook::indexLogbookAsMentor');
+
+$routes->get('/mylogbook/details/(:any)', 'Logbook::logbook/$1');
+$routes->get('/logbook/details/(:any)', 'Logbook::logbookSiswaByMentor/$1');
+
+$routes->get('/logbook/add/(:any)', 'Logbook::add/$1');
+$routes->post('/logbook/process/(:any)', 'Logbook::process/$1');
+$routes->get('/logbook/edit/(:num)', 'Logbook::edit/$1');
+$routes->post('/logbook/update/(:num)', 'Logbook::update/$1');
+$routes->get('/logbook/delete/(:num)', 'Logbook::delete/$1');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

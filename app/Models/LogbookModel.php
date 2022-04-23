@@ -27,7 +27,7 @@ class LogbookModel extends Model
     public function getLogbookSiswa($username){
         $usernow = session()->get('username');
         $query = $this->db->query("
-        SELECT * FROM logbook WHERE username_siswa = '$usernow';
+        SELECT * FROM logbook WHERE username_siswa = '$usernow' && username_mentor = '$username';
         ");
 
         if($usernow = $username){

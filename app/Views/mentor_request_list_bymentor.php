@@ -25,6 +25,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">Request Mentor List</h6>
                         </div>
                         <div class="card-body">
+
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
@@ -33,6 +34,7 @@
                                             <th>Nama Siswa</th>
                                             <th>Tanggal Pertemuan</th>
                                             <th>Topik</th>
+                                            <th>Deskripsi Topik</th>
                                             <th>Status Permintaan</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -47,13 +49,14 @@
                                             <td><?= $row['username_siswa']; ?></td>
                                             <td><?= strftime("%a %d %b %Y", strtotime($row['date_started']))?></td>
                                             <td><?= $row['topic']; ?></td>
+                                            <td><?= $row['description']; ?></td>
                                             <td><?php
                                                 if($row['status_request'] == '2'){
-                                                    echo 'Menunggu Verifikasi';
+                                                    echo '<span class="btn btn-warning">Menunggu Verifikasi</span>';
                                                 }elseif($row['status_request'] == '1'){
-                                                    echo 'Diterima';
+                                                    echo '<span class="btn btn-success">Diterima</span>';
                                                 }else{
-                                                    echo 'Ditolak';
+                                                    echo '<span class="btn btn-danger">Ditolak</span>';
                                                 }
                                                 ?>
                                             <td>
@@ -61,12 +64,12 @@
                                                 <form method="post" action="<?= base_url('mentor/verification/'. $dataedit) ?>">
                                                 <?= csrf_field(); ?>
                                                 <input type="hidden" class="form-control" id="status_request" name="status_request" value="1" readonly="">
-                                                <input type="submit" value="Accept" class="btn btn-info" />
+                                                <input type="submit" value="Y" class="btn btn-info" />
                                             </form>
                                             <form method="post" action="<?= base_url('mentor/verification/'. $dataedit) ?>">
                                                 <?= csrf_field(); ?>
                                                 <input type="hidden" class="form-control" id="status_request" name="status_request" value="0" readonly="">
-                                                <input type="submit" value="Tolak" class="btn btn-danger" />
+                                                <input type="submit" value="X" class="btn btn-danger" />
                                             </form>
                                                 </td>
                                             </tr>

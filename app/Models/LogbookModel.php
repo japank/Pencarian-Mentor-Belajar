@@ -10,7 +10,7 @@ class LogbookModel extends Model
     protected $primaryKey = "id_logbook";
     protected $returnType = "object";
     protected $useTimestamps = false;
-    protected $allowedFields = ['id_logbook','username_siswa','username_mentor','date_mentoring','topic','description'];
+    protected $allowedFields = ['id_logbook','username_siswa','username_mentor','date_mentoring','topic','topic_description','description'];
 
     public function getLogbookSiswaByMentor($username){
         $usernow = session()->get('username');

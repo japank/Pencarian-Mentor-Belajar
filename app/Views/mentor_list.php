@@ -26,7 +26,7 @@
             <div class="pic"><img src="<?= base_url(); ?>/assets/img/trainers/trainer-1.jpg" class="img-fluid" alt=""></div>
             <div class="member-info">
             <h4><?= $row->name; ?></h4>
-            <span> km</span>
+            <span> </span>
             <p><?= $row->address; ?></p>
             <div class="social">
                 <a href="<?= base_url("mylogbook/details/$row->username"); ?>"><i class="ri-book-fill"></i></a>

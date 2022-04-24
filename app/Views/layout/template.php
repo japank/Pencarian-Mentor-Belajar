@@ -72,7 +72,7 @@
 
         <li class="dropdown"><a href="<?= base_url(); ?>/#"><span>Request</span> <i class="bi bi-chevron-down"></i></a>
         <ul>
-            <li><a href="<?= base_url(); ?>/mentor/request">Request Mentor</a></li>
+            <li><a href="<?= base_url(); ?>/mentor/request">Request Mentoring</a></li>
             <li><a href="<?= base_url(); ?>/mentor/requested">Request Jadi Mentor</a></li>
         </ul>
         </li>
@@ -94,9 +94,10 @@
 <?= $this->renderSection('chat')?>
 <?= $this->renderSection('content') ?>
 <!-- ======= Footer ======= -->
+<br/>
 <footer id="footer">
 
-<div class="footer-top">
+<!-- <div class="footer-top">
     <div class="container">
     <div class="row">
 
@@ -143,7 +144,7 @@
 
     </div>
     </div>
-</div>
+</div> -->
 
 <div class="container d-md-flex py-4">
 

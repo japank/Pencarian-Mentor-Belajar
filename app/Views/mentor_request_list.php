@@ -22,7 +22,7 @@
                     <!-- Page Heading -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Request Mentor List</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">History Request Mentor</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -33,6 +33,7 @@
                                             <th>Nama Mentor</th>
                                             <th>Tanggal Pertemuan</th>
                                             <th>Topik</th>
+                                            <th>Deskripsi Topik</th>
                                             <th>Status Permintaan</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -47,6 +48,7 @@
                                             <td><?= $row['username_mentor']; ?></td>
                                             <td><?= strftime("%a %d %b %Y", strtotime($row['date_started']))?></td>
                                             <td><?= $row['topic']; ?></td>
+                                            <td><?= $row['description']; ?></td>
                                             <td><?php
                                                 if($row['status_request'] == '2'){
                                                     echo 'Menunggu Verifikasi';

@@ -72,6 +72,7 @@ class Logbook extends BaseController
             'username_siswa' => $username_siswa,
             'username_mentor' => $this->request->getVar('username_mentor'),
             'topic' => $this->request->getVar('topic'),
+            'topic_description' => $this->request->getVar('topic_description'),
             'date_mentoring'=> $this->request->getVar('date_mentoring'),
             'description' => $this->request->getVar('description')
         ]);

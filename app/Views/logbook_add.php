@@ -33,14 +33,19 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="nama">Deskripsi</label>
-                    <input type="text" class="form-control" id="description" name="description">
+                    <label for="nama">Deskripsi Topik</label>
+                    <input type="text" class="form-control" id="topic_description" name="topic_description">
                 </div>
 
+                <div class="form-group">
+                    <label for="nama">Deskripsi Pertemuan</label>
+                    <input type="text" class="form-control" id="description" name="description">
+                </div>
+<br>
 
 
                 <div class="form-group">
-                    <input type="submit" value="Tambah Data" class="btn btn-info" />
+                    <input type="submit" value="Tambah Logbook" class="btn btn-success" />
                 </div>
 
             </form>

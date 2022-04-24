@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+<?= $this->extend('layout/template'); ?>
+<?= $this->section('content'); ?>
     <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -18,21 +18,21 @@
     <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="card bg-dark">
-                <div class="card-header text-white text-center"><h4>Mengambil Posisi User Menggunakan Google Maps Api Geolocation</h4></div>
+            <div class="card">
                 <div class="card-body">
-                <div id="map"></div>
-
-                <p class="card-text text-white" id="output"></p>
-
-                <?php $usernow = session()->get('username'); ?>  
-                <form method="post" action="<?= site_url('location/update/' . $usernow) ?>">
-                    <?= csrf_field(); ?>
-                    <input type="hidden" name="lat2" id="lat2" class="form-control">
-                    <input type="hidden" name="long2" id="long2" class="form-control">
-                    <input type="hidden" name="address" id="address" class="form-control">
-                    <button type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
-                </form>
+                    
+                    
+                    <?php $usernow = session()->get('username'); ?>  
+                    <form method="post" action="<?= site_url('location/update/' . $usernow) ?>">
+                        <?= csrf_field(); ?>
+                        <input type="hidden" name="lat2" id="lat2" class="form-control">
+                        <input type="hidden" name="long2" id="long2" class="form-control">
+                        <label for="address">Alamat Anda</label>
+                        <input type="text" name="address" id="address" class="form-control"> <br>
+                        <div id="map"></div>
+                        <p class="card-text" style="font-size: 0px;" id="output"></p>
+                        <button type="submit" class="w-100 btn btn-lg btn-success">Save</button>
+                    </form>
                 </div>
             </div>             
         </div>
@@ -68,7 +68,7 @@
         geocoder = new google.maps.Geocoder();
         geocoder.geocode({'latLng': pos}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                map.setZoom(15);
+                map.setZoom(18);
                 map.setCenter(pos);
                 marker = new google.maps.Marker({
                     position: pos,
@@ -76,7 +76,7 @@
                     animation: google.maps.Animation.BOUNCE,
                 });
 
-                var infowindowText = "<div class='text-center'><strong>Posisi Saat Ini</strong>"+results[0].formatted_address+ "Lat : " + pos.lat.toFixed(5)+ " |  Long : " + pos.lng.toFixed(5)+ "" + accuracyStatus+""+ '</strong></div>';
+                var infowindowText = "<div class='text-center'><strong>Posisi Anda</strong><br>"+results[0].formatted_address+ "<br>Lat : " + pos.lat.toFixed(5)+ " |  Long : " + pos.lng.toFixed(5)+ "<br>" + accuracyStatus+""+ '</strong></div>';
                 infowindow.setContent(infowindowText);
                 infowindow.open(map, marker);
                 marker.addListener('click',function() {
@@ -102,3 +102,4 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     '<span class="alert alert-danger">Error: Your browser doesnt support geolocation.</span>');infoWindow.open(map);
 }    </script>
 </html>
+<?= $this->endSection('content'); ?>

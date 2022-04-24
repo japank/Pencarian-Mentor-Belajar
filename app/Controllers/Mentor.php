@@ -70,6 +70,7 @@ class Mentor extends BaseController
             'username_siswa' => $usernow,
             'username_mentor' => $this->request->getVar('username_mentor'),
             'topic' => $this->request->getVar('topic'),
+            'description' => $this->request->getVar('description'),
             'date_started'=> $this->request->getVar('date_started'),
         ]);
         session()->setFlashdata('message', 'Berhasil');

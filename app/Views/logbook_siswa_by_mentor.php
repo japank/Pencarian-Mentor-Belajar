@@ -35,7 +35,8 @@
                                             <th>No</th>
                                             <th>Tanggal Pertemuan</th>
                                             <th>Topik</th>
-                                            <th>Deskripsi</th>
+                                            <th>Deskripsi Topik</th>
+                                            <th>Deskripsi Pertemuan</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -48,6 +49,7 @@
                                             <td><?= $no++; ?></td>
                                             <td><?= strftime("%a %d %b %Y", strtotime($row->date_mentoring))?></td>
                                             <td><?= $row->topic; ?></td>
+                                            <td><?= $row->topic_description; ?></td>
                                             <td><?= $row->description; ?>
                                             <td>
                                                 <?php $dataedit = $row->id_logbook;?>

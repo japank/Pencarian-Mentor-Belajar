@@ -28,19 +28,23 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="nama">Hal yang ingin dibahas</label>
+                    <label for="nama">Topik</label>
                     <input type="text" class="form-control" id="topic" name="topic">
+                </div>
+
+                <div class="form-group">
+                    <label for="nama">Deskripsi Topik</label>
+                    <input type="text" class="form-control" id="description" name="description">
                 </div>
 
                 <div class="form-group">
                     <label for="nama">Tanggal Pertemuan</label>
                     <input type="date" class="form-control" id="date_started" name="date_started">
                 </div>
-
-
-
+                
+                <br/>
                 <div class="form-group">
-                    <input type="submit" value="Ajukan Permintaan" class="btn btn-info" />
+                    <input type="submit" value="Ajukan Permintaan" class="btn btn-success" />
                 </div>
 
             </form>

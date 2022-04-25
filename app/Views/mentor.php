@@ -7,8 +7,8 @@
 <!-- ======= Breadcrumbs ======= -->
 <div class="breadcrumbs">
     <div class="container">
-    <h4 style="text-align:left">Hai <?= $usernow = session()->get('username'); ?> ! Lokasi Anda adalah</h4>
-    <p style="text-align:left"><?= session()->get('address');?></p><br/>
+    <h4 style="text-align:left">Hai <b><?= $usernow = session()->get('name'); ?></b> ! Lokasi Anda adalah</h4>
+    <p style="text-align:left"><b><?= session()->get('address');?></b></p><br/>
     <p style="text-align:left"><a href="<?= site_url('location'); ?>" class="tombol-putih" ><b>Ubah Lokasi</b></a></p>    </div>
 </div><!-- End Breadcrumbs -->
 <!-- ======= Team Section ======= -->
@@ -30,8 +30,8 @@
             <span><?= number_format((float)$row->jarak_km, 2, '.', ''); ?> km</span>
             <p><?= $row->address; ?></p>
             <div class="social">
-                <a href="<?= base_url("mentor/request/$row->username"); ?>"><i class="ri-instagram-fill"></i></a>
-                <a ><i class="ri-twitter-fill contact" user-id='<?= $row->username ?>' user-name='<?= $row->name ?>'></i></a>
+                <a href="<?= base_url("mentor/request/$row->username"); ?>"><i class="ri-send-plane-fill"></i></a>
+                <a ><i class="ri-message-fill contact" user-id='<?= $row->username ?>' user-name='<?= $row->name ?>'></i></a>
             </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
 </section><!-- End Team Section -->
 </main><!-- End #main -->
 <div class="form-popup" id="myForm">
-<div class="col-sm-8 col-sm-push-4">
+<div class="col-sm-8 col-sm-push-4 col-lg-12">
                 <div class="box box-warning direct-chat direct-chat-warning">
                     <div class="box-header with-border">
                         <h3 class="box-title" id="recipient-name">Chat Messages</h3>

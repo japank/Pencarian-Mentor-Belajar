@@ -32,18 +32,18 @@
 <script>try{Typekit.load({ async: true });}catch(e){}</script>
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
 <style class="cp-pen-styles">body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background: #fff/*#27ae60*/;
-  font-family: "proxima-nova", "Source Sans Pro", sans-serif;
-  font-size: 1em;
-  letter-spacing: 0.1px;
-  color: #32465a;
-  text-rendering: optimizeLegibility;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
-  -webkit-font-smoothing: antialiased;
+display: flex;
+align-items: center;
+justify-content: center;
+min-height: 100vh;
+background:#f8f9fa/*#27ae60*/;
+font-family: "proxima-nova", "Source Sans Pro", sans-serif;
+font-size: 1em;
+letter-spacing: 0.1px;
+color: #32465a;
+text-rendering: optimizeLegibility;
+text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+-webkit-font-smoothing: antialiased;
 }
 </style></head><body>
     
@@ -71,38 +71,42 @@ Website: http://emilcarlsson.se/
     <nav id="navbar" class="navbar order-last order-lg-0">
     <ul>
         <li><a href="<?= base_url(); ?>/">Home</a></li>
-        <li><a class="active" href="<?= base_url(); ?>/trainers">Trainers</a></li>
+        <li><a class="active" href="<?= base_url(); ?>/mentorchecked">Mentor</a></li>
         <li><a href="<?= base_url(); ?>/chat">Chat</a></li>
-        <!-- <li><a href="<?= base_url(); ?>/courses.html">Courses</a></li>
-        <li><a href="<?= base_url(); ?>/events.html">Events</a></li>
+        <!-- <li><a href="<?= base_url(); ?>/events.html">Events</a></li>
         <li><a href="<?= base_url(); ?>/pricing.html">Pricing</a></li> 
-
-        <li class="dropdown"><a href="<?= base_url(); ?>/#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+-->
+<?php 
+    $tes = session()->get('role');
+    if($tes == 'pendamping'){
+?>
+        <li class="dropdown"><a href="<?= base_url(); ?>/#"><span>Logbook</span> <i class="bi bi-chevron-down"></i></a>
         <ul>
-            <li><a href="<?= base_url(); ?>/#">Drop Down 1</a></li>
-            <li class="dropdown"><a href="<?= base_url(); ?>/#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-            <ul>
-                <li><a href="<?= base_url(); ?>/#">Deep Drop Down 1</a></li>
-                <li><a href="<?= base_url(); ?>/#">Deep Drop Down 2</a></li>
-                <li><a href="<?= base_url(); ?>/#">Deep Drop Down 3</a></li>
-                <li><a href="<?= base_url(); ?>/#">Deep Drop Down 4</a></li>
-                <li><a href="<?= base_url(); ?>/#">Deep Drop Down 5</a></li>
-            </ul>
-            </li>
-            <li><a href="<?= base_url(); ?>/#">Drop Down 2</a></li>
-            <li><a href="<?= base_url(); ?>/#">Drop Down 3</a></li>
-            <li><a href="<?= base_url(); ?>/#">Drop Down 4</a></li>
+            <li><a href="<?= base_url(); ?>/mylogbook">Logbook Saya</a></li>
+            <li><a href="<?= base_url(); ?>/logbook">Logbook Siswa</a></li>
         </ul>
-        </li>-->
-        <li><a href="<?= base_url(); ?>/contact.html">Contact</a></li>
+        </li>
+
+        <li class="dropdown"><a href="<?= base_url(); ?>/#"><span>Request</span> <i class="bi bi-chevron-down"></i></a>
+        <ul>
+            <li><a href="<?= base_url(); ?>/mentor/request">Request Mentoring</a></li>
+            <li><a href="<?= base_url(); ?>/mentor/requested">Request Jadi Mentor</a></li>
+        </ul>
+        </li>
+<?php }else{ ?>
+        <li><a href="<?= base_url(); ?>/mentor/request">Request</a></li>
+        <li><a href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
+<?php }
+?>
     </ul>
     <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
 
-    <a href="<?= base_url(); ?>/courses.html" class="get-started-btn">Get Started</a>
+    <a href="<?= base_url(); ?>/logout" class="get-started-btn"><?= session()->get('username')?></a>
 
 </div>
 </header><!-- End Header -->
+
 
 <div id="frame" style="padding-top: 6%;">
 	<div id="sidepanel">
@@ -136,22 +140,18 @@ Website: http://emilcarlsson.se/
 
         <?= $this->renderSection('contact')?>
 
-		<div id="bottom-bar">
-			<button id="addcontact"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Add contact</span></button>
-			<button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
-		</div>
 	</div>
 
 
 	<div class="content">
 		<div class="contact-profile">
 			<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-			<p id="recipient-name">Harvey Specter</p>
-			<div class="social-media">
+			<b><p id="recipient-name">Please select a contact</p></b>
+			<!-- <div class="social-media">
 				<i class="fa fa-facebook" aria-hidden="true"></i>
 				<i class="fa fa-twitter" aria-hidden="true"></i>
 				 <i class="fa fa-instagram" aria-hidden="true"></i>
-			</div>
+			</div> -->
 		</div>
 
         <?= $this->renderSection('conversation')?>

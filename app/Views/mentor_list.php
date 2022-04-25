@@ -5,7 +5,7 @@
 <!-- ======= Breadcrumbs ======= -->
 <div class="breadcrumbs">
     <div class="container">
-    <h4 style="text-align:left">Hai <?= $usernow = session()->get('username'); ?> Ini Mentor kamu</h4>
+    <h4 style="text-align:left">Hai <b><?= $usernow = session()->get('name'); ?></b>. Ini Mentor kamu</h4>
     <!-- <p style="text-align:left"><?= session()->get('address');?></p><br/> -->
     <!-- <p style="text-align:left"><a href="<?= site_url('location'); ?>" class="tombol-putih" ><b>Ubah Lokasi</b></a></p>     -->
 </div>

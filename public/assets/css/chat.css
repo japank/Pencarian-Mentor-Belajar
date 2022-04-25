@@ -6,7 +6,7 @@
     height: 92vh;
     min-height: 300px;
     max-height: 720px;
-    background: #E6EAEA;
+    background: #ffffff;/*#E6EAEA*/
   }
   @media screen and (max-width: 360px) {
     #frame {
@@ -20,8 +20,8 @@
     max-width: 340px;
     width: 40%;
     height: 100%;
-    background: #2c3e50;
-    color: #f5f5f5;
+    background: #58c278;
+    color: #ffffff;
     overflow: hidden;
     position: relative;
   }
@@ -117,7 +117,7 @@
     margin-top: 23px;
     font-size: 0.8em;
     cursor: pointer;
-    color: #435f7a;
+    color: #ffffff;
   }
   @media screen and (max-width: 735px) {
     #frame #sidepanel #profile .wrap i.expand-button {
@@ -273,8 +273,8 @@
     background: #435f7a;
   }
   #frame #sidepanel #search {
-    border-top: 1px solid #32465a;
-    border-bottom: 1px solid #32465a;
+    border-top: 1px solid #58c27800;
+    border-bottom: 1px solid #58c27800;
     font-weight: 300;
   }
   @media screen and (max-width: 735px) {
@@ -291,15 +291,15 @@
     padding: 10px 0 10px 46px;
     width: calc(100% - 25px);
     border: none;
-    background: #32465a;
+    background: #58c27800;
     color: #f5f5f5;
   }
   #frame #sidepanel #search input:focus {
     outline: none;
-    background: #435f7a;
+    background: #38c261;
   }
   #frame #sidepanel #search input::-webkit-input-placeholder {
-    color: #f5f5f5;
+    color: #ffffff;
   }
   #frame #sidepanel #search input::-moz-placeholder {
     color: #f5f5f5;
@@ -330,10 +330,10 @@
   }
   #frame #sidepanel #contacts::-webkit-scrollbar {
     width: 8px;
-    background: #2c3e50;
+    background: #2c3e5000;
   }
   #frame #sidepanel #contacts::-webkit-scrollbar-thumb {
-    background-color: #243140;
+    background-color: #ffffff00;
   }
   #frame #sidepanel #contacts ul li.contact {
     position: relative;
@@ -560,15 +560,16 @@
     margin: 6px 8px 0 0;
   }
   #frame .content .messages ul li.sent p {
-    background: #435f7a;
-    color: #f5f5f5;
+    background: #f5f5f5;
   }
   #frame .content .messages ul li.replies img {
     float: right;
     margin: 6px 0 0 8px;
   }
   #frame .content .messages ul li.replies p {
-    background: #f5f5f5;
+
+    background: #58c278;
+    color: #f5f5f5;
     float: right;
   }
   #frame .content .messages ul li img {
@@ -639,7 +640,7 @@
     width: 50px;
     padding: 12px 0;
     cursor: pointer;
-    background: #32465a;
+    background: #58c278;
     color: #f5f5f5;
   }
   @media screen and (max-width: 735px) {

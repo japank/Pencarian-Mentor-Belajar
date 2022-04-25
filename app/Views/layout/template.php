@@ -95,7 +95,7 @@
 <?= $this->renderSection('content') ?>
 <!-- ======= Footer ======= -->
 <br/>
-<footer id="footer">
+<footer id="footer" class="fixed-bot">
 
 <!-- <div class="footer-top">
     <div class="container">

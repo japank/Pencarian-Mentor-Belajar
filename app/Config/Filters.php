@@ -42,7 +42,8 @@ class Filters extends BaseConfig
                     'register',
                     'register/process',
 					'login/*',
-					'logout/*'
+					'logout/*',
+                    '/'
 				]
 			]
         ],

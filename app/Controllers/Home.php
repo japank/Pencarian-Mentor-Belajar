@@ -9,9 +9,9 @@ class Home extends BaseController
     public function index()
     {
         $users = new UsersModel();
-        $usernow = session()->get('username');
-        $data['users'] = $users->getjarak();
-        return view('home', $data);
+        // $usernow = session()->get('username');
+        // $data['users'] = $users->getjarak();
+        return view('home');
     }
 
     public function tes()

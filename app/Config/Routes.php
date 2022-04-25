@@ -43,6 +43,7 @@ $routes->get('/tes', 'Home::tes');
 $routes->get('/chat', 'Chat::index');
 $routes->post('/chat/getRoomByUser/(:any)', 'Chat::getRoomByUser/$1');
 
+$routes->get('/mentorchecked', 'Mentor::indexcheck');
 $routes->get('/mentor', 'Mentor::index');
 $routes->get('/mentor/request', 'Mentor::indexRequestBySiswa');
 $routes->get('/mentor/requested', 'Mentor::indexRequestByMentor');

@@ -13,6 +13,16 @@ class Mentor extends BaseController
         $this->requestMentor = new RequestMentorModel();
     }
 
+    public function indexcheck()
+    {
+        $latnow = session()->get('latitude');
+        if(!empty($latnow)){
+            return redirect()->to('/mentor');
+        }else{
+            return redirect()->to('/location');
+    }
+    }
+
     public function index()
     {
         $users = new UsersModel();

@@ -1,73 +1,89 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.79.0">
-    <title>Signin Template · Bootstrap v5.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
+    <link rel="stylesheet" href="<?= base_url(); ?>/assets/login/fonts/icomoon/style.css">
 
+    <link rel="stylesheet" href="<?= base_url(); ?>/assets/login/css/owl.carousel.min.css">
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<?= base_url(); ?>/assets/login/css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="<?= base_url(); ?>/assets/login/css/style.css">
 
-    <!-- Bootstrap core CSS -->
-    <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Login Mentor</title>
+  </head>
+  <body>
+  
 
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-    <link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json">
-    <link rel="mask-icon" href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
-    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
-    <meta name="theme-color" content="#7952b3">
-
-
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
-
-
-    <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/5.0/examples/sign-in/signin.css" rel="stylesheet">
-</head>
-
-<body class="text-center">
-
-    <main class="form-signin">
-        <?php if (!empty(session()->getFlashdata('error'))) : ?>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <?php echo session()->getFlashdata('error'); ?>
+  
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 order-md-2">
+          <img src="<?=base_url()?>/assets/login/images/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid">
+        </div>
+        <div class="col-md-6 contents">
+          <div class="row justify-content-center">
+            <div class="col-md-8">
+              <div class="mb-4">
+              <h3>Sign In to <strong>Mentor</strong></h3>
+              <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
             </div>
-        <?php endif; ?>
-        <form method="post" action="<?= site_url('login/process'); ?>">
+            <form action="<?= site_url('login/process'); ?>" method="post">
             <?= csrf_field(); ?>
-            <h1 class="h3 mb-3 fw-normal">Login</h1>
-            <input type="text" name="username" id="username" placeholder="Username" class="form-control" required autofocus>
-            <input type="password" name="password" id="password" placeholder="Password" class="form-control" required>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Login</button>
-            <p class="mt-5 mb-3 text-muted">&copy; Warung Belajar</p>
-        </form>
-        <a href="<?= site_url('register');?>">Register</a>
-    </main>
+            <div class="form-group first">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username">
 
+              </div>
+              <div class="form-group last mb-4">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password">                
+              </div>
+              
+              <!-- <div class="d-flex mb-5 align-items-center">
+                <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
+                  <input type="checkbox" checked="checked"/>
+                  <div class="control__indicator"></div>
+                </label>
+                <span class="ml-auto"><a href="<?= site_url('register');?>" class="forgot-pass">Register</a></span> 
+              </div> -->
 
+              <input type="submit" value="Log In" class="btn text-white btn-block btn-primary">
 
-</body>
+              <span class="d-block text-left my-4 text-muted"> Belum memiliki akun ?         <a href="<?= site_url('register');?>">Register</a></span> 
+              
+              <!-- <div class="social-login">
+                <a href="<?= base_url(); ?>#" class="facebook">
+                  <span class="icon-facebook mr-3"></span> 
+                </a>
+                <a href="<?= base_url(); ?>#" class="twitter">
+                  <span class="icon-twitter mr-3"></span> 
+                </a>
+                <a href="<?= base_url(); ?>#" class="google">
+                  <span class="icon-google mr-3"></span> 
+                </a>
+              </div> -->
+            </form>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
+  
+    <script src="<?= base_url(); ?>/assets/login/js/jquery-3.3.1.min.js"></script>
+    <script src="<?= base_url(); ?>/assets/login/js/popper.min.js"></script>
+    <script src="<?= base_url(); ?>/assets/login/js/bootstrap.min.js"></script>
+    <script src="<?= base_url(); ?>/assets/login/js/main.js"></script>
+  </body>
 </html>

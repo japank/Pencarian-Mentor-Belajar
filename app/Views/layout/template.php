@@ -54,7 +54,7 @@
     <nav id="navbar" class="navbar order-last order-lg-0">
     <ul>
         <li><a href="<?= base_url(); ?>/">Home</a></li>
-        <li><a class="active" href="<?= base_url(); ?>/mentorchecked">Mentor</a></li>
+        <li><a class="" href="<?= base_url(); ?>/mentorchecked">Mentor</a></li>
         <li><a href="<?= base_url(); ?>/chat">Chat</a></li>
         <!-- <li><a href="<?= base_url(); ?>/events.html">Events</a></li>
         <li><a href="<?= base_url(); ?>/pricing.html">Pricing</a></li> 
@@ -81,17 +81,20 @@
         <li><a href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
 <?php }
 ?>
+<li class="dropdown"><a href="<?= base_url(); ?>/#"><span><?= session()->get('username')?></span> <i class="bi bi-chevron-down"></i></a>
+        <ul>
+            <li><a href="<?= base_url(); ?>/profile">Profile</a></li>
+            <li><a href="<?= base_url(); ?>/logout">Logout</a></li>
+        </ul>
+        </li>
     </ul>
+
     <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
 
-    <a href="<?= base_url(); ?>/logout" class="get-started-btn"><?= session()->get('username')?></a>
-
+ 
 </div>
 </header><!-- End Header -->
-<?= $this->renderSection('home')?>
-<?= $this->renderSection('trainer')?>
-<?= $this->renderSection('chat')?>
 <?= $this->renderSection('content') ?>
 <!-- ======= Footer ======= -->
 <br/>

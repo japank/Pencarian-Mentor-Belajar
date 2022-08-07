@@ -53,6 +53,12 @@ class Register extends BaseController
                     'max_length' => '{field} Maksimal 100 Karakter',
                 ]
             ],
+            'kelas' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Harus diisi'
+                ]
+            ],
             'role' => [
                 'rules' => 'required',
                 'errors' => [
@@ -70,6 +76,7 @@ class Register extends BaseController
             'password' => password_hash($this->request->getVar('password'), PASSWORD_BCRYPT),
             'name' => $this->request->getVar('name'),
             'email' => $this->request->getVar('email'),
+            'kelas' => $this->request->getVar('kelas'),
             'role' => $this->request->getVar('role')
         ]);
         return redirect()->to('/login');

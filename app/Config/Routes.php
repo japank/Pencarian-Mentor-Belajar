@@ -65,6 +65,9 @@ $routes->post('/logbook/process/(:any)', 'Logbook::process/$1');
 $routes->get('/logbook/edit/(:num)', 'Logbook::edit/$1');
 $routes->post('/logbook/update/(:num)', 'Logbook::update/$1');
 $routes->get('/logbook/delete/(:num)', 'Logbook::delete/$1');
+
+
+$routes->get('/profile', 'Profile::index');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

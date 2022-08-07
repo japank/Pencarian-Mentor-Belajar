@@ -65,11 +65,26 @@
                 <label for="email">Email</label>
                 <input type="text" class="form-control" id="email" name="email">                
               </div>
-              <div class="form-group last mb-4">
+              <div class="form-group last mb-4">Kelas
+              <select style="background-color: transparent; border-color:transparent; color:dimgray" class="form-select" id="kelas" name="kelas">
+                    <option value="1">1 SD</option>
+                    <option value="2">2 SD</option>
+                    <option value="3">3 SD</option>
+                    <option value="4">4 SD</option>
+                    <option value="5">5 SD</option>
+                    <option value="6">6 SD</option>
+                    <option value="7">1 SMP</option>
+                    <option value="8">2 SMP</option>
+                    <option value="9">3 SMP</option>
+                    <option value="10">1 SMA</option>
+                    <option value="11">2 SMA</option>
+                    <option value="12">3 SMA</option>
+                  </select>
+              </div>
+              <div class="form-group last mb-4">Daftar sebagai
               <select style="background-color: transparent; border-color:transparent; color:dimgray" class="form-select" id="role" name="role">
-                    <option selected>Daftar Sebagai : Pilih salah satu</option>
                     <option value="siswa">Siswa</option>
-                    <option value="pendamping">Pendamping</option></select>
+                    <option value="pendamping">Mentor</option></select>
               </div>
               
               

@@ -1,6 +1,6 @@
 <?= $this->extend('layout/template') ?>
 
-<?= $this->section('trainer') ?>
+<?= $this->section('content') ?>
 
 <main id="main" data-aos="fade-in">
 

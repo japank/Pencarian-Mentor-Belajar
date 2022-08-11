@@ -39,7 +39,7 @@ class Mentor extends BaseController
             $requestMentor = new RequestMentorModel();
             $requestMentorList = $this->requestMentor->getRequestMentoring();
             $usernow = session()->get('username');
-            return view('mentor_request_list',[
+            return view('request_mentor_list',[
             'username'=>$usernow,
             'requestMentorList' => $requestMentorList,
             ]);
@@ -52,7 +52,7 @@ class Mentor extends BaseController
             $requestMentor = new RequestMentorModel();
             $requestMentorList = $this->requestMentor->getRequestMentoringbyMentor();
             $usernow = session()->get('username');
-            return view('mentor_request_list_bymentor',[
+            return view('mentor/request_mentored',[
             'username'=>$usernow,
             'requestMentorList' => $requestMentorList,
         ]);
@@ -66,7 +66,7 @@ class Mentor extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Pegawai Tidak ditemukan !');
         }
         
-        return view('mentor_request',[
+        return view('request_mentor',[
         'dataMentor'=>$dataMentor,
     ]);
 
@@ -90,7 +90,7 @@ class Mentor extends BaseController
     public function edit($id){
         $dataRequestMentor = $this->requestMentor->find($id);
         $usernow = session()->get('username');
-        return view('mentor_request_edit',[
+        return view('request_mentor_edit',[
         'username'=>$usernow,
         'dataRequestMentor' => $dataRequestMentor,
         ]);

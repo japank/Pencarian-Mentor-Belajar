@@ -1,10 +1,23 @@
-<?= $this->extend('layout/template') ?>
+<?= $this->extend('layout/templateMentor') ?>
 
 <?= $this->section('content') ?>
-<div class="container" style=" padding-top : 100px;">
+<div class="page-breadcrumb">
+<div class="row align-items-center">
+                    <div class="col-12">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 d-flex align-items-center">
+                              <li class="breadcrumb-item"><a href="index.html" class="link"><i class="mdi mdi-home-outline fs-4"></i></a></li>
+                              <li class="breadcrumb-item active" aria-current="page">Tambah Logbook</li>
+                            </ol>
+                          </nav>
+                        <h1 class="mb-0 fw-bold">Tambah Logbook <?= $username_siswa ?></h1>
+                    </div>
+                </div>
+            </div>
+<div class="container">
     <div class="card">
         <div class="card-header">
-            <h3>Add Logbook <?= $username_siswa ?></h3>
+            
         </div>
         <div class="card-body">
             <?php if (!empty(session()->getFlashdata('error'))) : ?>
@@ -39,13 +52,13 @@
 
                 <div class="form-group">
                     <label for="nama">Deskripsi Pertemuan</label>
-                    <input type="text" class="form-control" id="description" name="description">
+                    <textarea type="text" class="form-control" id="description" name="description"></textarea>
                 </div>
 <br>
 
 
                 <div class="form-group">
-                    <input type="submit" value="Tambah Logbook" class="btn btn-success" />
+                    <input style="color: white;" type="submit" value="Tambah Logbook" class="btn btn-success" />
                 </div>
 
             </form>

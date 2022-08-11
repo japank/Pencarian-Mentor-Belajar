@@ -1,35 +1,28 @@
-<?= $this->extend('layout/template'); ?>
+<?= $this->extend('layout/templateMentor'); ?>
 <?= $this->section('content'); ?>
-    <!-- Page Wrapper -->
-    <div id="wrapper" style=" padding-top:100px">
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                <?php if (!empty(session()->getFlashdata('message'))) : ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?php echo session()->getFlashdata('message'); ?>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+<div class="page-breadcrumb">
+                <div class="row align-items-center">
+                    <div class="col-12">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 d-flex align-items-center">
+                              <li class="breadcrumb-item"><a href="index.html" class="link"><i class="mdi mdi-home-outline fs-4"></i></a></li>
+                              <li class="breadcrumb-item active" aria-current="page">Permintaan Mentoring</li>
+                            </ol>
+                          </nav>
+                        <h1 class="mb-0 fw-bold">Permintaan Mentoring</h1>
+                    </div>
                 </div>
-                <?php endif; ?>
-                    <hr>
-                    <!-- Page Heading -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Request Mentor List</h6>
-                        </div>
-                        <div class="card-body">
+            </div>
 
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="card">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-striped">
                                     <thead>
-                                        <tr>
+                                    <tr>
                                             <th>No</th>
                                             <th>Nama Siswa</th>
                                             <th>Tanggal Pertemuan</th>
@@ -40,7 +33,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
+                                    <?php
                                         $no = 1;
                                         foreach ($requestMentorList as $row) {
                                             ?>
@@ -54,9 +47,9 @@
                                                 if($row['status_request'] == '2'){
                                                     echo '<span class="btn btn-warning">Menunggu Verifikasi</span>';
                                                 }elseif($row['status_request'] == '1'){
-                                                    echo '<span class="btn btn-success">Diterima</span>';
+                                                    echo '<span style="color: white;" class="btn btn-success">Diterima</span>';
                                                 }else{
-                                                    echo '<span class="btn btn-danger">Ditolak</span>';
+                                                    echo '<span style="color: white;" class="btn btn-danger">Ditolak</span>';
                                                 }
                                                 ?>
                                             <td>
@@ -64,48 +57,25 @@
                                                 <form method="post" action="<?= base_url('mentor/verification/'. $dataedit) ?>">
                                                 <?= csrf_field(); ?>
                                                 <input type="hidden" class="form-control" id="status_request" name="status_request" value="1" readonly="">
-                                                <input type="submit" value="Y" class="btn btn-info" />
+                                                <input  style="color: white;" type="submit" value="Y" class="btn btn-success" />
                                             </form>
                                             <form method="post" action="<?= base_url('mentor/verification/'. $dataedit) ?>">
                                                 <?= csrf_field(); ?>
                                                 <input type="hidden" class="form-control" id="status_request" name="status_request" value="0" readonly="">
-                                                <input type="submit" value="X" class="btn btn-danger" />
+                                                <input style="color: white;" type="submit" value="X" class="btn btn-danger" />
                                             </form>
                                                 </td>
                                             </tr>
                                         <?php
                                         }
                                         ?>
-                                    </tbody>
+                                        </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
 
-
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                
-        </div>
-
-    </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="<?= base_url("admin/vendor/jquery/jquery.min.js"); ?>"></script>
-    <script src="<?= base_url("admin/vendor/bootstrap/js/bootstrap.bundle.min.js"); ?>"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="<?= base_url("admin/vendor/jquery-easing/jquery.easing.min.js"); ?>"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="<?= base_url("admin/js/sb-admin-2.min.js"); ?>"></script>
-
-
                 </div>
-                <!-- /.container-fluid -->
-
             </div>
-            <!-- End of Main Content -->
 
 <?= $this->endSection('content'); ?>

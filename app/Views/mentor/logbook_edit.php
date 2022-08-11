@@ -1,11 +1,22 @@
-<?= $this->extend('layout/template') ?>
+<?= $this->extend('layout/templateMentor') ?>
 
 <?= $this->section('content') ?>
-<div class="container" style=" padding-top : 100px;">
+
+<div class="page-breadcrumb">
+<div class="row align-items-center">
+                    <div class="col-12">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 d-flex align-items-center">
+                              <li class="breadcrumb-item"><a href="index.html" class="link"><i class="mdi mdi-home-outline fs-4"></i></a></li>
+                              <li class="breadcrumb-item active" aria-current="page">Edit Logbook</li>
+                            </ol>
+                          </nav>
+                        <h1 class="mb-0 fw-bold">Edit Logbook</h1>
+                    </div>
+                </div>
+            </div>
+<div class="container">
     <div class="card">
-        <div class="card-header">
-            <h3>Edit Logbook <?= $dataLogbook->username_siswa ?></h3>
-        </div>
         <div class="card-body">
             <?php if (!empty(session()->getFlashdata('error'))) : ?>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -40,7 +51,7 @@
 
 
                 <div class="form-group">
-                    <input type="submit" value="Tambah Data" class="btn btn-info" />
+                    <input style="color: white;" type="submit" value="Tambah Data" class="btn btn-info" />
                 </div>
 
             </form>

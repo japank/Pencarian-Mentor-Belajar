@@ -33,7 +33,7 @@ class Logbook extends BaseController
     {
         $siswaMentored = $this->requestMentor->getSiswaMentored();
         $usernow = session()->get('username');
-        return view('mentor_list_student',[
+        return view('mentor/list_student',[
         'siswaMentored'=>$siswaMentored,
         'username'=>$usernow,
         ]);
@@ -54,7 +54,7 @@ class Logbook extends BaseController
         $dataLogbookByMentor = $this->logbook->getLogbookSiswaByMentor($username);
         $usernow = session()->get('username');
         
-        return view('logbook_siswa_by_mentor',[
+        return view('mentor/logbook_siswa',[
         'username_siswa' => $username,
         'username'=>$usernow,
         'dataLogbook' => $dataLogbookByMentor,
@@ -62,7 +62,7 @@ class Logbook extends BaseController
         }
 
     public function add($username){
-        return view('logbook_add',[
+        return view('mentor/logbook_add',[
             'username_siswa' => $username,
         ]);
     }
@@ -83,7 +83,7 @@ class Logbook extends BaseController
     public function edit($id){
         $dataLogbook = $this->logbook->find($id);
         $usernow = session()->get('username');
-        return view('logbook_edit',[
+        return view('mentor/logbook_edit',[
         'username'=>$usernow,
         'dataLogbook' => $dataLogbook,
         ]);

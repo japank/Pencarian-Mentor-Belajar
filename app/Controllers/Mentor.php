@@ -16,11 +16,11 @@ class Mentor extends BaseController
     public function indexcheck()
     {
         $latnow = session()->get('latitude');
-        if(!empty($latnow)){
+        if (!empty($latnow)) {
             return redirect()->to('/mentor');
-        }else{
+        } else {
             return redirect()->to('/location');
-    }
+        }
     }
 
     public function index()
@@ -28,51 +28,52 @@ class Mentor extends BaseController
         $users = new UsersModel();
         $mentor = $users->getjarak();
         $usernow = session()->get('username');
-        return view('mentor',[
-        'mentor'=>$mentor,
-        'username'=>$usernow,
+        return view('mentor', [
+            'mentor' => $mentor,
+            'username' => $usernow,
         ]);
     }
 
     public function indexRequestBySiswa()
     {
-            $requestMentor = new RequestMentorModel();
-            $requestMentorList = $this->requestMentor->getRequestMentoring();
-            $usernow = session()->get('username');
-            return view('request_mentor_list',[
-            'username'=>$usernow,
+        $requestMentor = new RequestMentorModel();
+        $requestMentorList = $this->requestMentor->getRequestMentoring();
+        $usernow = session()->get('username');
+        return view('request_mentor_list', [
+            'username' => $usernow,
             'requestMentorList' => $requestMentorList,
-            ]);
-        }
-    
+        ]);
+    }
+
 
     public function indexRequestByMentor()
     {
 
-            $requestMentor = new RequestMentorModel();
-            $requestMentorList = $this->requestMentor->getRequestMentoringbyMentor();
-            $usernow = session()->get('username');
-            return view('mentor/request_mentored',[
-            'username'=>$usernow,
+        $requestMentor = new RequestMentorModel();
+        $requestMentorList = $this->requestMentor->getRequestMentoringbyMentor();
+        $usernow = session()->get('username');
+        return view('mentor/request_mentored', [
+            'username' => $usernow,
             'requestMentorList' => $requestMentorList,
         ]);
-        }
+    }
 
 
 
-    public function request($username){
+    public function request($username)
+    {
         $dataMentor = $this->users->find($username);
         if (empty($dataMentor)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Pegawai Tidak ditemukan !');
         }
-        
-        return view('request_mentor',[
-        'dataMentor'=>$dataMentor,
-    ]);
 
+        return view('request_mentor', [
+            'dataMentor' => $dataMentor,
+        ]);
     }
 
-    public function process(){
+    public function process()
+    {
         $requestMentor = new RequestMentorModel();
         $usernow = session()->get('username');
 
@@ -81,22 +82,24 @@ class Mentor extends BaseController
             'username_mentor' => $this->request->getVar('username_mentor'),
             'topic' => $this->request->getVar('topic'),
             'description' => $this->request->getVar('description'),
-            'date_started'=> $this->request->getVar('date_started'),
+            'date_started' => $this->request->getVar('date_started'),
         ]);
         session()->setFlashdata('message', 'Berhasil');
         return redirect()->to('/mentor/request');
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $dataRequestMentor = $this->requestMentor->find($id);
         $usernow = session()->get('username');
-        return view('request_mentor_edit',[
-        'username'=>$usernow,
-        'dataRequestMentor' => $dataRequestMentor,
+        return view('request_mentor_edit', [
+            'username' => $usernow,
+            'dataRequestMentor' => $dataRequestMentor,
         ]);
     }
 
-    public function update($id){
+    public function update($id)
+    {
         $requestMentor = new RequestMentorModel();
         $usernow = session()->get('username');
 
@@ -104,13 +107,14 @@ class Mentor extends BaseController
             'username_siswa' => $usernow,
             'username_mentor' => $this->request->getVar('username_mentor'),
             'topic' => $this->request->getVar('topic'),
-            'date_started'=> $this->request->getVar('date_started'),
+            'date_started' => $this->request->getVar('date_started'),
         ]);
         session()->setFlashdata('message', 'Berhasil');
         return redirect()->to('/mentor/request');
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $dataRequestMentor = $this->requestMentor->find($id);
         if (empty($dataRequestMentor)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Tidak ditemukan !');
@@ -121,7 +125,8 @@ class Mentor extends BaseController
     }
 
 
-    public function verification($id){
+    public function verification($id)
+    {
         $requestMentor = new RequestMentorModel();
         $usernow = session()->get('username');
 
@@ -131,6 +136,4 @@ class Mentor extends BaseController
         session()->setFlashdata('message', 'Berhasil');
         return redirect()->to('/mentor/requested');
     }
-
-
 }

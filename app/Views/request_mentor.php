@@ -17,10 +17,10 @@
                     </button>
                 </div>
             <?php endif; ?>
-            <form method="post" action="<?= base_url('mentor/process/'. $dataMentor->username) ?>">
+            <form method="post" action="<?= base_url('mentor/process/' . $dataMentor->username) ?>">
                 <?= csrf_field(); ?>
 
-                    <input type="hidden" class="form-control" id="username" name="username" value="<?= session()->get('username'); ?>" readonly="">
+                <input type="hidden" class="form-control" id="username" name="username" value="<?= session()->get('username'); ?>" readonly="">
 
                 <div class="form-group">
                     <label for="nama">Nama Mentor</label>
@@ -41,7 +41,7 @@
                     <label for="nama">Tanggal Pertemuan</label>
                     <input type="date" class="form-control" id="date_started" name="date_started">
                 </div>
-                <br/><br/>
+                <br /><br />
                 <div class="form-group">
                     <input type="submit" value="Ajukan Permintaan" class="btn btn-success" />
                 </div>

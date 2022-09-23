@@ -12,13 +12,11 @@ class Home extends BaseController
         // $usernow = session()->get('username');
         // $data['users'] = $users->getjarak();
         $tes = session()->get('role');
-                if($tes == 'pendamping'){
-					return view('mentor/home');
-
-                } else {
-					return view('home');
-				}
-        
+        if ($tes == 'pendamping') {
+            return view('mentor/home');
+        } else {
+            return view('home');
+        }
     }
 
     public function tes()

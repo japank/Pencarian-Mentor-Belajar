@@ -10,9 +10,10 @@ class LogbookModel extends Model
     protected $primaryKey = "id_logbook";
     protected $returnType = "object";
     protected $useTimestamps = false;
-    protected $allowedFields = ['id_logbook','username_siswa','username_mentor','date_mentoring','topic','topic_description','description'];
+    protected $allowedFields = ['id_logbook', 'username_siswa', 'username_mentor', 'date_mentoring', 'topic', 'topic_description', 'description'];
 
-    public function getLogbookSiswaByMentor($username){
+    public function getLogbookSiswaByMentor($username)
+    {
         $usernow = session()->get('username');
         $query = $this->db->query("
         SELECT * FROM logbook WHERE username_siswa = '$username' && username_mentor = '$usernow';
@@ -24,13 +25,14 @@ class LogbookModel extends Model
         // ->getResultArray();
     }
 
-    public function getLogbookSiswa($username){
+    public function getLogbookSiswa($username)
+    {
         $usernow = session()->get('username');
         $query = $this->db->query("
         SELECT * FROM logbook WHERE username_siswa = '$usernow' && username_mentor = '$username';
         ");
 
-        if($usernow = $username){
+        if ($usernow = $username) {
             return $query->getResult();
         }
         // return $this->db->table('logbook')
@@ -53,7 +55,7 @@ class LogbookModel extends Model
     //     ");
 
     //     return $query->getResult();
-        
+
     // }
 
 }

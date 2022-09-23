@@ -12,23 +12,24 @@ class RoomModel extends Model
     protected $useTimestamps = false;
     protected $allowedFields = ['id_room', 'name', 'is_group'];
 
-    function getRoomByUser($userArray, $is_group=0){
+    function getRoomByUser($userArray, $is_group = 0)
+    {
         $userModel = new \App\Models\UsersModel2();
         $roomUserModel = new \App\Models\RoomUserModel();
 
         $roomUserCheck = $roomUserModel->select('room.id_room AS roomId')
-        ->join('room', 'room.id_room = room_user.id_room', 'right')
-        ->whereIn('room_user.username', $userArray)
-        ->where('room.is_group', $is_group)
-        ->groupBy('room.id_room')
-        ->having('COUNT(room.id_room)',2)
-        ->first();
+            ->join('room', 'room.id_room = room_user.id_room', 'right')
+            ->whereIn('room_user.username', $userArray)
+            ->where('room.is_group', $is_group)
+            ->groupBy('room.id_room')
+            ->having('COUNT(room.id_room)', 2)
+            ->first();
 
-        if(empty($roomUserCheck)){
+        if (empty($roomUserCheck)) {
             $roomData = [
                 'name' => '',
                 'is_group' => 0,
-            
+
             ];
 
             $this->db->transStart();
@@ -37,14 +38,12 @@ class RoomModel extends Model
 
             $idRoom = $this->db->insertID();
 
-            $userData = [
+            $userData = [];
 
-            ];
-
-            foreach($userArray as $u){
+            foreach ($userArray as $u) {
                 $temp = [
                     'username' => $u,
-                    'id_room' => $idRoom, 
+                    'id_room' => $idRoom,
                 ];
                 array_push($userData, $temp);
             }
@@ -52,7 +51,7 @@ class RoomModel extends Model
             $roomUserBuilder = $roomUserModel->builder();
             $roomUser = $roomUserBuilder->insertBatch($userData);
 
-            $this->db->transComplete(); 
+            $this->db->transComplete();
 
             return $this->db->table($this->table)->where('id_room, $idRoom')->get()->getRow();
         }
@@ -62,7 +61,8 @@ class RoomModel extends Model
         return $room;
     }
 
-    function getRecentMessage(){
+    function getRecentMessage()
+    {
         $userModel = new \App\Models\UsersModel2();
         $roomUserModel = new \App\Models\RoomUserModel();
         $usernow = session()->get('username');
@@ -76,6 +76,4 @@ class RoomModel extends Model
 
         return $query->getResult();
     }
-
-
 }

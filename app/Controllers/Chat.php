@@ -6,7 +6,8 @@ use App\Models\UsersModel;
 
 class Chat extends BaseController
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->session = session();
     }
 
@@ -23,9 +24,9 @@ class Chat extends BaseController
         $recentChat = $roomModel->getRecentMessage();
 
         return view('chat', [
-            'user'=>$user,
-            'username'=>$id,
-            'allUsers'=>$allUsers,
+            'user' => $user,
+            'username' => $id,
+            'allUsers' => $allUsers,
             'recentChat' => $recentChat,
         ]);
     }
@@ -33,7 +34,7 @@ class Chat extends BaseController
     public function getRoomByUser()
     {
         $id = session()->get('username');
-        if($this->request->isAJAX()){
+        if ($this->request->isAJAX()) {
             $idCurrentUser = $id;
             $idReceiver = $this->request->getGet('contactId');
 
@@ -44,8 +45,9 @@ class Chat extends BaseController
         }
     }
 
-    public function sendMessage(){
-        if($this->request->isAJAX()){
+    public function sendMessage()
+    {
+        if ($this->request->isAJAX()) {
             $message = $this->request->getPost('message');
             $id_room = $this->request->getPost('id_room');
             $id_user = session()->get('username');
@@ -72,14 +74,15 @@ class Chat extends BaseController
         }
     }
 
-    public function getChatsByRoomId(){
-        if($this->request->isAJAX()){
+    public function getChatsByRoomId()
+    {
+        if ($this->request->isAJAX()) {
             $id_room = $this->request->getPost('roomId');
 
             $chatModel = new \App\Models\ChatModel();
-            $chats = $chatModel->getChatsByRoom($id_room); 
+            $chats = $chatModel->getChatsByRoom($id_room);
 
             return $this->response->setJSON($chats);
-        }        
+        }
     }
 }

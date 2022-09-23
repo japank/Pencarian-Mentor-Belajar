@@ -10,12 +10,11 @@ class ChatModel extends Model
     protected $primaryKey = "id_chat";
     protected $returnType = "App\Entities\Chat";
     protected $useTimestamps = false;
-    protected $allowedFields = ['id_chat', 'id_room', 'username', 'message','media','is_active','created'];
+    protected $allowedFields = ['id_chat', 'id_room', 'username', 'message', 'media', 'is_active', 'created'];
 
-    public function getChatsByRoom($idRoom){
+    public function getChatsByRoom($idRoom)
+    {
         $chats = $this->db->table($this->table)->where('id_room', $idRoom)->get()->getResult();
         return $chats;
     }
-    
-
 }

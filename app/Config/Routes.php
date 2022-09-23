@@ -60,14 +60,24 @@ $routes->get('/logbook', 'Logbook::indexLogbookAsMentor');
 $routes->get('/mylogbook/details/(:any)', 'Logbook::logbook/$1');
 $routes->get('/logbook/details/(:any)', 'Logbook::logbookSiswaByMentor/$1');
 
+$routes->get('/studentlogbook/(:any)', 'Logbook::studentlogbook/$1');
+$routes->get('/logbook/addlogbook/(:any)', 'Logbook::addlogbook/$1');
+
 $routes->get('/logbook/add/(:any)', 'Logbook::add/$1');
 $routes->post('/logbook/process/(:any)', 'Logbook::process/$1');
 $routes->get('/logbook/edit/(:num)', 'Logbook::edit/$1');
 $routes->post('/logbook/update/(:num)', 'Logbook::update/$1');
 $routes->get('/logbook/delete/(:num)', 'Logbook::delete/$1');
 
+$routes->get('/test', 'Test::index');
+$routes->get('/teststart', 'Test::starttest');
+$routes->get('/test/process', 'Test::process');
+$routes->get('/test/add', 'Test::add');
+$routes->get('/test/add/process', 'Test::addProcess');
 
 $routes->get('/profile', 'Profile::index');
+
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

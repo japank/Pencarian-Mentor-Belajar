@@ -10,38 +10,41 @@ class RequestMentorModel extends Model
     protected $primaryKey = "id_request_mentor";
     protected $returnType = "object";
     protected $useTimestamps = false;
-    protected $allowedFields = ['id_request_mentor','username_siswa','username_mentor','date_started','topic','description','status_request'];
+    protected $allowedFields = ['id_request_mentor', 'username_siswa', 'username_mentor', 'date_started', 'topic', 'description', 'status_request'];
 
-    public function getRequestMentoring(){
+    public function getRequestMentoring()
+    {
         $usernow = session()->get('username');
         return $this->db->table('request_mentor')
-        ->join('users','users.username=request_mentor.username_mentor')
-        ->orderBy('id_request_mentor', 'DESC')
-        ->getWhere(['username_siswa' => $usernow])
-        ->getResultArray();
+            ->join('users', 'users.username=request_mentor.username_mentor')
+            ->orderBy('id_request_mentor', 'DESC')
+            ->getWhere(['username_siswa' => $usernow])
+            ->getResultArray();
     }
 
-    public function getRequestMentoringByMentor(){
+    public function getRequestMentoringByMentor()
+    {
         $usernow = session()->get('username');
         return $this->db->table('request_mentor')
-        ->join('users','users.username=request_mentor.username_siswa')
-        ->orderBy('id_request_mentor', 'DESC')
-        ->getWhere(['username_mentor' => $usernow])
-        ->getResultArray();
+            ->join('users', 'users.username=request_mentor.username_siswa')
+            ->orderBy('id_request_mentor', 'DESC')
+            ->getWhere(['username_mentor' => $usernow])
+            ->getResultArray();
     }
 
-    public function getSiswaMentored(){
+    public function getSiswaMentored()
+    {
         $usernow = session()->get('username');
         $query = $this->db->query("
         SELECT * FROM users WHERE username IN 
         (SELECT username_siswa FROM request_mentor WHERE username_mentor = '$usernow')
         ");
 
-        return $query->getResult();
-        
+        return $query->getResultArray();
     }
 
-    public function getMentor(){
+    public function getMentor()
+    {
         $usernow = session()->get('username');
         $query = $this->db->query("
         SELECT * FROM users WHERE username IN 
@@ -49,7 +52,5 @@ class RequestMentorModel extends Model
         ");
 
         return $query->getResult();
-        
     }
-
 }

@@ -10,7 +10,5 @@ class UsersModel2 extends Model
     protected $primaryKey = "username";
     protected $returnType = "App\Entities\Users";
     protected $useTimestamps = true;
-    protected $allowedFields = ['username', 'password', 'name', 'email','address','latitude','longitude','role','created_at','updated_at'];
-
-
+    protected $allowedFields = ['username', 'password', 'name', 'email', 'address', 'latitude', 'longitude', 'role', 'created_at', 'updated_at'];
 }

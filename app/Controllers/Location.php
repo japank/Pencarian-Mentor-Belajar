@@ -11,7 +11,8 @@ class Location extends BaseController
         return view('location_users');
     }
 
-    public function UpdateLocation($usernow){
+    public function UpdateLocation($usernow)
+    {
         $this->users = new UsersModel();
         $this->users->update($usernow, [
             'latitude' => $this->request->getVar('lat2'),
@@ -19,7 +20,7 @@ class Location extends BaseController
             'address' => $this->request->getVar('address')
         ]);
 
-        $dataUser =$this->users->where([
+        $dataUser = $this->users->where([
             'username' => $usernow,
         ])->first();
         session()->set([

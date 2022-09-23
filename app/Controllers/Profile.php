@@ -13,8 +13,8 @@ class Profile extends BaseController
     public function index()
     {
         $dataUsers = $this->users->getProfile();
-        return view('profile',[
-        'dataUsers'=>$dataUsers,
+        return view('profile', [
+            'dataUsers' => $dataUsers,
         ]);
     }
 

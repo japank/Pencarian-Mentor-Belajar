@@ -48,4 +48,15 @@ class ExamDetailModel extends Model
 
         return $query->getResultArray();
     }
+
+    public function getExamTaked()
+    {
+        $usernow = session()->get('username');
+        $query = $this->db->query("
+        SELECT * FROM exam_detail INNER JOIN exam_user_take_exam
+        ON exam_user_take_exam.exam_id = exam_detail.exam_id
+        WHERE exam_user_take_exam.username = '$usernow'
+        ");
+        return $query->getResultArray();
+    }
 }

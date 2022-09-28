@@ -30,4 +30,18 @@ class ExamQuestionAnswerByUserModel extends Model
 
         return $query->getResult();
     }
+
+    public function getTotalScore($username, $exam_id)
+    {
+        $query = $this->db->query("
+        SELECT SUM(marks) as total_mark FROM exam_question_answer_by_user 
+        WHERE username = '$username' AND exam_id = $exam_id 
+        ");
+
+        $result = $query->getResultArray();
+
+        foreach ($result as $totalmark) {
+            return $totalmark['total_mark'];
+        }
+    }
 }

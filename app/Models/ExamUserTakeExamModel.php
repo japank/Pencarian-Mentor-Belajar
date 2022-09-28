@@ -12,4 +12,17 @@ class ExamUserTakeExamModel extends Model
     protected $returnType = "object";
     protected $useTimestamps = false;
     protected $allowedFields = ['id_exam_user_take_exam', 'username', 'exam_id', 'status'];
+
+    public function getStatus()
+    {
+        $usernow = session()->get('username');
+        $query = $this->db->query("
+        SELECT * FROM exam_user_take_exam WHERE username = '$usernow'
+        ");
+
+        $result =  $query->getResultArray();
+        foreach ($result as $row) {
+            return $row['status'];
+        }
+    }
 }

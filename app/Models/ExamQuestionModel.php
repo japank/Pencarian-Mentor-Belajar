@@ -78,4 +78,16 @@ class ExamQuestionModel extends Model
             return $row['answer_option'];
         }
     }
+
+    public function getExamResultDetail($exam_id)
+    {
+        $usernow = session()->get('username');
+        $query = $this->db->query("
+        SELECT * FROM exam_question 
+        INNER JOIN exam_question_answer_by_user ON exam_question_answer_by_user.question_id = exam_question.question_id
+        WHERE exam_question.exam_id = '$exam_id' AND exam_question_answer_by_user.username = '$usernow'
+        ");
+
+        return $query->getResultArray();
+    }
 }

@@ -21,7 +21,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Exam List</h4>
+                    <h4 class="card-title">Exam List Result</h4>
                     <h6 class="card-subtitle">Dibawah ini adalah daftar siswa yang kamu mentorin.</h6>
                 </div>
                 <div class="table-responsive viewdata">
@@ -45,9 +45,9 @@
 
 <script src="<?= base_url() ?>/assets/mbohtable/js/app.js"></script>
 <script type="text/javascript">
-    function listExam() {
+    function listExamResult() {
         $.ajax({
-            url: "<?= site_url('exam/loadexam') ?>",
+            url: "<?= site_url('exam/loadexamresult') ?>",
             dataType: "json",
             success: function(response) {
                 $('.viewdata').html(response.data);
@@ -59,7 +59,7 @@
     }
 
     $(document).ready(function() {
-        listExam();
+        listExamResult();
 
 
     });

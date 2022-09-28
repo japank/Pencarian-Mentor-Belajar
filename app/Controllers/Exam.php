@@ -23,6 +23,8 @@ class Exam extends BaseController
     {
         return view('mentor/exam_list');
     }
+
+
     public function loadExam()
     {
         if ($this->request->isAJAX()) {
@@ -41,6 +43,31 @@ class Exam extends BaseController
             echo json_encode($msg);
         } else {
             exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function started($exam_id)
+    {
+        $tes = session()->get('role');
+        if ($tes == 'pendamping') {
+            $username = session()->get('username');
+            $checkedDataAvailable = $this->user_take_exam->where([
+                'username' => $username,
+                'exam_id' => $exam_id,
+            ])->findAll();
+            if (empty($checkedDataAvailable)) {
+                $this->user_take_exam->insert([
+                    'username' => $username,
+                    'exam_id' => $exam_id,
+                ]);
+            }
+
+            $data = [
+                'exam_id' => $exam_id,
+            ];
+            return view('mentor/exam_started', $data);
+        } else {
+            return view('home');
         }
     }
 
@@ -207,16 +234,67 @@ class Exam extends BaseController
         }
     }
 
-    public function started($exam_id)
+    public function result()
+    {
+        return view('mentor/exam_result_list');
+    }
+    public function loadExamResult()
+    {
+        if ($this->request->isAJAX()) {
+            $exam_status = $this->user_take_exam->getStatus();
+            if ($exam_status == 'complete') {
+                $data = [
+                    'exam_result' => $this->exam_detail->getExamTaked(),
+                ];
+
+                $msg = [
+                    'data' => view('mentor/exam_result_listajax', $data)
+                ];
+
+
+                echo json_encode($msg);
+            } else {
+                echo "ujian dulu";
+            }
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function resultDetail($exam_id)
     {
         $tes = session()->get('role');
         if ($tes == 'pendamping') {
+            $username = session()->get('username');
+
             $data = [
+                'score' => $this->exam_question_answer->getTotalScore($username, $exam_id),
                 'exam_id' => $exam_id,
             ];
-            return view('mentor/exam_started', $data);
+            return view('mentor/exam_result_detail', $data);
         } else {
             return view('home');
+        }
+    }
+
+    public function loadResultDetail($exam_id)
+    {
+        if ($this->request->isAJAX()) {
+
+            $data = [
+                'exam_result' => $this->question->getExamResultDetail($exam_id),
+                'option' => $this->option->getAllOption(),
+
+            ];
+
+            $msg = [
+                'data' => view('mentor/exam_result_detailajax', $data)
+            ];
+
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
         }
     }
 }

@@ -32,4 +32,17 @@ class ExamOptionModel extends Model
 
         return $query->getResultArray();
     }
+
+    public function addOption($exam_id, $last_insert_id, $option1, $option2, $option3, $option4)
+    {
+        $this->db->query("
+        INSERT INTO exam_option
+            (question_id, exam_id,option_number, option_title)
+        VALUES
+            ('$last_insert_id','$exam_id','1','$option1'),
+            ('$last_insert_id','$exam_id','2','$option2'),
+            ('$last_insert_id','$exam_id','3','$option3'),
+            ('$last_insert_id','$exam_id','4','$option4');
+        ");
+    }
 }

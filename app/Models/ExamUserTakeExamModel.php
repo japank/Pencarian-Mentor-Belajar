@@ -25,4 +25,13 @@ class ExamUserTakeExamModel extends Model
             return $row['status'];
         }
     }
+
+    public function updateStatus($username, $exam_id)
+    {
+
+        $query = $this->db->query("
+        UPDATE exam_user_take_exam SET status = 'complete'
+        WHERE username = '$username' AND exam_id = $exam_id
+        ");
+    }
 }

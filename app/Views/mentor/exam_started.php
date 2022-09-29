@@ -25,7 +25,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Hai Siswa yascvscascf</h4>
+                    <h4 class="card-title">Test <?= $exam_id; ?></h4>
                     <h6 class="card-subtitle">Dibawah ini adalah daftar siswa yang kamu mentorin.</h6>
                 </div>
                 <div id="single_question_area">
@@ -91,6 +91,64 @@
             loadQuestion(question_id);
         });
 
+        $(document).on('click', '.submit', function() {
+            var exam_id = $(this).attr('id');
+
+            Swal.fire({
+                title: 'Submit',
+                text: `Jika anda submit, anda tidak akan bisa mengubah jawaban anda. Tetap Submit ?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "<?= site_url('exam/userSubmit') ?>",
+                        type: "post",
+                        data: {
+                            exam_id: exam_id,
+                        },
+                        dataType: "json",
+
+                        success: function(response) {
+                            if (response.sukses) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil',
+                                    text: response.sukses,
+                                })
+                                console.log("submit berhassi")
+                                window.location = '<?= base_url(); ?>/exam/result';
+                            }
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                        }
+                    })
+                }
+            })
+
+        });
+
+        function submitAnswer() {
+            $.ajax({
+                url: "<?= site_url('exam/submitAnswer') ?>",
+                method: "POST",
+                data: {
+                    exam_id: exam_id,
+                },
+                success: function(data) {
+                    console.log("sudah disubmit");
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                }
+            })
+        }
 
         function question_navigation() {
             $.ajax({
@@ -126,13 +184,18 @@
             }
         })
 
-        // setInterval(function() {
-        //     var remaining_second = $('#exam_timer').TimeCircles().getTime();
-        //     if (remaining_second < 1) {
-        //         alert('Time Up');
-        //         //location.reload();
-        //     }
-        // }, 1000);
+        setInterval(function() {
+            var remaining_second = $('#exam_timer').TimeCircles().getTime();
+            if (remaining_second < 1) {
+                submitAnswer();
+                console.log("sudah disubmit");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Waktu Habis',
+                })
+                window.location = '<?= base_url(); ?>/exam/result';
+            }
+        }, 1000);
 
         $(document).on('click', '.answer_option', function() {
             var question_id = $(this).data('question_id');

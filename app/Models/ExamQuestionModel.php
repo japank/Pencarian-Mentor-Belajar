@@ -10,7 +10,7 @@ class ExamQuestionModel extends Model
     protected $primaryKey = "question_id";
     protected $returnType = "object";
     protected $useTimestamps = false;
-    protected $allowedFields = ['question_id', 'exam_id', 'question_title'];
+    protected $allowedFields = ['question_id', 'exam_id', 'question_title', 'answer_option'];
 
     public function getQuestion($exam_id)
     {
@@ -86,6 +86,16 @@ class ExamQuestionModel extends Model
         SELECT * FROM exam_question 
         INNER JOIN exam_question_answer_by_user ON exam_question_answer_by_user.question_id = exam_question.question_id
         WHERE exam_question.exam_id = '$exam_id' AND exam_question_answer_by_user.username = '$usernow'
+        ");
+
+        return $query->getResultArray();
+    }
+    public function getQuestion3($exam_id)
+    {
+
+        $query = $this->db->query("
+        SELECT * from exam_question 
+        WHERE exam_id = $exam_id
         ");
 
         return $query->getResultArray();

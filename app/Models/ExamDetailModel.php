@@ -59,4 +59,12 @@ class ExamDetailModel extends Model
         ");
         return $query->getResultArray();
     }
+
+    public function getExamDetail($exam_id)
+    {
+        $query = $this->db->query("
+        SELECT * FROM exam_detail WHERE exam_id = $exam_id
+        ");
+        return $query->getResultArray();
+    }
 }

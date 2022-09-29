@@ -69,13 +69,10 @@ $routes->get('/logbook/edit/(:num)', 'Logbook::edit/$1');
 $routes->post('/logbook/update/(:num)', 'Logbook::update/$1');
 $routes->get('/logbook/delete/(:num)', 'Logbook::delete/$1');
 
-$routes->get('/test', 'Test::index');
-$routes->get('/teststart', 'Test::starttest');
-$routes->get('/test/process', 'Test::process');
-$routes->get('/test/add', 'Test::add');
-$routes->get('/test/add/process', 'Test::addProcess');
 
 $routes->get('/profile', 'Profile::index');
+
+
 
 
 /*

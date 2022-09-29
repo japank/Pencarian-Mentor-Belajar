@@ -138,6 +138,8 @@ class Exam extends BaseController
 
                 $if_prev_disable = '';
                 $if_next_disable = '';
+                $nextorsubmit = 'next';
+                $btn = 'btn-info';
 
                 if ($previous_id == '') {
                     $if_prev_disable = 'disabled';
@@ -145,14 +147,17 @@ class Exam extends BaseController
 
                 if ($next_id == '') {
                     $if_next_disable = 'disabled';
+                    $nextorsubmit = 'submit';
+                    $btn = 'btn-warning';
+                    $next_id = $exam_id;
                 }
 
                 $output .= '
                 <br/> <br/>
                 <div align="center">
                     <button type="button" name="previous" class="btn btn-info btn-lg previous" id="' . $previous_id . '" ' . $if_prev_disable . '>Previous</button>
-                    <button type="button" name="next" class="btn btn-info btn-lg next" id="' . $next_id . '" ' . $if_next_disable . '>Next</button>
-                    <button type="button" name="testing" class="btn btn-info btn-lg testing" id="">testing</button>
+                    <button type="button" name="' . $nextorsubmit . '" class="btn ' . $btn . ' btn-lg ' . $nextorsubmit . '" id="' . $next_id . '" >' . $nextorsubmit . '</button>
+                    <!--<button type="button" name="testing" class="btn btn-info btn-lg testing" id="">testing</button>-->
                 
                     </div>
                 
@@ -233,6 +238,29 @@ class Exam extends BaseController
             }
         }
     }
+    public function userSubmit()
+    {
+        if ($this->request->isAJAX()) {
+            $username = session()->get('username');
+            $exam_id = $this->request->getVar('exam_id');
+
+            $this->user_take_exam->updateStatus($username, $exam_id);
+            $msg = [
+                'sukses' => 'Jawaban  Berhasil di submit'
+            ];
+            echo json_encode($msg);
+        }
+    }
+
+    public function submitAnswer()
+    {
+        if ($this->request->isAJAX()) {
+            $username = session()->get('username');
+            $exam_id = $this->request->getVar('exam_id');
+
+            $this->user_take_exam->updateStatus($username, $exam_id);
+        }
+    }
 
     public function result()
     {
@@ -291,6 +319,171 @@ class Exam extends BaseController
                 'data' => view('mentor/exam_result_detailajax', $data)
             ];
 
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+
+    // ADMIN
+    // //////////////////////////////////////////////////////////////
+    public function List()
+    {
+        return view('admin/exam_list');
+    }
+
+    public function loadExamByAdmin()
+    {
+        if ($this->request->isAJAX()) {
+
+            $usernow = session()->get('username');
+            $data = [
+                'list_exam' => $this->exam_detail->getExamList(),
+                'usernow' => $usernow
+            ];
+
+            $msg = [
+                'data' => view('admin/exam_listajax', $data)
+            ];
+
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function detail($exam_id)
+    {
+        $data = [
+            'exam_id' => $exam_id,
+        ];
+        return view('admin/exam_detail', $data);
+    }
+
+    public function loadExamDetail($exam_id)
+    {
+        if ($this->request->isAJAX()) {
+            $dataExamDetail = $this->exam_detail->getExamDetail($exam_id);
+            $dataQuestion = $this->question->getQuestion3($exam_id);
+            $usernow = session()->get('username');
+            $data = [
+                'exam_detail' => $dataQuestion,
+                'usernow' => $usernow,
+                'option' => $this->option->getAllOption(),
+            ];
+
+            $msg = [
+                'data' => view('admin/exam_detailajax', $data)
+            ];
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function addQuestion($exam_id)
+    {
+        if ($this->request->isAJAX()) {
+
+            $data = [
+                'exam_id' => $exam_id,
+            ];
+
+            $msg = [
+                'data' => view('admin/add_question_modal', $data)
+            ];
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function process($exam_id)
+    {
+        if ($this->request->isAJAX()) {
+            $validation = \Config\Services::validation();
+            $valid = $this->validate([
+                'question_title' => [
+                    'label' => 'Pertanyaan',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+                'option1' => [
+                    'label' => 'Option 1',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+                'option2' => [
+                    'label' => 'Option 2',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+                'option3' => [
+                    'label' => 'Option 3',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+                'option4' => [
+                    'label' => 'Option 4',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+                'correct_answer' => [
+                    'label' => 'Correct Answer',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+            ]);
+
+            if (!$valid) {
+                $msg = [
+                    'error' => [
+                        'question_title' => $validation->getError('question_title'),
+                        'option1' => $validation->getError('option1'),
+                        'option2' => $validation->getError('option2'),
+                        'option3' => $validation->getError('option3'),
+                        'option4' => $validation->getError('option4'),
+                        'correct_answer' => $validation->getError('correct_answer'),
+                    ]
+                ];
+            } else {
+
+                $question =  $this->request->getVar('question_title');
+                $option1 =  $this->request->getVar('option1');
+                $option2 =  $this->request->getVar('option2');
+                $option3 =  $this->request->getVar('option3');
+                $option4 =  $this->request->getVar('option4');
+                $correct_answer =  $this->request->getVar('correct_answer');
+
+                $this->question->insert([
+                    'exam_id' => $exam_id,
+                    'question_title' => $question,
+                    'answer_option' => $correct_answer
+                ]);
+                $last_insert_id = $this->question->getInsertID();
+                $this->option->addOption($exam_id, $last_insert_id, $option1, $option2, $option3, $option4);
+
+                $msg = [
+                    'sukses' => 'Tambah Logbook berhasil'
+                ];
+            }
 
             echo json_encode($msg);
         } else {

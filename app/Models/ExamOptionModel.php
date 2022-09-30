@@ -45,4 +45,11 @@ class ExamOptionModel extends Model
             ('$last_insert_id','$exam_id','4','$option4');
         ");
     }
+
+    public function deleteOption($question_id)
+    {
+        $this->db->query("
+        DELETE FROM exam_option WHERE question_id = '$question_id'
+        ");
+    }
 }

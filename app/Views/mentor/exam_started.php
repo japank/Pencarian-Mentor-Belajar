@@ -25,8 +25,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Test <?= $exam_id; ?></h4>
-                    <h6 class="card-subtitle">Dibawah ini adalah daftar siswa yang kamu mentorin.</h6>
+                    <h4 class="card-title">Test <?= $name; ?></h4>
+                    <h6 class="card-subtitle">Level <?= $level ?>.</h6>
                 </div>
                 <div id="single_question_area">
                 </div>
@@ -34,7 +34,7 @@
                 <div id="question_navigation_area"></div>
                 <div class="col-md-4">
                     <div allign="center">
-                        <div id="exam_timer" data-Timer="<?= 10; ?>" style="max-width:400px; width:100%; height:200px;"></div>
+                        <div id="exam_timer" data-Timer="<?= $time * 60 ?>" style="max-width:400px; width:100%; height:200px;"></div>
                     </div>
                 </div>
             </div>

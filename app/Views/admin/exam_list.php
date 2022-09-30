@@ -19,6 +19,9 @@
     <div class="row">
 
         <div class="col-12">
+            <button type="button" class="btn btn-primary btn-sm tomboltambah"><i class="fa fa-plus-circle"></i> Tambah
+                Exam</button><br><br>
+
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Exam List</h4>
@@ -44,6 +47,7 @@
 <script src="<?= base_url() ?>/assets/mbohtable/plugins/datatables/dataTables.bootstrap4.min.js"></script>
 
 <script src="<?= base_url() ?>/assets/mbohtable/js/app.js"></script>
+<div class="viewModal" style="display: none;"></div>
 <script type="text/javascript">
     function listExamByAdmin() {
         $.ajax({
@@ -61,6 +65,21 @@
     $(document).ready(function() {
         listExamByAdmin();
 
+        $('.tomboltambah').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "<?= base_url('exam/addExam') ?>",
+                dataType: "json",
+                success: function(response) {
+                    $('.viewModal').html(response.data).show();
+
+                    $('#modaltambah').modal('show');
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                }
+            })
+        })
 
     });
 </script>

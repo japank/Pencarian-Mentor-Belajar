@@ -62,13 +62,8 @@ class Exam extends BaseController
                 ]);
             }
 
-
-            $dataExam = $this->exam_detail->find($exam_id);
             $data = [
                 'exam_id' => $exam_id,
-                'name' => $dataExam->name,
-                'level' => $dataExam->level,
-                'time' => $dataExam->time
             ];
             return view('mentor/exam_started', $data);
         } else {

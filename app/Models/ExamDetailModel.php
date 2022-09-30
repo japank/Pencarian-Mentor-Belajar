@@ -10,7 +10,7 @@ class ExamDetailModel extends Model
     protected $primaryKey = "exam_id";
     protected $returnType = "object";
     protected $useTimestamps = false;
-    protected $allowedFields = ['exam_id', 'name', 'level', 'marks_per_right_answer', 'marks_per_wrong_answer'];
+    protected $allowedFields = ['exam_id', 'name', 'level', 'marks_per_right_answer', 'marks_per_wrong_answer', 'time'];
 
 
     public function getQuestionRightAnswerMark($exam_id)

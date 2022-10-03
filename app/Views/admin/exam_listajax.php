@@ -39,7 +39,7 @@
             </tr>
         <?php } ?>
     </tbody>
-</table>
+</table><br><br>
 <script>
     $(document).ready(function() {
         $('#dataExam').DataTable();

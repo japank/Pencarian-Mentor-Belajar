@@ -36,4 +36,22 @@ class UsersModel extends Model
 
         return $query->getResult();
     }
+
+    public function getMentorList()
+    {
+        $query = $this->db->query("
+        SELECT * FROM users WHERE role = 'pendamping' 
+        ");
+
+        return $query->getResultArray();
+    }
+
+    public function getStudentList()
+    {
+        $query = $this->db->query("
+        SELECT * FROM users WHERE role = 'siswa' 
+        ");
+
+        return $query->getResultArray();
+    }
 }

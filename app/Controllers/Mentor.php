@@ -136,4 +136,8 @@ class Mentor extends BaseController
         session()->setFlashdata('message', 'Berhasil');
         return redirect()->to('/mentor/requested');
     }
+
+    public function listMentor()
+    {
+    }
 }

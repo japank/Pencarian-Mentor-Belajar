@@ -66,10 +66,26 @@
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Correct Answer</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="correct_answer" name="correct_answer">
-                        <div class="invalid-feedback errorCorrectanswer">
-
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="correct_answer" name="correct_answer" value="1">
+                            <label class="form-check-label" for="">Option 1</label>
                         </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="correct_answer" name="correct_answer" value="2">
+                            <label class="form-check-label" for="option2">Option 2</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="correct_answer" name="correct_answer" value="3">
+                            <label class="form-check-label" for="option3">Option 3</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="correct_answer" name="correct_answer" value="4">
+                            <label class="form-check-label" for="option4">Option 4</label>
+                        </div>
+                        <!-- <input type="text" class="form-control" id="correct_answer" name="correct_answer">
+                        <div class="invalid-feedback errorCorrectanswer"> -->
+
+                        <!-- </div> -->
                     </div>
                 </div>
 

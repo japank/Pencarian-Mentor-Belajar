@@ -14,6 +14,8 @@ class Home extends BaseController
         $tes = session()->get('role');
         if ($tes == 'pendamping') {
             return view('mentor/home');
+        } elseif ($tes = 'admin') {
+            return view('admin/home');
         } else {
             return view('home');
         }

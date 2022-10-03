@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Waktu</label>
+                    <label for="" class="col-sm-2 col-form-label">Waktu <br><i>(dalam menit)</i></label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="time" name="time">
                         <div class="invalid-feedback errorTime">

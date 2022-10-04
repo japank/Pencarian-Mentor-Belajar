@@ -39,6 +39,15 @@ class LogbookModel extends Model
         // ->getWhere(['username_siswa' => $username] && ['username_mentor' => $usernow])
         // ->getResultArray();
     }
+    public function getLogbookSiswaByAdmin($username_siswa, $username_mentor)
+    {
+        $usernow = session()->get('username');
+        $query = $this->db->query("
+        SELECT * FROM logbook WHERE username_siswa = '$username_siswa' && username_mentor = '$username_mentor';
+        ");
+
+        return $query->getResultArray();
+    }
 
     // public function getRequestMentoringByMentor(){
     //     $usernow = session()->get('username');

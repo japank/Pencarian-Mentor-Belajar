@@ -89,22 +89,6 @@
     $(document).ready(function() {
         listStudent();
 
-        $('.tomboltambah').click(function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: "<?= base_url('exam/addExam') ?>",
-                dataType: "json",
-                success: function(response) {
-                    $('.viewModal').html(response.data).show();
-
-                    $('#modaltambah').modal('show');
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-                }
-            })
-        })
-
     });
 </script>
 

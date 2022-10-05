@@ -229,7 +229,6 @@ class Logbook extends BaseController
     public function listMentoredStudentbyAdmin($username)
     {
         $mentor = $this->requestMentor->getMentor();
-        $usernow = session()->get('username');
         return view('admin/mentored_student_list', [
             'mentor' => $mentor,
             'username' => $username,
@@ -271,6 +270,25 @@ class Logbook extends BaseController
 
             $msg = [
                 'sukses' => view('admin/logbook_modal', $data)
+            ];
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+    public function showAllLogbook()
+    {
+        if ($this->request->isAJAX()) {
+
+            $data = [
+                'username_siswa' => $this->request->getVar('username_siswa'),
+                'logbook' => $this->logbook->getAllLogbookStudent($this->request->getVar('username_siswa')),
+
+            ];
+
+            $msg = [
+                'sukses' => view('admin/logbook_all_modal', $data)
             ];
 
             echo json_encode($msg);

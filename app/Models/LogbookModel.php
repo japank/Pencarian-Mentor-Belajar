@@ -49,6 +49,16 @@ class LogbookModel extends Model
         return $query->getResultArray();
     }
 
+    public function getAllLogbookStudent($username_siswa)
+    {
+        $query = $this->db->query("
+        SELECT * FROM logbook WHERE username_siswa = '$username_siswa';
+        ");
+
+        return $query->getResultArray();
+    }
+
+
     // public function getRequestMentoringByMentor(){
     //     $usernow = session()->get('username');
     //     return $this->db->table('request_mentor')

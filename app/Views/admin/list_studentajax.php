@@ -25,7 +25,7 @@
                 <td><?= strftime("%a %d %b %Y", strtotime($row['created_at'])) ?></td>
                 <td> <a href="<?= base_url("logbook/listmentoredstudentbyadmin/$username_siswa"); ?>"><button type="button" class="btn btn-info btn-sm">
                             <i class="fa fa-book"></i>
-                            <!-- logbook -->
+
                         </button></a>
                     <button type="button" class="btn btn-info btn-sm">
                         <i class="fa fa-address-book"></i>

@@ -16,16 +16,17 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Logbook Siswa <?= $username_siswa ?> dengan mentor <?= $username_mentor ?></h5>
+                <h5 class="modal-title" id="exampleModalLabel">Logbook Siswa <b><?= $username_siswa ?></b> dengan mentor <b> <?= $username_mentor ?></b></h5><br>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="table-responsive">
-                <table id="dataExam" class="table table-bordered">
+                <table id="dataLogbook" class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Exam Id</th>
-                            <th>Name</th>
-                            <th>Level</th>
+                            <th>Tanggal Pertemuan</th>
+                            <th>Topik</th>
+                            <th>Deskripsi Topik</th>
+                            <th>Deskripsi Pertemuan</th>
                         </tr>
                     </thead>
 
@@ -37,9 +38,10 @@
 
                         ?>
                             <tr>
-                                <td><?= $row['date_mentoring'] ?></td>
+                                <td><?= strftime("%d %b %Y, %A", strtotime($row['date_mentoring'])) ?></td>
                                 <td><?= $row['topic'] ?></td>
                                 <td><?= $row['topic_description'] ?></a></td>
+                                <td><?= $row['description'] ?></a></td>
 
                             </tr>
                         <?php } ?>
@@ -62,5 +64,8 @@
 
 <script src="<?= base_url() ?>/assets/mbohtable/js/app.js"></script>
 <script>
+    $(document).ready(function() {
+        $('#dataLogbook').DataTable();
 
+    });
 </script>

@@ -278,35 +278,4 @@ class Logbook extends BaseController
             exit('Maaf tidak dapat diproses');
         }
     }
-
-    public function loadLogbookStudentWithMentor()
-    {
-        if ($this->request->isAJAX()) {
-
-            $usernow = session()->get('username');
-            $data = [
-                'logbook' => $this->logbook->getLogbookSiswaByAdmin($this->request->getVar('username_siswa'), $this->request->getVar('username_mentor')),
-            ];
-
-            $msg = [
-                'data' => view('admin/logbook_modal_ajax', $data)
-            ];
-
-            echo json_encode($msg);
-        } else {
-            exit('Maaf tidak dapat diproses');
-        }
-    }
-
-    public function logbookStudent($username)
-    {
-        $dataLogbook = $this->logbook->getLogbookSiswa($username);
-        $usernow = session()->get('username');
-
-        return view('logbook_siswa', [
-            'username_mentor' => $username,
-            'username' => $usernow,
-            'dataLogbook' => $dataLogbook,
-        ]);
-    }
 }

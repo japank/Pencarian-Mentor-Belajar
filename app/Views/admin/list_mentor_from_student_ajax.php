@@ -20,7 +20,8 @@
                 <td><?= $row['name'] ?></td>
                 <td><?= $row['address'] ?></td>
                 <td> <button type="button" class="btn btn-primary btn-sm " onclick="showLogbook('<?= $username_mentor ?>')"><i class="fa fa-book"></i> </button></a></td>
-
+                <!-- <td> <a href="<?= base_url("mylogbook/details/$username_mentor"); ?>"> <i class="fa fa-book"></i></a></td> -->
+                <!-- <td> <button type="button" class="btn btn-primary btn-sm tomboltambah"><i class="fa fa-book"></i> </button></a></td> -->
             </tr>
         <?php } ?>
     </tbody>

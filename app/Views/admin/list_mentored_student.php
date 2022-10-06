@@ -18,7 +18,7 @@
     <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title">Daftar mentor siswa <?= $username ?></h4>
+                <h4 class="page-title">Daftar siswa yang dimentori oleh <?= $username_mentor ?></h4>
             </div>
             <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                 <div class="d-md-flex">
@@ -113,9 +113,9 @@
 <div class="viewModal" style="display: none;"></div>
 <script type="text/javascript">
     function listMentoredStudent() {
-        var username_siswa = '<?= $username ?>'
+
         $.ajax({
-            url: "<?= site_url('logbook/loadListMentoredStudent/' . $username) ?>",
+            url: "<?= site_url('logbook/loadMentoredStudent/' . $username_mentor) ?>",
             dataType: "json",
             success: function(response) {
                 $('.viewdata').html(response.data);

@@ -8,6 +8,7 @@
             <th>joined</th>
             <th>Status</th>
             <th>Skor Test</th>
+            <th>Action</th>
         </tr>
     </thead>
 
@@ -16,6 +17,7 @@
         <?php
         $no = 1;
         foreach ($list_mentor as $row) {
+            $username_mentor = $row['username'];
         ?>
             <tr>
                 <td><?= $row['username'] ?></td>
@@ -25,6 +27,11 @@
                 <td><?= strftime("%a %d %b %Y", strtotime($row['created_at'])) ?></td>
                 <td>Not verifed Id</td>
                 <td>90(v)</td>
+                <td> <a href="<?= base_url("logbook/mentoredStudent/$username_mentor"); ?>"><button type="button" class="btn btn-info btn-sm">
+                            <i class="fa fa-address-book"></i>
+                        </button></a>
+                    <button type="button" class="btn btn-info btn-sm " onclick="showAllLogbookFromMentor('<?= $username_mentor ?>')"><i class="fa fa-book"></i> </button>
+                </td>
 
             </tr>
         <?php } ?>
@@ -36,59 +43,23 @@
 
     });
 
-    function editExam(exam_id) {
+    function showAllLogbookFromMentor(username_mentor) {
         $.ajax({
             type: "post",
-            url: "<?= site_url('exam/editExam') ?>",
+            url: "<?= site_url('logbook/showAllLogbookFromMentor') ?>",
             data: {
-                exam_id: exam_id
+                username_mentor: username_mentor
             },
             dataType: "json",
             success: function(response) {
                 if (response.sukses) {
                     $('.viewModal').html(response.sukses).show();
-                    $('#modalEdit').modal('show');
+                    $('#modaltambah').modal('show');
+
                 }
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-            }
-        })
-    }
-
-    function deleteExam(a) {
-        Swal.fire({
-            title: 'Hapus',
-            text: `Apakah anda yakin menghapus pertanyaan dengan id ${a} ?`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Tidak',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: "post",
-                    url: "<?= site_url('exam/deleteExam') ?>",
-                    data: {
-                        exam_id: a,
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.sukses) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Berhasil',
-                                text: response.sukses,
-                            })
-                            listExamByAdmin();
-                        }
-                    },
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-                    }
-                })
             }
         })
     }

@@ -226,28 +226,29 @@ class Logbook extends BaseController
     }
 
     // ADMIINNN
-    public function listMentoredStudentbyAdmin($username)
+    //Daftar Mentor dari siswa
+    public function listMentorFromStudent($username)
     {
         $mentor = $this->requestMentor->getMentor();
-        return view('admin/mentored_student_list', [
+        return view('admin/list_mentor_from_student', [
             'mentor' => $mentor,
             'username' => $username,
         ]);
     }
 
-    public function loadListMentoredStudent($username)
+    public function loadListMentorFromStudent($username)
     {
         if ($this->request->isAJAX()) {
 
             $usernow = session()->get('username');
             $data = [
-                'list_mentor' => $this->requestMentor->getMentoredStudent($username),
+                'list_mentor' => $this->requestMentor->getMentorFromStudent($username),
                 'usernow' => $usernow,
                 'username_siswa' => $username,
             ];
 
             $msg = [
-                'data' => view('admin/mentored_student_list_ajax', $data)
+                'data' => view('admin/list_mentor_from_student_ajax', $data)
             ];
 
 
@@ -257,6 +258,7 @@ class Logbook extends BaseController
         }
     }
 
+    //show logbook by siswa side
     public function showLogbook()
     {
         if ($this->request->isAJAX()) {
@@ -289,6 +291,79 @@ class Logbook extends BaseController
 
             $msg = [
                 'sukses' => view('admin/logbook_all_modal', $data)
+            ];
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+
+
+    public function mentoredStudent($username_mentor)
+    {
+
+        return view('admin/list_mentored_student', [
+
+            'username_mentor' => $username_mentor
+        ]);
+    }
+
+    public function loadMentoredStudent($username)
+    {
+        if ($this->request->isAJAX()) {
+
+            $usernow = session()->get('username');
+            $data = [
+                'list_mentored_student' => $this->requestMentor->getMentoredStudent($username),
+                'username_mentor' => $username,
+
+            ];
+
+            $msg = [
+                'data' => view('admin/list_mentored_student_ajax', $data)
+            ];
+
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+    public function showLogbookByMentor()
+    {
+        if ($this->request->isAJAX()) {
+
+            $data = [
+                'username_mentor' => $this->request->getVar('username_mentor'),
+                'username_siswa' => $this->request->getVar('username_siswa'),
+                'logbook' => $this->logbook->getLogbookSiswaByAdmin($this->request->getVar('username_siswa'), $this->request->getVar('username_mentor')),
+
+            ];
+
+            $msg = [
+                'sukses' => view('admin/logbook_by_mentor_modal', $data)
+            ];
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function showAllLogbookFromMentor()
+    {
+        if ($this->request->isAJAX()) {
+
+            $data = [
+                'username_mentor' => $this->request->getVar('username_mentor'),
+                'logbook' => $this->logbook->getAllLogbookMentor($this->request->getVar('username_mentor')),
+
+            ];
+
+            $msg = [
+                'sukses' => view('admin/logbook_all_by_mentor_modal', $data)
             ];
 
             echo json_encode($msg);

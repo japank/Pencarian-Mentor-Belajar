@@ -57,6 +57,14 @@ class LogbookModel extends Model
 
         return $query->getResultArray();
     }
+    public function getAllLogbookMentor($username_mentor)
+    {
+        $query = $this->db->query("
+        SELECT * FROM logbook WHERE username_mentor = '$username_mentor';
+        ");
+
+        return $query->getResultArray();
+    }
 
 
     // public function getRequestMentoringByMentor(){

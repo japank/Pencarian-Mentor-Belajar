@@ -197,21 +197,77 @@ class Mentor extends BaseController
         }
     }
 
-
+    // MENTOR
 
     public function indexRequestByMentor()
     {
 
-        $requestMentor = new RequestMentorModel();
-        $requestMentorList = $this->requestMentor->getRequestMentoringbyMentor();
-        $usernow = session()->get('username');
-        return view('mentor/request_mentored', [
-            'username' => $usernow,
-            'requestMentorList' => $requestMentorList,
-        ]);
+        // $requestMentor = new RequestMentorModel();
+        // $requestMentorList = $this->requestMentor->getRequestMentoringbyMentor();
+        // $usernow = session()->get('username');
+        // return view('mentor/request_mentored', [
+        //     'username' => $usernow,
+        //     'requestMentorList' => $requestMentorList,
+        // ]);
+        return view('mentor/request_mentored');
     }
 
 
+    public function loadRequestMentoredList()
+    {
+        if ($this->request->isAJAX()) {
+
+            $usernow = session()->get('username');
+            $data = [
+                'requestMentorList' => $this->requestMentor->getRequestMentoringbyMentor(),
+                'username' => $usernow
+            ];
+
+            $msg = [
+                'data' => view('mentor/request_mentoredajax', $data)
+            ];
+
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function accRequestMentored()
+    {
+        if ($this->request->isAJAX()) {
+
+            $dataRequestMentor = $this->requestMentor->find($this->request->getVar('id_request_mentor'));
+            $usernow = session()->get('username');
+
+            $this->requestMentor->update($this->request->getVar('id_request_mentor'), [
+                'status_request' => '1',
+            ]);
+            $msg = [
+                'sukses' => 'Berhasil Disetujui'
+            ];
+
+            echo json_encode($msg);
+        }
+    }
+    public function decRequestMentored()
+    {
+        if ($this->request->isAJAX()) {
+
+            $dataRequestMentor = $this->requestMentor->find($this->request->getVar('id_request_mentor'));
+            $usernow = session()->get('username');
+
+            $this->requestMentor->update($this->request->getVar('id_request_mentor'), [
+                'status_request' => '0',
+            ]);
+            $msg = [
+                'sukses' => 'Berhasil Ditolak'
+            ];
+
+            echo json_encode($msg);
+        }
+    }
 
     public function request($username)
     {

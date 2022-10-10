@@ -2,11 +2,10 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Start date</th>
-            <th>Salary</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Kelas</th>
+            <th>Action</th>
         </tr>
     </thead>
 
@@ -19,10 +18,13 @@
             <tr>
                 <td><?= $row['name'] ?></td>
                 <td><?= $row['address'] ?></td>
-                <td><a href="<?= base_url("logbook/details/$username_siswa"); ?>">Logbook</a></td>
-                <td>a</td>
-                <td>a</td>
-                <td>a</td>
+                <td><?= $row['email'] ?></td>
+                <td><?= $row['kelas'] ?></td>
+                <td>
+                    <a href="<?= base_url("logbook/details/$username_siswa"); ?>"><button type="button" class="btn btn-info btn-sm">
+                            <i class="fa fa-address-book"></i>
+                        </button></a>
+                </td>
             </tr>
         <?php } ?>
     </tbody>

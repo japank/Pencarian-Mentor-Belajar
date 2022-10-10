@@ -1,5 +1,12 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
+
+<link href="<?= base_url() ?>/assets/mbohtable/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="<?= base_url() ?>/assets/mbohtable/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+<link href="<?= base_url() ?>/assets/mbohtable/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="<?= base_url() ?>/assets/mbohtable/css/icons.css" rel="stylesheet" type="text/css">
+<link href="<?= base_url() ?>/assets/mbohtable/css/style.css" rel="stylesheet" type="text/css">
 <!-- Page Wrapper -->
 <div id="wrapper" style=" padding-top:100px">
     <!-- Content Wrapper -->
@@ -8,74 +15,22 @@
         <!-- Main Content -->
         <div id="content">
 
+
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <?php if (!empty(session()->getFlashdata('message'))) : ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo session()->getFlashdata('message'); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                <?php endif; ?>
-                <hr>
+
                 <!-- Page Heading -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">History Request Mentor</h6>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Mentor</th>
-                                        <th>Tanggal Pertemuan</th>
-                                        <th>Topik</th>
-                                        <th>Deskripsi Topik</th>
-                                        <th>Status Permintaan</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $no = 1;
-                                    foreach ($requestMentorList as $row) {
-                                    ?>
-                                        <tr>
-                                            <td><?= $no++; ?></td>
-                                            <td><?= $row['username_mentor']; ?></td>
-                                            <td><?= strftime("%a %d %b %Y", strtotime($row['date_started'])) ?></td>
-                                            <td><?= $row['topic']; ?></td>
-                                            <td><?= $row['description']; ?></td>
-                                            <td><?php
-                                                if ($row['status_request'] == '2') {
-                                                    echo 'Menunggu Verifikasi';
-                                                } elseif ($row['status_request'] == '1') {
-                                                    echo 'Diterima';
-                                                } else {
-                                                    echo 'Ditolak';
-                                                }
-                                                ?>
-                                            <td>
-                                                <?php $dataedit = $row['id_request_mentor']; ?>
-                                                <?php
-                                                if ($row['status_request'] == '2') {
-                                                ?>
-                                                    <a title="Edit" href="<?= base_url("mentor/edit/$dataedit") ?>" class="btn btn-info mt-2" style="width:75px;">Edit</a>
-                                                    <a title="Delete" href="<?= base_url("mentor/delete/$dataedit") ?>" class="btn btn-danger mt-2" onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a></p>
-                                                <?php } else {
-                                                    echo "-";
-                                                }
-                                                ?>
-                                            </td>
-                                        </tr>
-                                    <?php
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
+                        <div class="table-responsive viewdata">
+
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -89,15 +44,6 @@
 
                 </div>
 
-                <!-- Bootstrap core JavaScript-->
-                <script src="<?= base_url("admin/vendor/jquery/jquery.min.js"); ?>"></script>
-                <script src="<?= base_url("admin/vendor/bootstrap/js/bootstrap.bundle.min.js"); ?>"></script>
-
-                <!-- Core plugin JavaScript-->
-                <script src="<?= base_url("admin/vendor/jquery-easing/jquery.easing.min.js"); ?>"></script>
-
-                <!-- Custom scripts for all pages-->
-                <script src="<?= base_url("admin/js/sb-admin-2.min.js"); ?>"></script>
 
 
             </div>
@@ -106,4 +52,34 @@
         </div>
         <!-- End of Main Content -->
 
+
+
+        <script src="<?= base_url() ?>/assets/mbohtable/js/jquery.min.js"></script>
+
+
+        <script src="<?= base_url() ?>/assets/mbohtable/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="<?= base_url() ?>/assets/mbohtable/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <script src="<?= base_url() ?>/assets/mbohtable/js/app.js"></script>
+        <div class="viewModal" style="display: none;"></div>
+
+        <script type="text/javascript">
+            function requestMentorList() {
+                $.ajax({
+                    url: "<?= site_url('mentor/loadRequestMentorList') ?>",
+                    dataType: "json",
+                    success: function(response) {
+                        $('.viewdata').html(response.data);
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                })
+            }
+
+            $(document).ready(function() {
+                requestMentorList();
+
+            });
+        </script>
         <?= $this->endSection('content'); ?>

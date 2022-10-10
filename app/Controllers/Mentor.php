@@ -86,14 +86,117 @@ class Mentor extends BaseController
     // ==================================================
     public function indexRequestBySiswa()
     {
-        $requestMentor = new RequestMentorModel();
-        $requestMentorList = $this->requestMentor->getRequestMentoring();
-        $usernow = session()->get('username');
-        return view('request_mentor_list', [
-            'username' => $usernow,
-            'requestMentorList' => $requestMentorList,
-        ]);
+        // $requestMentor = new RequestMentorModel();
+        // $requestMentorList = $this->requestMentor->getRequestMentoring();
+        // $usernow = session()->get('username');
+        // return view('request_mentor_list', [
+        //     'username' => $usernow,
+        //     'requestMentorList' => $requestMentorList,
+        // ]);
+
+        return view('request_mentor_list');
     }
+
+    public function loadRequestMentorList()
+    {
+        if ($this->request->isAJAX()) {
+
+            $usernow = session()->get('username');
+            $data = [
+                'requestMentorList' => $this->requestMentor->getRequestMentoring(),
+                'username' => $usernow
+            ];
+
+            $msg = [
+                'data' => view('request_mentor_listajax', $data)
+            ];
+
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function editRequestMentor()
+    {
+        if ($this->request->isAJAX()) {
+
+            $dataRequestMentor = $this->requestMentor->find($this->request->getVar('id_request_mentor'));
+            $usernow = session()->get('username');
+            $data = [
+                'username' => $usernow,
+                'dataRequestMentor' => $dataRequestMentor,
+            ];
+
+            $msg = [
+                'sukses' => view('request_mentor_edit_modal', $data)
+            ];
+
+            echo json_encode($msg);
+        }
+    }
+
+    public function updateRequestMentor($id_request_mentor)
+    {
+        if ($this->request->isAJAX()) {
+            $validation = \Config\Services::validation();
+            $valid = $this->validate([
+                'date_started' => [
+                    'label' => 'Tanggal Pertemuan',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+                'topic' => [
+                    'label' => 'Topik',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+            ]);
+
+            if (!$valid) {
+                $msg = [
+                    'error' => [
+                        'date_started' => $validation->getError('date_started'),
+                        'topic' => $validation->getError('topic')
+
+                    ]
+                ];
+            } else {
+                $this->requestMentor->update($id_request_mentor, [
+                    'topic' => $this->request->getVar('topic'),
+                    'date_started' => $this->request->getVar('date_started'),
+                    'description' => $this->request->getVar('description')
+                ]);
+                $msg = [
+                    'sukses' => 'Edit Permintaan Mentoring berhasil'
+                ];
+            }
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function deleteRequestMentor()
+    {
+        if ($this->request->isAJAX()) {
+
+            $id_request_mentor = $this->request->getVar('id_request_mentor');
+            $this->requestMentor->delete($id_request_mentor);
+
+            $msg = [
+                'sukses' => 'Pengajuan Permintaan Mentoring berhasil dihapus'
+            ];
+            echo json_encode($msg);
+        }
+    }
+
 
 
     public function indexRequestByMentor()
@@ -240,8 +343,8 @@ class Mentor extends BaseController
                     'username_siswa' => $username_siswa,
                     'username_mentor' => $this->request->getVar('username_mentor'),
                     'topic' => $this->request->getVar('topic'),
-                    'topic_description' => $this->request->getVar('topic_description'),
-                    'date_mentoring' => $this->request->getVar('date_mentoring'),
+                    'description' => $this->request->getVar('topic_description'),
+                    'date_started' => $this->request->getVar('date_mentoring'),
 
                 ]);
 

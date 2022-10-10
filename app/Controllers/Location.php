@@ -8,7 +8,16 @@ class Location extends BaseController
 {
     public function index()
     {
-        return view('location_users');
+        if ($this->request->isAJAX()) {
+
+            $msg = [
+                'sukses' => view('location_modal')
+            ];
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
     }
 
     public function UpdateLocation($usernow)
@@ -29,6 +38,6 @@ class Location extends BaseController
             'address' => $dataUser->address,
             'logged_in' => TRUE
         ]);
-        return redirect()->to('/home');
+        return redirect()->to('/mentor');
     }
 }

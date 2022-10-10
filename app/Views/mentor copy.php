@@ -19,61 +19,37 @@
         </div>
     </div><!-- End Breadcrumbs -->
     <!-- ======= Team Section ======= -->
-
-    <br>
-
-    <div id="myBtnContainer" style="position: absolute; right: 7%;">
-        <button class="btnfilter active" onclick="allMentor()"> Jarak</button>
-        <button class="btnfilter" onclick="allMentorByScore()"> Skor</button>
-    </div>
-
-    <style>
-        .container {
-            overflow: hidden;
-        }
-
-        .filterDiv {
-            float: left;
-            background-color: #2196F3;
-            color: #ffffff;
-            width: 100px;
-            line-height: 100px;
-            text-align: center;
-            margin: 2px;
-            display: none;
-            /* Hidden by default */
-        }
-
-        /* The "show" class is added to the filtered elements */
-        .show {
-            display: block;
-        }
-
-        /* Style the buttons */
-        .btnfilter {
-            border: none;
-            outline: none;
-            padding: 12px 16px;
-            background-color: #f1f1f1;
-            cursor: pointer;
-        }
-
-        /* Add a light grey background on mouse-over */
-        .btnfilter:hover {
-            background-color: #ddd;
-        }
-
-        /* Add a dark background to the active button */
-        .btnfilter.active {
-            background-color: #5fcf80;
-            color: white;
-        }
-    </style>
     <section id="team" class="team section-bg">
-        <div class="container viewdata" data-aos="fade-up">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row">
+                <?php
+                $no = 1;
+
+                $usernow = session()->get('username');
+                foreach ($mentor as $row) {
+                ?>
+                    <div class="col-lg-6">
+                        <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="pic"><img src="<?= base_url(); ?>/assets/img/trainers/trainer-1.jpg" class="img-fluid" alt=""></div>
+                            <div class="member-info">
+                                <h4><?= $row->name; ?></h4>
+                                <span><?= number_format((float)$row->jarak_km, 2, '.', ''); ?> km</span>
+                                <p><?= $row->address; ?></p>
+                                <div class="social">
+                                    <a onclick="request('<?= $row->username ?>')"><i class="ri-send-plane-fill"></i></a>
+                                    <a href="<?= base_url("mentor/request/$row->username"); ?>"><i class="ri-send-plane-fill"></i></a>
+                                    <a><i class="ri-message-fill contact" user-id='<?= $row->username ?>' user-name='<?= $row->name ?>'></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
 
 
-
+            </div>
 
         </div>
     </section><!-- End Team Section -->
@@ -178,11 +154,166 @@
 </form>
 </div> -->
 <div class="viewModal" style="display: none;"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
     $('document').ready(function() {
+        var meta = document.getElementsByTagName("meta")[0];
+        var tokenHash = meta.content;
+        $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('X-CSRF-Token', tokenHash);
+        });
+
+        var roomId;
+
+        var socket = new WebSocket('ws://127.0.0.1:8080');
+
+        socket.onopen = function(e) {
+            console.log('Connection Estabilished');
+        }
+
+        socket.onmessage = function(e) {
+            var data = JSON.parse(e.data);
+            console.log(data);
+            var targetUserId = data.currentUserId;
+            var incomingMessage = data.message;
+            var targetRoomId = data.id_room;
+
+            if (targetUserId != '<?= $username ?>' && targetRoomId == roomId) {
+                var template = `<div class="row message-body">
+            <div class="col-sm-12 message-main-receiver">
+            <div class="receiver">
+                <div class="message-text">
+                ` + incomingMessage + `
+                </div>
+                <span class="message-time pull-right">
+                'a'
+                </span>
+            </div>
+            </div>
+        </div>`;
+                $("#conversation").append(template);
+                $("#conversation").scrollTop($("#conversation")[0].scrollHeight);
+            }
+        }
+
+        $('.contact').on('click', function() {
+                document.getElementById("myForm").style.display = "block";
+                var contactId = $(this).attr('user-id');
+                var contactName = $(this).attr('user-name');
+                $('#conversation').html('');
+
+                $("#recipient-name").html(contactName);
+                $.ajax({
+                    url: "<?= site_url('Chat/getRoomByUser') ?>",
+                    type: 'GET',
+                    data: {
+                        'contactId': contactId,
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data);
+                        roomId = data.id_room;
+                        getChats();
+                    }
+                });
+
+            }),
+
+            $('.close-chat').on('click', function() {
+                document.getElementById("myForm").style.display = "none";
+            });
+
+        function getChats() {
+            $.ajax({
+                url: "<?= site_url('Chat/getChatsByRoomId') ?>",
+                type: 'POST',
+                data: {
+                    'roomId': roomId,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        var message = data[i].message;
+                        var created = data[i].created;
+                        var id_user = data[i].username;
+                        var template = null;
+                        if (id_user == '<?= $username ?>') {
+                            template = `<div class="row message-body">
+                <div class="col-sm-12 message-main-sender">
+                <div class="sender">
+                    <div class="message-text-sender">
+                    ` + message + `
+                    </div>
+                    <span class="message-time-sender pull-right">
+                    ` + created + `
+                    </span>
+                </div>
+                </div>
+            </div>`;
+                        } else {
+                            template = `<div class="row message-body">
+                <div class="col-sm-12 message-main-receiver">
+                <div class="receiver">
+                    <div class="message-text">
+                    ` + message + `
+                    </div>
+                    <span class="message-time pull-right">
+                    ` + created + `
+                    </span>
+                </div>
+                </div>
+            </div>`;
+                        }
+                        $("#conversation").append(template);
+                        $("#conversation").scrollTop($("#conversation")[0].scrollHeight);
+                    }
+                }
+            });
+        }
+
+        $('#send-message').on('click', function() {
+            var message = $("#comment").val();
+            $("#comment").val('');
+            var data = {
+                'message': message,
+                'id_room': roomId,
+                'currentUserId': '<?= $username ?>',
+            };
+            socket.send(JSON.stringify(data));
+            sendMessage(message);
+        });
 
 
-        allMentor();
+        function sendMessage(message) {
+            $.ajax({
+                url: "<?= site_url('Chat/sendMessage') ?>",
+                type: 'POST',
+                data: {
+                    'message': message,
+                    'id_room': roomId,
+
+                },
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    var template = `        <div class="row message-body">
+        <div class="col-sm-12 message-main-sender">
+        <div class="sender">
+            <div class="message-text">
+            ` + data.message + `
+            </div>
+            <span class="message-time pull-right">
+            'c'
+            </span>
+        </div>
+        </div>
+    </div>`;
+                    $('#conversation').append(template);
+                }
+            })
+        }
+
 
     });
 
@@ -229,42 +360,6 @@
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
         })
-    }
-
-    function allMentor() {
-        $.ajax({
-            url: "<?= site_url('mentor/allMentor') ?>",
-            dataType: "json",
-            success: function(response) {
-                $('.viewdata').html(response.data);
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-            }
-        })
-    }
-
-    function allMentorByScore() {
-        $.ajax({
-            url: "<?= site_url('mentor/allMentorByScore') ?>",
-            dataType: "json",
-            success: function(response) {
-                $('.viewdata').html(response.data);
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-            }
-        })
-    }
-
-    var btnContainer = document.getElementById("myBtnContainer");
-    var btns = btnContainer.getElementsByClassName("btnfilter");
-    for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener("click", function() {
-            var current = document.getElementsByClassName("active");
-            current[0].className = current[0].className.replace(" active", "");
-            this.className += " active";
-        });
     }
 </script>
 <?= $this->endSection() ?>

@@ -11,7 +11,7 @@ class ExamUserTakeExamModel extends Model
     protected $primaryKey = "id_exam_user_take_exam";
     protected $returnType = "object";
     protected $useTimestamps = false;
-    protected $allowedFields = ['id_exam_user_take_exam', 'username', 'exam_id', 'status'];
+    protected $allowedFields = ['id_exam_user_take_exam', 'username', 'exam_id', 'status', 'score'];
 
     public function getStatus()
     {
@@ -26,11 +26,11 @@ class ExamUserTakeExamModel extends Model
         }
     }
 
-    public function updateStatus($username, $exam_id)
+    public function updateStatus($username, $exam_id, $score)
     {
 
         $query = $this->db->query("
-        UPDATE exam_user_take_exam SET status = 'complete'
+        UPDATE exam_user_take_exam SET status = 'complete', score = $score
         WHERE username = '$username' AND exam_id = $exam_id
         ");
     }

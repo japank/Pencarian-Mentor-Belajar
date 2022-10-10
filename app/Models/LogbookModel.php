@@ -32,7 +32,7 @@ class LogbookModel extends Model
         SELECT * FROM logbook WHERE username_siswa = '$usernow' && username_mentor = '$username';
         ");
 
-        if ($usernow = $username) {
+        if ($usernow != $username) {
             return $query->getResult();
         }
         // return $this->db->table('logbook')

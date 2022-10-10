@@ -1,6 +1,6 @@
 <?= $this->extend('layout/template_chat') ?>
 
-<?= $this->section('content') ?>
+<?= $this->section('contact') ?>
 <div id="contacts">
   <ul>
 

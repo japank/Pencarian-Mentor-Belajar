@@ -38,6 +38,28 @@ class Logbook extends BaseController
             'dataLogbook' => $dataLogbook,
         ]);
     }
+
+    public function showLogbookStudent()
+    {
+        if ($this->request->isAJAX()) {
+
+            $data = [
+                'username_mentor' => $this->request->getVar('username_mentor'),
+                'username_siswa' => $this->request->getVar('username_siswa'),
+                'logbook' => $this->logbook->getLogbookSiswa($this->request->getVar('username_mentor')),
+
+            ];
+
+            $msg = [
+                'sukses' => view('logbook_modal', $data)
+            ];
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
     // =============================================================================
     // |                                     Mentor                               |
     // =============================================================================

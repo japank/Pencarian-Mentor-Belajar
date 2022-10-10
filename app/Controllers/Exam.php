@@ -7,6 +7,7 @@ use App\Models\ExamQuestionModel;
 use App\Models\ExamDetailModel;
 use App\Models\ExamQuestionAnswerByUserModel;
 use App\Models\ExamUserTakeExamModel;
+use App\Models\MentorDetailModel;
 
 class Exam extends BaseController
 {
@@ -17,6 +18,7 @@ class Exam extends BaseController
         $this->exam_detail = new ExamDetailModel();
         $this->exam_question_answer = new ExamQuestionAnswerByUserModel();
         $this->user_take_exam = new ExamUserTakeExamModel();
+        $this->mentor_detail = new MentorDetailModel();
     }
 
     public function index()
@@ -248,8 +250,11 @@ class Exam extends BaseController
         if ($this->request->isAJAX()) {
             $username = session()->get('username');
             $exam_id = $this->request->getVar('exam_id');
+            $score = $this->exam_question_answer->getTotalScore($username, $exam_id);
 
-            $this->user_take_exam->updateStatus($username, $exam_id);
+            $this->user_take_exam->updateStatus($username, $exam_id, $score);
+
+
             $msg = [
                 'sukses' => 'Jawaban  Berhasil di submit'
             ];
@@ -257,7 +262,7 @@ class Exam extends BaseController
         }
     }
 
-    public function submitAnswer()
+    public function submitAnswerWhenTimout()
     {
         if ($this->request->isAJAX()) {
             $username = session()->get('username');

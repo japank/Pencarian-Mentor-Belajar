@@ -133,9 +133,9 @@
 
         });
 
-        function submitAnswer() {
+        function submitAnswerWhenTimout() {
             $.ajax({
-                url: "<?= site_url('exam/submitAnswer') ?>",
+                url: "<?= site_url('exam/submitAnswerWhenTimout') ?>",
                 method: "POST",
                 data: {
                     exam_id: exam_id,
@@ -187,7 +187,7 @@
         setInterval(function() {
             var remaining_second = $('#exam_timer').TimeCircles().getTime();
             if (remaining_second < 1) {
-                submitAnswer();
+                submitAnswerWhenTimout();
                 console.log("sudah disubmit");
                 Swal.fire({
                     icon: 'success',

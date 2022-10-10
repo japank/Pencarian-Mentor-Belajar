@@ -1,4 +1,4 @@
-<?= $this->extend('layout/template'); ?>
+<?= $this->extend('layout/template2'); ?>
 <?= $this->section('content'); ?>
 <main id="main" data-aos="fade-in">
 
@@ -18,8 +18,9 @@
                 <?php
                 $no = 1;
 
-                $usernow = session()->get('username');
+                $username_siswa = session()->get('username');
                 foreach ($mentor as $row) {
+                    $username_mentor = $row->username;
                 ?>
                     <div class="col-lg-6">
                         <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
@@ -29,7 +30,9 @@
                                 <span> </span>
                                 <p><?= $row->address; ?></p>
                                 <div class="social">
-                                    <a href="<?= base_url("mylogbook/details/$row->username"); ?>"><i class="ri-book-fill"></i></a>
+                                    <!-- <a href="<?= base_url("mylogbook/details/$row->username"); ?>"><i class="ri-book-fill"></i></a>
+                                 -->
+                                    <button type="button" class="btn btn-primary btn-sm " onclick="showLogbook('<?= $username_mentor ?>')"><i class="ri ri-book-fill"></i> </button></a>
                                 </div>
                             </div>
                         </div>
@@ -44,4 +47,41 @@
         </div>
     </section><!-- End Team Section -->
 </main><!-- End #main -->
+<script src="<?= base_url() ?>/assets/mbohtable/js/jquery.min.js"></script>
+
+
+<script src="<?= base_url() ?>/assets/mbohtable/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?= base_url() ?>/assets/mbohtable/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+
+<script src="<?= base_url() ?>/assets/mbohtable/js/app.js"></script>
+<div class="viewModal" style="display: none;"></div>
+<script>
+    var username_siswa = '<?= $username_siswa ?>';
+    $(document).ready(function() {
+        // $('#dataMentored').DataTable();
+
+    });
+
+    function showLogbook(username_mentor) {
+        $.ajax({
+            type: "post",
+            url: "<?= site_url('logbook/showLogbookStudent') ?>",
+            data: {
+                username_mentor: username_mentor,
+                username_siswa: username_siswa
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.sukses) {
+                    $('.viewModal').html(response.sukses).show();
+                    $('#modaltambah').modal('show');
+
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        })
+    }
+</script>
 <?= $this->endSection('content'); ?>

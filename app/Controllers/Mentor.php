@@ -25,15 +25,65 @@ class Mentor extends BaseController
 
     public function index()
     {
-        $users = new UsersModel();
-        $mentor = $users->getjarak();
         $usernow = session()->get('username');
-        return view('mentor', [
-            'mentor' => $mentor,
-            'username' => $usernow,
-        ]);
+        return view('mentor');
+        // $users = new UsersModel();
+        // $mentorByJarak = $users->getjarak();
+        // $mentorByScore = $users->getMentorByScore();
+        // $usernow = session()->get('username');
+        // return view('mentor', [
+        //     'mentor' => $mentorByJarak,
+        //     'username' => $usernow,
+        // ]);
     }
 
+    // ================================================
+    public function allMentor()
+    {
+        if ($this->request->isAJAX()) {
+
+            $usernow = session()->get('username');
+            $data = [
+                'mentor' => $this->users->getjarak(),
+                'username' => $usernow
+            ];
+
+            $msg = [
+                'data' => view('mentorajax', $data)
+            ];
+
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+    public function allMentorByScore()
+    {
+        if ($this->request->isAJAX()) {
+
+            $usernow = session()->get('username');
+            $data = [
+                'mentor' => $this->users->getMentorByScore(),
+                'username' => $usernow
+            ];
+
+            $msg = [
+                'data' => view('mentorajax2', $data)
+            ];
+
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+
+
+
+
+    // ==================================================
     public function indexRequestBySiswa()
     {
         $requestMentor = new RequestMentorModel();
@@ -137,7 +187,72 @@ class Mentor extends BaseController
         return redirect()->to('/mentor/requested');
     }
 
-    public function listMentor()
+    public function requestMentor()
     {
+        if ($this->request->isAJAX()) {
+
+            $data = [
+
+                'username_mentor' => $this->request->getVar('username_mentor'),
+            ];
+
+            $msg = [
+                'sukses' => view('request_mentor_modal', $data)
+            ];
+
+            echo json_encode($msg);
+        }
+    }
+
+    public function processingRequest()
+    {
+        if ($this->request->isAJAX()) {
+            $validation = \Config\Services::validation();
+            $valid = $this->validate([
+                'date_mentoring' => [
+                    'label' => 'Tanggal Pertemuan',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+                'topic' => [
+                    'label' => 'Topik',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+            ]);
+
+            if (!$valid) {
+                $msg = [
+                    'error' => [
+                        'date_mentoring' => $validation->getError('date_mentoring'),
+                        'topic' => $validation->getError('topic')
+                    ]
+                ];
+            } else {
+
+                $username_siswa = session()->get('username');
+                $this->requestMentor->insert([
+
+                    'username_siswa' => $username_siswa,
+                    'username_mentor' => $this->request->getVar('username_mentor'),
+                    'topic' => $this->request->getVar('topic'),
+                    'topic_description' => $this->request->getVar('topic_description'),
+                    'date_mentoring' => $this->request->getVar('date_mentoring'),
+
+                ]);
+
+                $msg = [
+                    'sukses' => 'Permintaan Mentoring berhasil'
+                ];
+            }
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
     }
 }

@@ -27,6 +27,17 @@ class UsersModel extends Model
         return $query->getResult();
     }
 
+    public function getMentorByScore()
+    {
+        $query = $this->db->query("
+        SELECT * FROM users 
+        INNER JOIN exam_user_take_exam ON exam_user_take_exam.username = users.username
+        WHERE users.username IN (SELECT username FROM exam_user_take_exam) 
+        ORDER BY `exam_user_take_exam`.`score` DESC
+        ");
+        return $query->getResult();
+    }
+
     public function getProfile()
     {
         $usernow = session()->get('username');

@@ -5,8 +5,7 @@
         <div class="col-6">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 d-flex align-items-center">
-                    <li class="breadcrumb-item"><a href="index.html" class="link"><i
-                                class="mdi mdi-home-outline fs-4"></i></a></li>
+                    <li class="breadcrumb-item"><a href="index.html" class="link"><i class="mdi mdi-home-outline fs-4"></i></a></li>
                     <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                 </ol>
             </nav>
@@ -14,8 +13,7 @@
         </div>
         <div class="col-6">
             <div class="text-end upgrade-btn">
-                <a href="https://www.wrappixel.com/templates/flexy-bootstrap-admin-template/"
-                    class="btn btn-primary text-white" target="_blank">Upgrade to Pro</a>
+                <a href="https://www.wrappixel.com/templates/flexy-bootstrap-admin-template/" class="btn btn-primary text-white" target="_blank">Upgrade to Pro</a>
             </div>
         </div>
     </div>
@@ -41,11 +39,9 @@
                         </div>
                         <div class="ms-auto d-flex no-block align-items-center">
                             <ul class="list-inline dl d-flex align-items-center m-r-15 m-b-0">
-                                <li class="list-inline-item d-flex align-items-center text-info"><i
-                                        class="fa fa-circle font-10 me-1"></i> Ample
+                                <li class="list-inline-item d-flex align-items-center text-info"><i class="fa fa-circle font-10 me-1"></i> Ample
                                 </li>
-                                <li class="list-inline-item d-flex align-items-center text-primary"><i
-                                        class="fa fa-circle font-10 me-1"></i> Pixel
+                                <li class="list-inline-item d-flex align-items-center text-primary"><i class="fa fa-circle font-10 me-1"></i> Pixel
                                 </li>
                             </ul>
                         </div>
@@ -172,8 +168,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <div class="m-r-10"><a
-                                                    class="btn btn-circle d-flex btn-info text-white">EA</a>
+                                            <div class="m-r-10"><a class="btn btn-circle d-flex btn-info text-white">EA</a>
                                             </div>
                                             <div class="">
                                                 <h4 class="m-b-0 font-16">Elite Admin</h4>
@@ -194,8 +189,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <div class="m-r-10"><a
-                                                    class="btn btn-circle d-flex btn-orange text-white">MA</a>
+                                            <div class="m-r-10"><a class="btn btn-circle d-flex btn-orange text-white">MA</a>
                                             </div>
                                             <div class="">
                                                 <h4 class="m-b-0 font-16">Monster Admin</h4>
@@ -216,8 +210,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <div class="m-r-10"><a
-                                                    class="btn btn-circle d-flex btn-success text-white">MP</a>
+                                            <div class="m-r-10"><a class="btn btn-circle d-flex btn-success text-white">MP</a>
                                             </div>
                                             <div class="">
                                                 <h4 class="m-b-0 font-16">Material Pro Admin</h4>
@@ -238,8 +231,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <div class="m-r-10"><a
-                                                    class="btn btn-circle d-flex btn-purple text-white">AA</a>
+                                            <div class="m-r-10"><a class="btn btn-circle d-flex btn-purple text-white">AA</a>
                                             </div>
                                             <div class="">
                                                 <h4 class="m-b-0 font-16">Ample Admin</h4>
@@ -280,15 +272,13 @@
                 <div class="comment-widgets scrollable">
                     <!-- Comment Row -->
                     <div class="d-flex flex-row comment-row m-t-0">
-                        <div class="p-2"><img src="../assets/images/users/1.jpg" alt="user" width="50"
-                                class="rounded-circle"></div>
+                        <div class="p-2"><img src="../assets/images/users/1.jpg" alt="user" width="50" class="rounded-circle"></div>
                         <div class="comment-text w-100">
                             <h6 class="font-medium">James Anderson</h6>
                             <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing
                                 and type setting industry. </span>
                             <div class="comment-footer">
-                                <span class="text-muted float-end">April 14, 2021</span> <span
-                                    class="badge bg-primary">Pending</span> <span class="action-icons">
+                                <span class="text-muted float-end">April 14, 2021</span> <span class="badge bg-primary">Pending</span> <span class="action-icons">
                                     <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
                                     <a href="javascript:void(0)"><i class="ti-check"></i></a>
                                     <a href="javascript:void(0)"><i class="ti-heart"></i></a>
@@ -298,8 +288,7 @@
                     </div>
                     <!-- Comment Row -->
                     <div class="d-flex flex-row comment-row">
-                        <div class="p-2"><img src="../assets/images/users/4.jpg" alt="user" width="50"
-                                class="rounded-circle"></div>
+                        <div class="p-2"><img src="../assets/images/users/4.jpg" alt="user" width="50" class="rounded-circle"></div>
                         <div class="comment-text active w-100">
                             <h6 class="font-medium">Michael Jorden</h6>
                             <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing
@@ -317,8 +306,7 @@
                     </div>
                     <!-- Comment Row -->
                     <div class="d-flex flex-row comment-row">
-                        <div class="p-2"><img src="../assets/images/users/5.jpg" alt="user" width="50"
-                                class="rounded-circle"></div>
+                        <div class="p-2"><img src="../assets/images/users/5.jpg" alt="user" width="50" class="rounded-circle"></div>
                         <div class="comment-text w-100">
                             <h6 class="font-medium">Johnathan Doeting</h6>
                             <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing
@@ -344,7 +332,8 @@
                     <h4 class="card-title">Temp Guide</h4>
                     <div class="d-flex align-items-center flex-row m-t-30">
                         <div class="display-5 text-info"><i class="wi wi-day-showers"></i>
-                            <span>73<sup>°</sup></span></div>
+                            <span>73<sup>°</sup></span>
+                        </div>
                         <div class="m-l-10">
                             <h3 class="m-b-0">Saturday</h3><small>Ahmedabad, India</small>
                         </div>

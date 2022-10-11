@@ -22,7 +22,7 @@
         ?>
             <tr>
                 <td><?= $no++ ?></td>
-                <td><?= $row['question_title'] ?></td>
+                <td><?= substr($row['question_title'], 0, 70) ?></td>
                 <?php foreach ($option as $rowoption) if ($rowoption['question_id'] == $row['question_id']) : ?>
                     <td> <?= $rowoption['option_title'] ?></td>
                 <?php endif; ?>

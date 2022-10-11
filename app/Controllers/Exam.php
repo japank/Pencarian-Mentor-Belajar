@@ -93,16 +93,37 @@ class Exam extends BaseController
 
             $output = '';
             foreach ($show_question as $row) {
-                $output .= '
-                    <h1>' . $row["question_title"] . '<h1>
-                    <hr />
-                    <hr />
+                $count = 1;
+                $check_length = strlen($row['question_title']);
+                if ($check_length < '150') {
+                    $output .= '
+
+                    <h3>' . $row["question_title"] . '<h3>
+                    <br><br>
                     <div class="row">
                     ';
+                } elseif ($check_length > '150' & $check_length < '400') {
+                    $output .= '
+                    <h4>' . $row["question_title"] . '<h4>
+                    <br><br>
+                    <div class="row">
+                    ';
+                } elseif ($check_length > '400' & $check_length < '700') {
+                    $output .= '
+                    <h5>' . $row["question_title"] . '<h5>
+                    <br><br>
+                    <div class="row">
+                    ';
+                } else {
+                    $output .= '
+                    <h6>' . $row["question_title"] . '<h6>
+                    <br><br>
+                    <div class="row">
+                    ';
+                }
 
                 $show_option = $this->option->getOption($row['question_id']);
 
-                $count = 1;
                 foreach ($show_option as $show_option_row) {
 
                     $checked = '';
@@ -116,15 +137,38 @@ class Exam extends BaseController
                         }
                     }
 
-                    $output .= '
+                    if ($check_length < '150') {
+                        $output .= '
                         <div class="col-md-6" style="margin-bottom:32px;">
                             <div class="radio">
                                             <label><h4><input type="radio" 
                                             name="option_1" class="answer_option" 
                                             data-question_id="' . $show_option_row['question_id'] . '" 
                                             data-id="' . $count . '" ' . $checked . '
-                                            />' . $show_option_row["option_title"] . '</h4></label>
+                                            />'   . $show_option_row["option_title"] . '</h4></label>
                         </div></div>';
+                    } elseif ($check_length > '150' & $check_length < '400') {
+                        $output .= '
+                        <div class="col-md-6" style="margin-bottom:32px;">
+                            <div class="radio">
+                                            <label><h5><input type="radio" 
+                                            name="option_1" class="answer_option" 
+                                            data-question_id="' . $show_option_row['question_id'] . '" 
+                                            data-id="' . $count . '" ' . $checked . '
+                                            />'   . $show_option_row["option_title"] . '</h5></label>
+                        </div></div>';
+                    } else {
+                        $output .= '
+                        <div class="col-md-6" style="margin-bottom:32px;">
+                            <div class="radio">
+                                            <label><h6><input type="radio" 
+                                            name="option_1" class="answer_option" 
+                                            data-question_id="' . $show_option_row['question_id'] . '" 
+                                            data-id="' . $count . '" ' . $checked . '
+                                            />'   . $show_option_row["option_title"] . '</h6></label>
+                        </div></div>';
+                    }
+
 
                     $count = $count + 1;
                 }
@@ -146,6 +190,7 @@ class Exam extends BaseController
                 $if_prev_disable = '';
                 $if_next_disable = '';
                 $nextorsubmit = 'next';
+                $nextorsubmit_text = 'Next';
                 $btn = 'btn-info';
 
                 if ($previous_id == '') {
@@ -155,6 +200,7 @@ class Exam extends BaseController
                 if ($next_id == '') {
                     $if_next_disable = 'disabled';
                     $nextorsubmit = 'submit';
+                    $nextorsubmit_text = 'Submit';
                     $btn = 'btn-warning';
                     $next_id = $exam_id;
                 }
@@ -163,7 +209,7 @@ class Exam extends BaseController
                 <br/> <br/>
                 <div align="center">
                     <button type="button" name="previous" class="btn btn-info btn-lg previous" id="' . $previous_id . '" ' . $if_prev_disable . '>Previous</button>
-                    <button type="button" name="' . $nextorsubmit . '" class="btn ' . $btn . ' btn-lg ' . $nextorsubmit . '" id="' . $next_id . '" >' . $nextorsubmit . '</button>
+                    <button type="button" name="' . $nextorsubmit . '" class="btn ' . $btn . ' btn-lg ' . $nextorsubmit . '" id="' . $next_id . '" >' . $nextorsubmit_text . '</button>
                     <!--<button type="button" name="testing" class="btn btn-info btn-lg testing" id="">testing</button>-->
                 
                     </div>
@@ -191,7 +237,7 @@ class Exam extends BaseController
 
             foreach ($fetchIdFromAllQuestion as $row) {
                 $output .= '
-                <div class="col-md-2" style="margin-bottom:24px;">
+                <div class="col-md-2" style="margin-bottom:24px;margin-left:2%">
                     <button type="button" class="btn btn-primary btn-lg question_navigation"
                         data-question_id = "' . $row['question_id'] . '"> ' . $count . '
                     </button>
@@ -267,8 +313,9 @@ class Exam extends BaseController
         if ($this->request->isAJAX()) {
             $username = session()->get('username');
             $exam_id = $this->request->getVar('exam_id');
+            $score = $this->exam_question_answer->getTotalScore($username, $exam_id);
 
-            $this->user_take_exam->updateStatus($username, $exam_id);
+            $this->user_take_exam->updateStatus($username, $exam_id, $score);
         }
     }
 

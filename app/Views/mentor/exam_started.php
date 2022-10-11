@@ -11,6 +11,8 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/timecircle/inc/TimeCircles.js"></script>
 <link href="<?= base_url() ?>/assets/timecircle//inc/TimeCircles.css" rel="stylesheet">
+
+
 <!-- Loader -->
 <div id="preloader">
     <div id="status">
@@ -19,28 +21,36 @@
 </div>
 
 <div class="container-fluid">
-
+    <h3 class="mb-0 fw-bold">Test <?= $name; ?></h3>
+    <h5 class="mb-0 fw-bold">Level <?= $level ?></h5><br>
     <div class="row">
-
-        <div class="col-12">
+        <div class="col-lg-8">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Test <?= $name; ?></h4>
-                    <h6 class="card-subtitle">Level <?= $level ?>.</h6>
-                </div>
-                <div id="single_question_area">
-                </div>
 
-                <div id="question_navigation_area"></div>
-                <div class="col-md-4">
-                    <div allign="center">
-                        <div id="exam_timer" data-Timer="<?= $time * 60 ?>" style="max-width:400px; width:100%; height:200px;"></div>
+                    <div class="text-end" id="question_number">
+
+                    </div>
+                    <div class="wrap" id="single_question_area">
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
 
+                    <div id="exam_timer" data-Timer="<?= $time * 60 ?>" style="max-width:400px; width:100%; height:200px;"></div>
+
+                </div>
+                <div id="question_navigation_area"></div>
+
+            </div>
         </div>
     </div>
+</div>
+
+
 </div>
 </div>
 

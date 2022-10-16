@@ -270,82 +270,82 @@ class Mentor extends BaseController
         }
     }
 
-    public function request($username)
-    {
-        $dataMentor = $this->users->find($username);
-        if (empty($dataMentor)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Pegawai Tidak ditemukan !');
-        }
+    // public function request($username)
+    // {
+    //     $dataMentor = $this->users->find($username);
+    //     if (empty($dataMentor)) {
+    //         throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Pegawai Tidak ditemukan !');
+    //     }
 
-        return view('request_mentor', [
-            'dataMentor' => $dataMentor,
-        ]);
-    }
+    //     return view('request_mentor', [
+    //         'dataMentor' => $dataMentor,
+    //     ]);
+    // }
 
-    public function process()
-    {
-        $requestMentor = new RequestMentorModel();
-        $usernow = session()->get('username');
+    // public function process()
+    // {
+    //     $requestMentor = new RequestMentorModel();
+    //     $usernow = session()->get('username');
 
-        $requestMentor->insert([
-            'username_siswa' => $usernow,
-            'username_mentor' => $this->request->getVar('username_mentor'),
-            'topic' => $this->request->getVar('topic'),
-            'description' => $this->request->getVar('description'),
-            'date_started' => $this->request->getVar('date_started'),
-        ]);
-        session()->setFlashdata('message', 'Berhasil');
-        return redirect()->to('/mentor/request');
-    }
+    //     $requestMentor->insert([
+    //         'username_siswa' => $usernow,
+    //         'username_mentor' => $this->request->getVar('username_mentor'),
+    //         'topic' => $this->request->getVar('topic'),
+    //         'description' => $this->request->getVar('description'),
+    //         'date_started' => $this->request->getVar('date_started'),
+    //     ]);
+    //     session()->setFlashdata('message', 'Berhasil');
+    //     return redirect()->to('/mentor/request');
+    // }
 
-    public function edit($id)
-    {
-        $dataRequestMentor = $this->requestMentor->find($id);
-        $usernow = session()->get('username');
-        return view('request_mentor_edit', [
-            'username' => $usernow,
-            'dataRequestMentor' => $dataRequestMentor,
-        ]);
-    }
+    // public function edit($id)
+    // {
+    //     $dataRequestMentor = $this->requestMentor->find($id);
+    //     $usernow = session()->get('username');
+    //     return view('request_mentor_edit', [
+    //         'username' => $usernow,
+    //         'dataRequestMentor' => $dataRequestMentor,
+    //     ]);
+    // }
 
-    public function update($id)
-    {
-        $requestMentor = new RequestMentorModel();
-        $usernow = session()->get('username');
+    // public function update($id)
+    // {
+    //     $requestMentor = new RequestMentorModel();
+    //     $usernow = session()->get('username');
 
-        $requestMentor->update($id, [
-            'username_siswa' => $usernow,
-            'username_mentor' => $this->request->getVar('username_mentor'),
-            'topic' => $this->request->getVar('topic'),
-            'date_started' => $this->request->getVar('date_started'),
-        ]);
-        session()->setFlashdata('message', 'Berhasil');
-        return redirect()->to('/mentor/request');
-    }
+    //     $requestMentor->update($id, [
+    //         'username_siswa' => $usernow,
+    //         'username_mentor' => $this->request->getVar('username_mentor'),
+    //         'topic' => $this->request->getVar('topic'),
+    //         'date_started' => $this->request->getVar('date_started'),
+    //     ]);
+    //     session()->setFlashdata('message', 'Berhasil');
+    //     return redirect()->to('/mentor/request');
+    // }
 
-    public function delete($id)
-    {
-        $dataRequestMentor = $this->requestMentor->find($id);
-        if (empty($dataRequestMentor)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Tidak ditemukan !');
-        }
-        $this->requestMentor->delete($id);
-        session()->setFlashdata('message', 'Hapus Pengajuan Peminjaman Aset Berhasil');
-        return redirect()->to('/mentor/request');
-    }
+    // public function delete($id)
+    // {
+    //     $dataRequestMentor = $this->requestMentor->find($id);
+    //     if (empty($dataRequestMentor)) {
+    //         throw new \CodeIgniter\Exceptions\PageNotFoundException('Tidak ditemukan !');
+    //     }
+    //     $this->requestMentor->delete($id);
+    //     session()->setFlashdata('message', 'Hapus Pengajuan Peminjaman Aset Berhasil');
+    //     return redirect()->to('/mentor/request');
+    // }
 
 
-    public function verification($id)
-    {
-        $requestMentor = new RequestMentorModel();
-        $usernow = session()->get('username');
+    // public function verification($id)
+    // {
+    //     $requestMentor = new RequestMentorModel();
+    //     $usernow = session()->get('username');
 
-        $requestMentor->update($id, [
-            'status_request' => $this->request->getVar('status_request'),
-        ]);
-        session()->setFlashdata('message', 'Berhasil');
-        return redirect()->to('/mentor/requested');
-    }
+    //     $requestMentor->update($id, [
+    //         'status_request' => $this->request->getVar('status_request'),
+    //     ]);
+    //     session()->setFlashdata('message', 'Berhasil');
+    //     return redirect()->to('/mentor/requested');
+    // }
 
     public function requestMentor()
     {

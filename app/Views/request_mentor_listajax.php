@@ -18,7 +18,15 @@
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $row['username_mentor']; ?></td>
-                                            <td><?= strftime("%a %d %b %Y", strtotime($row['date_started'])) ?></td>
+
+                                            <td><?php
+                                                $dateExplode = explode(",", $row['date_started']);
+                                                foreach ($dateExplode as $dateExplode2) {
+                                                    echo strftime("%A, %d %b %Y", strtotime($dateExplode2)) . '<br/>';
+                                                }
+                                                ?>
+                                            </td>
+
                                             <td><?= $row['topic']; ?></td>
                                             <td><?= $row['description']; ?></td>
                                             <td><?php
@@ -49,6 +57,7 @@
                                             </td>
                                         </tr>
                                     <?php
+
                                     }
                                     ?>
                                 </tbody>

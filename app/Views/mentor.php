@@ -2,6 +2,9 @@
 
 <?= $this->section('content') ?>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet" />
+
 <main id="main" data-aos="fade-in">
 
     <!-- ======= Breadcrumbs ======= -->

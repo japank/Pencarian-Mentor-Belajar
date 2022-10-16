@@ -39,7 +39,7 @@
         #map {
             margin-top: 20px;
             width: 100%;
-            height: 400px;
+            height: 300px;
         }
 
         #floating-panel {
@@ -64,7 +64,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Logbook Siswa </h5><br>
+                    <h5 class="modal-title" id="exampleModalLabel">Lokasi Anda </h5><br>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -142,7 +142,7 @@
                                 animation: google.maps.Animation.BOUNCE,
                             });
 
-                            var infowindowText = "<div class='text-center'><strong>Posisi Anda</strong><br>" + results[0].formatted_address + "<br>Lat : " + pos.lat.toFixed(5) + " |  Long : " + pos.lng.toFixed(5) + "<br>" + accuracyStatus + "" + '</strong></div>';
+                            var infowindowText = "<div class='text-center'><strong>Posisi Anda</strong><br>" + results[0].formatted_address + '</strong></div>';
                             infowindow.setContent(infowindowText);
                             infowindow.open(map, marker);
                             marker.addListener('click', function() {
@@ -150,6 +150,14 @@
                             });
                             output.innerHTML = results[0].formatted_address + "<br>Latitude : <span id='latitude'>" + pos.lat + "</span>Longitude : <span id='longitude'>" + pos.lng + "</span>";
                             document.getElementById("address").value = results[0].formatted_address;
+                            // var infowindowText = "<div class='text-center'><strong>Posisi Anda</strong><br>" + results[0].formatted_address + "<br>Lat : " + pos.lat.toFixed(5) + " |  Long : " + pos.lng.toFixed(5) + "<br>" + accuracyStatus + "" + '</strong></div>';
+                            // infowindow.setContent(infowindowText);
+                            // infowindow.open(map, marker);
+                            // marker.addListener('click', function() {
+                            //     infowindow.open(map, marker);
+                            // });
+                            // output.innerHTML = results[0].formatted_address + "<br>Latitude : <span id='latitude'>" + pos.lat + "</span>Longitude : <span id='longitude'>" + pos.lng + "</span>";
+                            // document.getElementById("address").value = results[0].formatted_address;
 
                         }
                     });

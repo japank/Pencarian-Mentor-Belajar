@@ -21,7 +21,8 @@
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Tanggal Pertemuan</label>
                     <div class="col-sm-8">
-                        <input type="date" class="form-control" id="date_started" name="date_started" value="<?= $dataRequestMentor->date_started; ?>">
+                        <input type="text" readonly class="form-control" id="date_mentoring" name="date_mentoring" value="<?= $dataRequestMentor->date_started; ?>" placeholder=" Choose Date" style="cursor: pointer;">
+                        <!-- <input type="date" class="form-control" id="date_started" name="date_started" value="<?= $dataRequestMentor->date_started; ?>"> -->
                         <div class="invalid-feedback errorDateMentoring">
 
                         </div>
@@ -114,4 +115,13 @@
             });
             return false;
         })
+
+        $("#date_mentoring").datepicker({
+            format: 'yyyy-mm-dd',
+            inline: false,
+            lang: 'en',
+            step: 15,
+            multidate: 15,
+            closeOnDateSelect: true
+        });
     </script>

@@ -17,7 +17,7 @@ class RequestMentorModel extends Model
         $usernow = session()->get('username');
         return $this->db->table('request_mentor')
             ->join('users', 'users.username=request_mentor.username_mentor')
-            ->orderBy('id_request_mentor', 'DESC')
+            ->orderBy('request_mentor.id_request_mentor', 'DESC')
             ->getWhere(['username_siswa' => $usernow])
             ->getResultArray();
     }

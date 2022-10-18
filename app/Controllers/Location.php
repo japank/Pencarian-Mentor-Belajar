@@ -16,7 +16,8 @@ class Location extends BaseController
 
             echo json_encode($msg);
         } else {
-            exit('Maaf tidak dapat diproses');
+            // exit('Maaf tidak dapat diproses');
+            return view('location_users');
         }
     }
 
@@ -38,6 +39,7 @@ class Location extends BaseController
             'address' => $dataUser->address,
             'logged_in' => TRUE
         ]);
-        return redirect()->to('/mentor');
+        return redirect()->to('/');
+        // return redirect()->back();
     }
 }

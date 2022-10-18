@@ -31,6 +31,8 @@
                             <i class="fa fa-address-book"></i>
                         </button></a>
                     <button type="button" class="btn btn-info btn-sm " onclick="showAllLogbookFromMentor('<?= $username_mentor ?>')"><i class="fa fa-book"></i> </button>
+                    <button type="button" class="btn btn-info btn-sm" onclick="showIdentity('<?= $username_mentor ?>')"><i class="fa fa-eye"></i></button><br><br><br>
+
                 </td>
 
             </tr>
@@ -56,6 +58,26 @@
                     $('.viewModal').html(response.sukses).show();
                     $('#modaltambah').modal('show');
 
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        })
+    }
+
+    function showIdentity(username) {
+        $.ajax({
+            type: "post",
+            url: "<?= site_url('profile/showIdentity') ?>",
+            data: {
+                username: username,
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.sukses) {
+                    $('.viewModal').html(response.sukses).show();
+                    $('#modalEdit').modal('show');
                 }
             },
             error: function(xhr, ajaxOptions, thrownError) {

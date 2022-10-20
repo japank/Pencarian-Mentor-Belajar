@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\ExamDetailModel;
+use App\Models\ExamUserTakeExamModel;
 use App\Models\UsersModel;
 
 class Users extends BaseController
@@ -10,6 +12,8 @@ class Users extends BaseController
     public function __construct()
     {
         $this->users = new UsersModel();
+        $this->exam_user_take_exam = new ExamUserTakeExamModel();
+        $this->exam_detail = new ExamDetailModel();
     }
 
     public function index()
@@ -44,7 +48,9 @@ class Users extends BaseController
             $usernow = session()->get('username');
             $data = [
                 'list_mentor' => $this->users->getMentorList(),
-                'usernow' => $usernow
+                'usernow' => $usernow,
+                'list_score' => $this->exam_user_take_exam->getMentorListScore(),
+
             ];
 
             $msg = [

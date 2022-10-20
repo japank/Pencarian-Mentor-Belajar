@@ -34,7 +34,8 @@ class Exam extends BaseController
             $usernow = session()->get('username');
             $data = [
                 'list_exam' => $this->exam_detail->getExamList(),
-                'usernow' => $usernow
+                'usernow' => $usernow,
+                'mentor_detail' => $this->mentor_detail->getMentorDetail($usernow),
             ];
 
             $msg = [
@@ -367,7 +368,13 @@ class Exam extends BaseController
 
                 echo json_encode($msg);
             } else {
-                echo "ujian dulu";
+
+                $msg = [
+                    'data' => view('mentor/empty_exam_result')
+                ];
+
+
+                echo json_encode($msg);
             }
         } else {
             exit('Maaf tidak dapat diproses');

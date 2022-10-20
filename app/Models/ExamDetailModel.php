@@ -43,7 +43,7 @@ class ExamDetailModel extends Model
     public function getExamList()
     {
         $query = $this->db->query("
-        SELECT * FROM exam_detail
+        SELECT * FROM exam_detail ORDER BY level ASC
         ");
 
         return $query->getResultArray();

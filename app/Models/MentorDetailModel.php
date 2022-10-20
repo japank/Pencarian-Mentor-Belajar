@@ -27,4 +27,12 @@ class MentorDetailModel extends Model
         WHERE username = '$username'
         ");
     }
+
+    public function getMentorDetail($username)
+    {
+        $query = $this->db->query("
+        SELECT * FROM mentor_detail WHERE username = '$username'
+        ");
+        return $query->getResult();
+    }
 }

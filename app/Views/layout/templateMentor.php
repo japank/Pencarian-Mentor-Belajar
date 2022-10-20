@@ -12,10 +12,10 @@
     <title>Flexy Admin Lite Template by WrapPixel</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/Flexy-admin-lite/" />
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url(); ?>/assets/mentor/assets/images/favicon.png">
     <!-- Custom CSS -->
     <link href="<?= base_url(); ?>/assets/mentor/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
-    <link href="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>/assets/mentor/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<?= base_url(); ?>/assets/mentor/dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

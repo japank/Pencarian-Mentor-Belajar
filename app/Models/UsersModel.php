@@ -54,7 +54,10 @@ class UsersModel extends Model
     public function getMentorList()
     {
         $query = $this->db->query("
-        SELECT * FROM users WHERE role = 'pendamping' 
+        SELECT * FROM users 
+        INNER JOIN mentor_detail ON mentor_detail.username = users.username 
+        
+        WHERE role = 'pendamping' 
         ");
 
         return $query->getResultArray();

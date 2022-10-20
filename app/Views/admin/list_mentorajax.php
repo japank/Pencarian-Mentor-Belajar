@@ -1,13 +1,14 @@
 <table id="dataMentor" class="table table-bordered">
     <thead>
         <tr>
-            <th>Username</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>email</th>
-            <th>joined</th>
-            <th>Status</th>
+            <th>About</th>
+
+
+
+            <th>level</th>
+
             <th>Skor Test</th>
+            <th>Status</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -20,18 +21,40 @@
             $username_mentor = $row['username'];
         ?>
             <tr>
-                <td><?= $row['username'] ?></td>
-                <td><?= $row['name'] ?></td>
-                <td><?= $row['address'] ?></a></td>
-                <td><?= $row['email'] ?></td>
-                <td><?= strftime("%a %d %b %Y", strtotime($row['created_at'])) ?></td>
-                <td>Not verifed Id</td>
-                <td>90(v)</td>
+                <td><?= $row['username'] ?><br><?= $row['name'] ?><br><?= $row['email'] ?><br><i><?= $row['address'] ?></i><br>Joined : <?= strftime("%d %b %Y", strtotime($row['created_at'])) ?></td>
+
+
+
+                <?php
+                $name_exam_based_level = '';
+                if ($row['level_mentor'] == 0) {
+                    $name_exam_based_level = 'Belum Ujian';
+                } elseif ($row['level_mentor'] == 1) {
+                    $name_exam_based_level = 'SD';
+                } elseif ($row['level_mentor'] == 2) {
+                    $name_exam_based_level = 'SD-SMP';
+                } else {
+                    $name_exam_based_level = 'SD-SMA';
+                } ?>
+
+                <td><?= $name_exam_based_level ?></td>
+
+
+                <td><?php foreach ($list_score as $score) {
+                        if ($score['username'] == $row['username']) {
+                    ?>
+                            <?= $score['name'] ?>
+                            : <?= $score['score'] ?><br>
+                    <?php
+                        }
+                    } ?>
+                </td>
+                <td>ID : <button type="button" class="btn btn-info btn-sm" onclick="showIdentity('<?= $username_mentor ?>')"><i class="fa fa-eye"></i></button><br><br><br> <br> Active</td>
                 <td> <a href="<?= base_url("logbook/mentoredStudent/$username_mentor"); ?>"><button type="button" class="btn btn-info btn-sm">
                             <i class="fa fa-address-book"></i>
                         </button></a>
                     <button type="button" class="btn btn-info btn-sm " onclick="showAllLogbookFromMentor('<?= $username_mentor ?>')"><i class="fa fa-book"></i> </button>
-                    <button type="button" class="btn btn-info btn-sm" onclick="showIdentity('<?= $username_mentor ?>')"><i class="fa fa-eye"></i></button><br><br><br>
+
 
                 </td>
 

@@ -228,6 +228,8 @@
                         text: response.sukses,
                     })
 
+                    window.location = '<?= base_url(); ?>/profile';
+
                     // $('#modalEdit').modal('hide');
                     // studentLogbook();
 

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\MentorDetailModel;
 use App\Models\UsersModel;
 
 class Register extends BaseController
@@ -79,6 +80,15 @@ class Register extends BaseController
             'kelas' => $this->request->getVar('kelas'),
             'role' => $this->request->getVar('role')
         ]);
+
+        $getRole = $this->request->getVar('role');
+        if ($getRole == 'pendamping') {
+            $mentor_detail = new MentorDetailModel();
+            $mentor_detail->insert([
+                'username' => $this->request->getVar('username'),
+            ]);
+        }
+
         return redirect()->to('/login');
     }
 }

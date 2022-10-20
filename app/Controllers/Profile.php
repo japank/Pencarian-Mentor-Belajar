@@ -52,12 +52,9 @@ class Profile extends BaseController
 
             if ($dataFile->getError() == 4) {
             } else {
-                if (empty($dataMentor)) {
-                    $this->mentor_detail->insert([
-                        'username' => $username,
-                        'identity_file' => $dataFileName,
-                        'status_verified' => '0'
-                    ]);
+                if (is_null($dataMentor->identity_file)) {
+                    $this->mentor_detail->updateFile($username, $dataFileName);
+                    $dataFile->move('file/identity', $dataFileName);
                 } else {
                     unlink('file/identity/' . $dataMentor->identity_file);
                     $this->mentor_detail->updateFile($username, $dataFileName);

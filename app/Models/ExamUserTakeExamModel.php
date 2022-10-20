@@ -34,4 +34,12 @@ class ExamUserTakeExamModel extends Model
         WHERE username = '$username' AND exam_id = $exam_id
         ");
     }
+
+    public function getMentorListScore()
+    {
+        $query = $this->db->query("
+        SELECT * FROM exam_user_take_exam
+        INNER JOIN exam_detail ON exam_detail.exam_id = exam_user_take_exam.exam_id");
+        return $query->getResultArray();
+    }
 }

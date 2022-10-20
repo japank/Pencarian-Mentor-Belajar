@@ -10,7 +10,7 @@
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/timecircle/inc/TimeCircles.js"></script>
-<link href="<?= base_url() ?>/assets/timecircle//inc/TimeCircles.css" rel="stylesheet">
+<link href="<?= base_url() ?>/assets/timecircle/inc/TimeCircles.css" rel="stylesheet">
 
 
 <!-- Loader -->
@@ -56,7 +56,7 @@
 
 
 
-<!-- <script src="<?= base_url() ?>/assets/mbohtable/js/jquery.min.js"></script> -->
+<script src="<?= base_url() ?>/assets/mbohtable/js/jquery.min.js"></script>
 
 
 <script src="<?= base_url() ?>/assets/mbohtable/plugins/datatables/jquery.dataTables.min.js"></script>

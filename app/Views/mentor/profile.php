@@ -85,12 +85,6 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-12">Password</label>
-                            <div class="col-md-12">
-                                <input type="password" value="<?= $row->password ?>" id="password" name="password" class="form-control form-control-line">
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label class="col-md-12">Phone No</label>
                             <div class="col-md-12">
                                 <input type="text" placeholder="123 456 7890" class="form-control form-control-line">

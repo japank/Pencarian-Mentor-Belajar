@@ -21,8 +21,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Exam Result Detail <?= $exam_id ?></h4>
-                    <h6 class="card-title">Score kamu<?= $score ?></h6>
+                    <h4 class="card-title">Hasil dari Tes <i>"<?= $name ?>"</i></h4>
+                    <h6 class="card-title">Score kamu <?= $score ?></h6>
+                    <?php
+                    $passedOrNot = '';
+                    if ($score >= $pass_score) {
+                        $passedOrNot = 'Selamat Anda Lulus Ujian';
+                    } else {
+                        $passedOrNot = 'Maaf Anda Belum Lulus Ujian, Skor minimal kelulusan adalah ' . $pass_score;
+                    }
+                    ?>
+
+                    <h6 class="card-title"><?= $passedOrNot ?> </h6>
                 </div>
                 <div class="table-responsive viewdata">
 

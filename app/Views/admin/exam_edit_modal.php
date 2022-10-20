@@ -27,7 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <!-- <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Level</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="level" name="level" value="<?= $level ?>">
@@ -35,7 +35,44 @@
 
                         </div>
                     </div>
+                </div> -->
+
+                <?php
+                $checkhed1 = '';
+                $checkhed2 = '';
+                $checkhed3 = '';
+                $checkhed4 = '';
+                if ($level == '1') {
+                    $checkhed1 = 'checked';
+                } elseif ($level == '2') {
+                    $checkhed2 = 'checked';
+                } elseif ($level == '3') {
+                    $checkhed3 = 'checked';
+                } elseif ($level == '4') {
+                    $checkhed4 = 'checked';
+                }
+                ?>
+                <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label">Level</label>
+                    <div class="col-sm-8">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="level" name="level" value="1" <?= $checkhed1 ?>>
+                            <label class="form-check-label" for="">SD</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="level" name="level" value="2" <?= $checkhed2 ?>>
+                            <label class="form-check-label" for="">SMP</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="level" name="level" value="3" <?= $checkhed3 ?>>
+                            <label class="form-check-label" for="">SMA</label>
+                        </div>
+                        <div class="invalid-feedback errorLevel">
+
+                        </div>
+                    </div>
                 </div>
+
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Point per 1 jawaban benar</label>
                     <div class="col-sm-8">
@@ -50,6 +87,15 @@
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="marks_per_wrong_answer" name="marks_per_wrong_answer" value="<?= $marks_per_wrong_answer ?>">
                         <div class="invalid-feedback errorMarksWrong">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label">Skor minimal kelulusan </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="pass_score" name="pass_score" value="<?= $pass_score ?>">
+                        <div class="invalid-feedback errorPassScore">
 
                         </div>
                     </div>
@@ -127,6 +173,14 @@
                                 $('#marks_per_wrong_answer').removeClass('is-invalid');
                                 $('.errorMarksWrong').html('');
                             }
+                            if (response.error.pass_score) {
+                                $('#pass_score').addClass('is-invalid');
+                                $('.errorPassScore').html(response.error.pass_score);
+                            } else {
+                                $('#pass_score').removeClass('is-invalid');
+                                $('.errorPassScore').html('');
+                            }
+
                             if (response.error.time) {
                                 $('#time').addClass('is-invalid');
                                 $('.errorTime').html(response.error.time);

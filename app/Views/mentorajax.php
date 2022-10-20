@@ -11,7 +11,18 @@
                 <div class="member-info">
                     <h4><?= $row->name; ?></h4>
                     <span><?= number_format((float)$row->jarak_km, 2, '.', ''); ?> km</span>
-                    <p><?= $row->address; ?></p>
+                    <?php
+                    $level_mentor = '';
+                    if ($row->level_mentor == '1') {
+                        $level_mentor = 'SD';
+                    } elseif ($row->level_mentor == '2') {
+                        $level_mentor = 'SD - SMP';
+                    } elseif ($row->level_mentor == '3') {
+                        $level_mentor = 'SD - SMA';
+                    }
+                    ?>
+                    <p><?= $level_mentor; ?></p>
+                    <p><?= $row->address ?></p>
                     <div class="social">
                         <a onclick="request('<?= $row->username ?>')"><i class="ri-send-plane-fill"></i></a>
 

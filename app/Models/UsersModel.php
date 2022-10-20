@@ -21,7 +21,10 @@ class UsersModel extends Model
 
         $query = $this->db->query("SELECT *, 
         (((acos(sin((" . $latnow . "*pi()/180)) * sin((`latitude`*pi()/180)) + cos((" . $latnow . "*pi()/180)) * cos((`latitude`*pi()/180)) * cos(((" . $longnow . "- `longitude`)*pi()/180)))) * 180/pi()) * 60 * 1.1515 * 1.609344)
-        as jarak_km FROM users where username != '$usernow' HAVING role = 'pendamping' ORDER BY jarak_km ASC
+        as jarak_km FROM users
+        INNER JOIN mentor_detail ON mentor_detail.username = users.username
+        where users.username != '$usernow' AND mentor_detail.status_verified = '1'
+        HAVING role = 'pendamping' ORDER BY jarak_km ASC
 
         ");
         return $query->getResult();

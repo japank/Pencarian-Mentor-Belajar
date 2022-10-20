@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-
+use App\Models\MentorDetailModel;
 use App\Models\UsersModel;
 use App\Models\RequestMentorModel;
 
@@ -12,6 +12,7 @@ class Mentor extends BaseController
     {
         $this->users = new UsersModel();
         $this->requestMentor = new RequestMentorModel();
+        $this->mentor_detail = new MentorDetailModel();
     }
 
     public function indexcheck()
@@ -47,6 +48,7 @@ class Mentor extends BaseController
             $data = [
                 'mentor' => $this->users->getjarak(),
                 'username' => $usernow
+
             ];
 
             $msg = [
@@ -70,7 +72,7 @@ class Mentor extends BaseController
             ];
 
             $msg = [
-                'data' => view('mentorajax2', $data)
+                'data' => view('mentorajax_by_score', $data)
             ];
 
 

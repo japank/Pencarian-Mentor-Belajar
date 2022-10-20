@@ -6,6 +6,7 @@
             <th>Level</th>
             <th>marks right</th>
             <th>marks wrong</th>
+            <th>Skor Kelulusan</th>
             <th>waktu</th>
             <th>Action</th>
         </tr>
@@ -24,6 +25,7 @@
                 <td><?= $row['level'] ?></a></td>
                 <td><?= $row['marks_per_right_answer'] ?></td>
                 <td><?= $row['marks_per_wrong_answer'] ?></td>
+                <td><?= $row['pass_score'] ?></td>
                 <td><?= $row['time'] ?> menit</td>
                 <td><a href="<?= base_url("exam/detail/$exam_id"); ?>" id="<?= $exam_id ?>">
                         <button type="button" class="btn btn-warning btn-sm">

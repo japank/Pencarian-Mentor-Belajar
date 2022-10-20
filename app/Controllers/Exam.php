@@ -300,6 +300,20 @@ class Exam extends BaseController
 
             $this->user_take_exam->updateStatus($username, $exam_id, $score);
 
+            $dataExam = $this->exam_detail->find($exam_id);
+            $pass_score = $dataExam->pass_score;
+            $level = $dataExam->level;
+
+            if ($score >= $pass_score) {
+                if ($level == '1') {
+                    $this->mentor_detail->updateLevel($username, 1);
+                } elseif ($level == '2') {
+                    $this->mentor_detail->updateLevel($username, 2);
+                } elseif ($level == '3') {
+                    $this->mentor_detail->updateLevel($username, 3);
+                }
+            } else {
+            }
 
             $msg = [
                 'sukses' => 'Jawaban  Berhasil di submit'
@@ -316,6 +330,20 @@ class Exam extends BaseController
             $score = $this->exam_question_answer->getTotalScore($username, $exam_id);
 
             $this->user_take_exam->updateStatus($username, $exam_id, $score);
+            $dataExam = $this->exam_detail->find($exam_id);
+            $pass_score = $dataExam->pass_score;
+            $level = $dataExam->level;
+
+            if ($score >= $pass_score) {
+                if ($level == '1') {
+                    $this->mentor_detail->updateLevel($username, 1);
+                } elseif ($level == '2') {
+                    $this->mentor_detail->updateLevel($username, 2);
+                } elseif ($level == '3') {
+                    $this->mentor_detail->updateLevel($username, 3);
+                }
+            } else {
+            }
         }
     }
 
@@ -352,9 +380,12 @@ class Exam extends BaseController
         if ($tes == 'pendamping') {
             $username = session()->get('username');
 
+            $dataExam = $this->exam_detail->find($exam_id);
             $data = [
                 'score' => $this->exam_question_answer->getTotalScore($username, $exam_id),
                 'exam_id' => $exam_id,
+                'pass_score' => $dataExam->pass_score,
+                'name' => $dataExam->name,
             ];
             return view('mentor/exam_result_detail', $data);
         } else {
@@ -751,6 +782,13 @@ class Exam extends BaseController
                         'required' => '{field} tidak boleh kosong',
                     ],
                 ],
+                'pass_score' => [
+                    'label' => 'Skor Kelulusan',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
                 'time' => [
                     'label' => 'Waktu',
                     'rules' => 'required',
@@ -767,6 +805,7 @@ class Exam extends BaseController
                         'level' => $validation->getError('level'),
                         'marks_per_right_answer' => $validation->getError('marks_per_right_answer'),
                         'marks_per_wrong_answer' => $validation->getError('marks_per_wrong_answer'),
+                        'pass_score' => $validation->getError('pass_score'),
                         'time' => $validation->getError('time'),
 
                     ]
@@ -777,11 +816,12 @@ class Exam extends BaseController
                     'level' => $this->request->getVar('level'),
                     'marks_per_right_answer' => $this->request->getVar('marks_per_right_answer'),
                     'marks_per_wrong_answer' => $this->request->getVar('marks_per_wrong_answer'),
+                    'pass_score' => $this->request->getVar('pass_score'),
                     'time' => $this->request->getVar('time'),
                 ]);
 
                 $msg = [
-                    'sukses' => 'Tambah Logbook berhasil'
+                    'sukses' => 'Tambah Exam berhasil'
                 ];
             }
 
@@ -801,6 +841,7 @@ class Exam extends BaseController
                 'level' => $dataExam->level,
                 'marks_per_right_answer' => $dataExam->marks_per_right_answer,
                 'marks_per_wrong_answer' => $dataExam->marks_per_wrong_answer,
+                'pass_score' => $dataExam->pass_score,
                 'time' => $dataExam->time,
                 'exam_id' => $dataExam->exam_id
             ];
@@ -846,6 +887,13 @@ class Exam extends BaseController
                         'required' => '{field} tidak boleh kosong',
                     ],
                 ],
+                'pass_score' => [
+                    'label' => 'Skor Kelulusan',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
                 'time' => [
                     'label' => 'Waktu',
                     'rules' => 'required',
@@ -862,6 +910,7 @@ class Exam extends BaseController
                         'level' => $validation->getError('level'),
                         'marks_per_right_answer' => $validation->getError('marks_per_right_answer'),
                         'marks_per_wrong_answer' => $validation->getError('marks_per_wrong_answer'),
+                        'pass_score' => $validation->getError('pass_score'),
                         'time' => $validation->getError('time'),
 
                     ]
@@ -872,6 +921,7 @@ class Exam extends BaseController
                     'level' => $this->request->getVar('level'),
                     'marks_per_right_answer' => $this->request->getVar('marks_per_right_answer'),
                     'marks_per_wrong_answer' => $this->request->getVar('marks_per_wrong_answer'),
+                    'pass_score' => $this->request->getVar('pass_score'),
                     'time' => $this->request->getVar('time'),
                 ]);
 

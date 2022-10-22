@@ -1,9 +1,5 @@
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-</button>
-
 <!-- Modal -->
+
 <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -21,7 +17,7 @@
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Tanggal Pertemuan</label>
                     <div class="col-sm-8">
-                        <input type="text" readonly class="form-control" id="date_mentoring" name="date_mentoring" value="<?= $dataRequestMentor->date_started; ?>" placeholder=" Choose Date" style="cursor: pointer;">
+                        <input type="text" readonly class="form-control" id="date_started" name="date_started" value="<?= $dataRequestMentor->date_started; ?>" placeholder=" Choose Date" style="cursor: pointer;">
                         <!-- <input type="date" class="form-control" id="date_started" name="date_started" value="<?= $dataRequestMentor->date_started; ?>"> -->
                         <div class="invalid-feedback errorDateMentoring">
 

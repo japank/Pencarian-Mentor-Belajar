@@ -27,6 +27,13 @@ class MentorDetailModel extends Model
         WHERE username = '$username'
         ");
     }
+    public function updateStatusVerified($username, $status)
+    {
+        $this->db->query("
+        UPDATE mentor_detail SET status_verified = '$status'
+        WHERE username = '$username'
+        ");
+    }
 
     public function getMentorDetail($username)
     {

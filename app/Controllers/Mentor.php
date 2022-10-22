@@ -419,4 +419,31 @@ class Mentor extends BaseController
             exit('Maaf tidak dapat diproses');
         }
     }
+
+    // ADMIN
+    public function accMentor()
+    {
+        if ($this->request->isAJAX()) {
+
+            $username = $this->request->getVar('username_mentor');
+            $this->mentor_detail->updateStatusVerified($username, '1');
+            $msg = [
+                'sukses' => 'Berhasil Disetujui'
+            ];
+
+            echo json_encode($msg);
+        }
+    }
+    public function decMentor()
+    {
+        if ($this->request->isAJAX()) {
+            $username = $this->request->getVar('username_mentor');
+            $this->mentor_detail->updateStatusVerified($username, '2');
+            $msg = [
+                'sukses' => 'Berhasil Ditolak'
+            ];
+
+            echo json_encode($msg);
+        }
+    }
 }

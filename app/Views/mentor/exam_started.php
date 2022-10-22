@@ -56,7 +56,7 @@
 
 
 
-<script src="<?= base_url() ?>/assets/mbohtable/js/jquery.min.js"></script>
+<!-- <script src="<?= base_url() ?>/assets/mbohtable/js/jquery.min.js"></script> -->
 
 
 <script src="<?= base_url() ?>/assets/mbohtable/plugins/datatables/jquery.dataTables.min.js"></script>

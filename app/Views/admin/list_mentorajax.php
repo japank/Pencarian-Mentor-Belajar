@@ -54,6 +54,7 @@
                             <i class="fa fa-address-book"></i>
                         </button></a>
                     <button type="button" class="btn btn-info btn-sm " onclick="showAllLogbookFromMentor('<?= $username_mentor ?>')"><i class="fa fa-book"></i> </button>
+                    <button type="button" class="btn btn-info btn-sm " onclick="verifyMentor('<?= $username_mentor ?>')"><i class="fa fa-question"></i> </button>
 
 
                 </td>
@@ -105,6 +106,65 @@
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        })
+    }
+
+    function verifyMentor(username) {
+        Swal.fire({
+            title: 'Persetujuan',
+            text: `Setujui Mentor ?`,
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "post",
+                    url: "<?= site_url('mentor/accMentor') ?>",
+                    data: {
+                        username_mentor: username,
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.sukses) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: response.sukses,
+                            })
+
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                })
+            } else {
+                $.ajax({
+                    type: "post",
+                    url: "<?= site_url('mentor/decMentor') ?>",
+                    data: {
+                        username_mentor: username,
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.sukses) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: response.sukses,
+                            })
+
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                })
             }
         })
     }

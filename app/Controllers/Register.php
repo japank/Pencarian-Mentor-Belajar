@@ -71,7 +71,16 @@ class Register extends BaseController
             return redirect()->back()->withInput();
         }
 
+        $email = \Config\Services::email();
+        $email->setFrom('ci4signup@shakzee.com', 'Activate the account');
+        $email->setTo($this->request->getVar('email'));
+        $email->setSubject('Activate the accounttt');
+        $email->setMessage(('testing email'));
+        $email->send();
+        $email->printDebugger(['headers']);
+
         $users = new UsersModel();
+
         $users->insert([
             'username' => $this->request->getVar('username'),
             'password' => password_hash($this->request->getVar('password'), PASSWORD_BCRYPT),
@@ -88,6 +97,7 @@ class Register extends BaseController
                 'username' => $this->request->getVar('username'),
             ]);
         }
+
 
         return redirect()->to('/login');
     }

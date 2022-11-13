@@ -12,7 +12,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <?= form_open('logbook/process/' . $username_siswa, ['class' => 'formLogbook']) ?>
+            <?= form_open_multipart('logbook/process/' . $username_siswa, ['class' => 'formLogbook']) ?>
             <?= csrf_field(); ?>
             <div class="modal-body">
 
@@ -51,6 +51,12 @@
                         <textarea type="text" class="form-control" id="description" name="description"></textarea>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label">Foto Kegiatan</label>
+                    <div class="col-sm-8">
+                        <input type="file" class="form-control" id="activity_photo" name="activity_photo">
+                    </div>
+                </div>
             </div>
 
 
@@ -69,11 +75,17 @@
     $(document).ready(function() {
         $('.formLogbook').submit(function(e) {
             e.preventDefault();
+            var formData = new FormData($(this)[0]);
             $.ajax({
                 type: "POST",
                 url: $(this).attr('action'),
                 data: $(this).serialize(),
-                dataType: "json",
+                data: formData,
+                enctype: 'multipart/form-data',
+                async: false,
+                cache: false,
+                processData: false,
+                contentType: false,
                 beforeSend: function() {
                     $('.btnsimpan').attr('disable', 'disabled');
                     $('.btnsimpan').html('<i class="fa fa-spin fa-spinner"></i>');

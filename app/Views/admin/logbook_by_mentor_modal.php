@@ -27,6 +27,7 @@
                             <th>Topik</th>
                             <th>Deskripsi Topik</th>
                             <th>Deskripsi Pertemuan</th>
+                            <th>Foto</th>
                         </tr>
                     </thead>
 
@@ -35,6 +36,7 @@
                         <?php
                         $no = 1;
                         foreach ($logbook as $row) {
+                            $id_logbook = $row['id_logbook'];
 
                         ?>
                             <tr>
@@ -42,6 +44,9 @@
                                 <td><?= $row['topic'] ?></td>
                                 <td><?= $row['topic_description'] ?></a></td>
                                 <td><?= $row['description'] ?></a></td>
+
+                                <td><button type="button" class="btn btn-info btn-sm" onclick="showPhoto('<?= $id_logbook ?>')">
+                                        <i class="fa fa-eye"></i></td>
 
                             </tr>
                         <?php } ?>
@@ -64,6 +69,26 @@
 
 <script src="<?= base_url() ?>/assets/mbohtable/js/app.js"></script>
 <script>
+    function showPhoto(id_logbook) {
+        $.ajax({
+            type: "post",
+            url: "<?= site_url('logbook/showPhoto') ?>",
+            data: {
+                id_logbook: id_logbook,
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.sukses) {
+                    $('.viewModal').html(response.sukses).show();
+                    $('#modalEdit').modal('show');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        })
+    }
+
     $(document).ready(function() {
         $('#dataLogbook').DataTable();
 

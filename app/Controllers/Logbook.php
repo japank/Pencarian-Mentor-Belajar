@@ -6,6 +6,7 @@ use App\Models\RequestMentorModel;
 use App\Models\LogbookModel;
 use PHPUnit\Util\Json;
 
+
 class Logbook extends BaseController
 {
     public function __construct()
@@ -168,16 +169,23 @@ class Logbook extends BaseController
                     ]
                 ];
             } else {
+
+                $dataFile = $this->request->getFile('activity_photo');
+                $dataFileName = $dataFile->getName();
+
+
                 $savedata = [
                     'username_siswa' => $username_siswa,
                     'username_mentor' => $this->request->getVar('username_mentor'),
                     'topic' => $this->request->getVar('topic'),
                     'topic_description' => $this->request->getVar('topic_description'),
                     'date_mentoring' => $this->request->getVar('date_mentoring'),
-                    'description' => $this->request->getVar('description')
+                    'description' => $this->request->getVar('description'),
+                    'activity_photo' => $dataFileName,
                 ];
 
                 $this->logbook->insert($savedata);
+                $dataFile->move('file/logbook', $dataFileName);
 
                 $msg = [
                     'sukses' => 'Tambah Logbook berhasil'
@@ -247,6 +255,27 @@ class Logbook extends BaseController
         }
     }
 
+
+    public function showPhoto()
+    {
+        if ($this->request->isAJAX()) {
+            $id_logbook = $this->request->getVar('id_logbook');
+            $dataLogbook = $this->logbook->where(['id_logbook' => $id_logbook,])->first();
+
+
+            $data = [
+                'id_logbook' => $id_logbook,
+                'date_mentoring' => $dataLogbook->date_mentoring,
+                'activity_photo' => $dataLogbook->activity_photo,
+            ];
+
+            $msg = [
+                'sukses' => view('mentor/photo_logbook_modal', $data)
+            ];
+
+            echo json_encode($msg);
+        }
+    }
     // ADMIINNN
     //Daftar Mentor dari siswa
     public function listMentorFromStudent($username)

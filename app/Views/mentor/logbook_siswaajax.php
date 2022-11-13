@@ -6,6 +6,7 @@
             <th>Topik</th>
             <th>Deskripsi Topik</th>
             <th>Deskripsi Pertemuan</th>
+            <th>Foto Kegiatan</th>
             <th>Aksi</th>
         </tr>
     </thead>
@@ -22,6 +23,9 @@
                 <td><?= $row->topic; ?></td>
                 <td><?= $row->topic_description; ?></td>
                 <td><?= $row->description; ?>
+                <td><button type="button" class="btn btn-info btn-sm" onclick="showPhoto('<?= $row->id_logbook ?>')">
+                        <i class="fa fa-eye"></i>
+                    </button></td>
                 <td>
                     <?php $id_logbook_will_edit = $row->id_logbook;
                     $dataDate = strftime("%a %d %b %Y", strtotime($row->date_mentoring));
@@ -98,6 +102,26 @@
                         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                     }
                 })
+            }
+        })
+    }
+
+    function showPhoto(id_logbook) {
+        $.ajax({
+            type: "post",
+            url: "<?= site_url('logbook/showPhoto') ?>",
+            data: {
+                id_logbook: id_logbook,
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.sukses) {
+                    $('.viewModal').html(response.sukses).show();
+                    $('#modalEdit').modal('show');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
         })
     }

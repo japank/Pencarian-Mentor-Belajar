@@ -80,7 +80,7 @@ class Profile extends BaseController
             $username = $this->request->getVar('username');
             $dataMentor = $this->mentor_detail->where(['username' => $username,])->first();
 
-            if (empty($dataMentor)) {
+            if ($dataMentor->identity_file == null) {
                 $msg = [
                     'sukses' => view('mentor/identity_empty_modal')
                 ];

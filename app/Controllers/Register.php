@@ -116,7 +116,7 @@ class Register extends BaseController
             $data['status'] = 1;
             $activateUser = $users->update($checkUserLink[0]->username, $data);
             if ($activateUser) {
-                echo "Activate Account Success. Please Login";
+                return view('activated_success');
             } else {
                 echo 'not found';
             }
@@ -150,6 +150,6 @@ class Register extends BaseController
         $email->send();
         $email->printDebugger(['headers']);
 
-        echo "please check your email from activate account";
+        return view('activate_check_email');
     }
 }

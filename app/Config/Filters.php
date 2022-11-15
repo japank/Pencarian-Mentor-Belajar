@@ -38,14 +38,14 @@ class Filters extends BaseConfig
             // 'csrf',
             // 'invalidchars',
             'usersAuth' => [
-				'except' => [
+                'except' => [
                     'register',
-                    'register/process',
-					'login/*',
-					'logout/*',
+                    'register/*',
+                    'login/*',
+                    'logout/*',
                     '/'
-				]
-			]
+                ]
+            ]
         ],
         'after' => [
             'toolbar',

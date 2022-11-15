@@ -21,16 +21,20 @@ class Login extends BaseController
         ])->first();
         if ($dataUser) {
             if (password_verify($password, $dataUser->password)) {
-                session()->set([
-                    'username' => $dataUser->username,
-                    'name' => $dataUser->name,
-                    'address' => $dataUser->address,
-                    'role' => $dataUser->role,
-                    'latitude' => $dataUser->latitude,
-                    'longitude' => $dataUser->longitude,
-                    'logged_in' => TRUE
-                ]);
-                return redirect()->to(site_url('home'));
+                if ($dataUser->status == 1) {
+                    session()->set([
+                        'username' => $dataUser->username,
+                        'name' => $dataUser->name,
+                        'address' => $dataUser->address,
+                        'role' => $dataUser->role,
+                        'latitude' => $dataUser->latitude,
+                        'longitude' => $dataUser->longitude,
+                        'logged_in' => TRUE
+                    ]);
+                    return redirect()->to(site_url('home'));
+                } else {
+                    return redirect()->to(site_url('register/activatenow/' . $username));
+                }
             } else {
                 session()->setFlashdata('error', 'Username & Password Salah');
                 return redirect()->back();

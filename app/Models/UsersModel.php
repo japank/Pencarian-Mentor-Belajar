@@ -10,7 +10,7 @@ class UsersModel extends Model
     protected $primaryKey = "username";
     protected $returnType = "object";
     protected $useTimestamps = true;
-    protected $allowedFields = ['username', 'password', 'name', 'email', 'address', 'latitude', 'longitude', 'kelas', 'role', 'created_at', 'updated_at'];
+    protected $allowedFields = ['username', 'password', 'name', 'email', 'address', 'latitude', 'longitude', 'kelas', 'role', 'created_at', 'updated_at', 'link', 'status'];
 
     public function getjarak()
     {

@@ -4,6 +4,8 @@ namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 
+
+// fmpzzcjlxxfdkfls
 class Email extends BaseConfig
 {
     /**
@@ -47,28 +49,28 @@ class Email extends BaseConfig
      *
      * @var string
      */
-    public $SMTPHost = 'mail.shakzee.com';
+    public $SMTPHost = 'smtp.googlemail.com';
 
     /**
      * SMTP Username
      *
      * @var string
      */
-    public $SMTPUser = 'ci4signup@shakzee.com';
+    public $SMTPUser = 'jevinarda@gmail.com';
 
     /**
      * SMTP Password
      *
      * @var string
      */
-    public $SMTPPass = 'ci4signup123$';
+    public $SMTPPass = 'fmpzzcjlxxfdkfls';
 
     /**
      * SMTP Port
      *
      * @var int
      */
-    public $SMTPPort = 587;
+    public $SMTPPort = 465;
 
     /**
      * SMTP Timeout (in seconds)
@@ -89,7 +91,7 @@ class Email extends BaseConfig
      *
      * @var string
      */
-    public $SMTPCrypto = 'tls';
+    public $SMTPCrypto = 'ssl';
 
     /**
      * Enable word-wrap

@@ -70,14 +70,10 @@ class Register extends BaseController
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
+        helper('text');
+        $data['u_link'] = random_string('alnum', 20);
+        $message = "Please activate the account" . anchor('register/activate/' . $data['u_link'], 'Activate Now', '');
 
-        $email = \Config\Services::email();
-        $email->setFrom('ci4signup@shakzee.com', 'Activate the account');
-        $email->setTo($this->request->getVar('email'));
-        $email->setSubject('Activate the accounttt');
-        $email->setMessage(('testing email'));
-        $email->send();
-        $email->printDebugger(['headers']);
 
         $users = new UsersModel();
 
@@ -87,7 +83,8 @@ class Register extends BaseController
             'name' => $this->request->getVar('name'),
             'email' => $this->request->getVar('email'),
             'kelas' => $this->request->getVar('kelas'),
-            'role' => $this->request->getVar('role')
+            'role' => $this->request->getVar('role'),
+            'link' => $data['u_link'],
         ]);
 
         $getRole = $this->request->getVar('role');
@@ -98,7 +95,61 @@ class Register extends BaseController
             ]);
         }
 
+        $email = \Config\Services::email();
+        $email->setFrom('jevinarda@gmail.com', 'Activate the account');
+        $email->setTo($this->request->getVar('email'));
+        $email->setSubject('Activate the accounttt');
+        $email->setMessage(($message));
+        $email->send();
+        $email->printDebugger(['headers']);
 
         return redirect()->to('/login');
+    }
+
+    public function activate($linkHere)
+    {
+        // echo $linkHere;
+        $users = new UsersModel();
+        $checkUserLink = $users->where('link', $linkHere)->findAll();
+        // echo $checkUserLink[0]->username;
+        if (count($checkUserLink) > 0) {
+            $data['status'] = 1;
+            $activateUser = $users->update($checkUserLink[0]->username, $data);
+            if ($activateUser) {
+                echo "Activate Account Success. Please Login";
+            } else {
+                echo 'not found';
+            }
+        } else {
+            echo 'link not found';
+        }
+
+        // var_dump($checkUserLink);
+    }
+
+    public function activatenow($username)
+    {
+        helper('text');
+        $data['u_link'] = random_string('alnum', 20);
+        $message = "Please activate the account" . anchor('register/activate/' . $data['u_link'], 'Activate Now', '');
+
+        $users = new UsersModel();
+        $dataUser = $users->where([
+            'username' => $username,
+        ])->first();
+        $data = [
+            'link' => $data['u_link'],
+        ];
+        $users->update($username, $data);
+
+        $email = \Config\Services::email();
+        $email->setFrom('jevinarda@gmail.com', 'Activate the account');
+        $email->setTo($dataUser->email);
+        $email->setSubject('Activate the accounttt');
+        $email->setMessage(($message));
+        $email->send();
+        $email->printDebugger(['headers']);
+
+        echo "please check your email from activate account";
     }
 }

@@ -18,15 +18,55 @@ class UsersModel extends Model
         $latnow = session()->get('latitude');
         $longnow = session()->get('longitude');
 
-
+        // hyang nareswara
         $query = $this->db->query("SELECT *, 
-        (((acos(sin((" . $latnow . "*pi()/180)) * sin((`latitude`*pi()/180)) + cos((" . $latnow . "*pi()/180)) * cos((`latitude`*pi()/180)) * cos(((" . $longnow . "- `longitude`)*pi()/180)))) * 180/pi()) * 60 * 1.1515 * 1.609344)
-        as jarak_km FROM users
-        INNER JOIN mentor_detail ON mentor_detail.username = users.username
-        where users.username != '$usernow' AND mentor_detail.status_verified = '1'
-        HAVING role = 'pendamping' ORDER BY jarak_km ASC
+        ( 6371 * acos
+        (
+            sin( radians($latnow))  * sin(radians(latitude))
+        +
+         cos( radians($latnow) ) * cos( radians( latitude ) ) 
+        * 
+        cos (radians( longitude ) -  radians($longnow) )
+        ))
+                as jarak_km FROM users
+                INNER JOIN mentor_detail ON mentor_detail.username = users.username
+                where users.username != '$usernow' AND mentor_detail.status_verified = '1'
+                HAVING role = 'pendamping' ORDER BY jarak_km ASC
 
-        ");
+                ");
+
+
+        // https://stackoverflow.com/questions/574691/mysql-great-circle-distance-haversine-formula
+        // $query = $this->db->query("SELECT *, 
+        // ( 6371 * acos
+        // ( 
+        // cos( radians($latnow) ) * cos( radians( latitude ) ) 
+        // * 
+        // cos( radians( longitude ) - radians($longnow) )
+        //  +
+        //  sin( radians($latnow) ) * sin(radians(latitude))
+        //  ) )
+        //         as jarak_km FROM users
+        //         INNER JOIN mentor_detail ON mentor_detail.username = users.username
+        //         where users.username != '$usernow' AND mentor_detail.status_verified = '1'
+        //         HAVING role = 'pendamping' ORDER BY jarak_km ASC
+
+        //         ");
+
+        // lupa dpt darimana
+        // $query = $this->db->query("SELECT *, 
+        // (((acos
+        // (sin((" . $latnow . "*pi()/180)) * sin((`latitude`*pi()/180))
+        //  + 
+        //  cos((" . $latnow . "*pi()/180)) * cos((`latitude`*pi()/180))
+        //   * cos(((" . $longnow . "- `longitude`)*pi()/180)))) * 180/pi())
+        //    * 60 * 1.1515 * 1.609344)
+        // as jarak_km FROM users
+        // INNER JOIN mentor_detail ON mentor_detail.username = users.username
+        // where users.username != '$usernow' AND mentor_detail.status_verified = '1'
+        // HAVING role = 'pendamping' ORDER BY jarak_km ASC
+
+        // ");
         return $query->getResult();
     }
 

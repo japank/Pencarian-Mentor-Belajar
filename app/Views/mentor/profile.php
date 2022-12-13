@@ -15,7 +15,13 @@
 </div>
 
 <div class="container-fluid">
-    <?php foreach ($dataUsers as $row) { ?>
+    <?php foreach ($dataMentor as $row) {
+        $pp = "";
+        if (is_null($row->profile_picture)) {
+            $pp = "default.jpg";
+        } else {
+            $pp = $row->profile_picture;
+        } ?>
         <!-- ============================================================== -->
         <!-- Start Page Content -->
         <!-- ============================================================== -->
@@ -25,9 +31,10 @@
             <div class="col-lg-4 col-xlg-3 col-md-5">
                 <div class="card">
                     <div class="card-body">
-                        <center class="m-t-30"> <img src="<?= base_url() ?>/assets/mentor/assets/images/users/5.jpg" class="rounded-circle" width="150" />
-                            <h4 class="card-title m-t-10"><?= $row->name ?></h4>
-                            <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
+                        <center class="m-t-30"> <img src="<?= base_url() ?>/file/profile/<?= $pp ?>" class="rounded-circle" width="150" height="160" />
+                            <br><br>
+                            <h3 class="card-title m-t-10"><?= $row->name ?></h3>
+                            <!-- <h6 class="card-subtitle">Accounts Manager Amix corp</h6>
                             <div class="row text-center justify-content-md-center">
                                 <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i>
                                         <font class="font-medium">254</font>
@@ -35,19 +42,39 @@
                                 <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i>
                                         <font class="font-medium">54</font>
                                     </a></div>
-                            </div>
+                            </div> -->
                         </center>
                     </div>
                     <div>
                         <hr>
                     </div>
-                    <div class="card-body"> <small class="text-muted">Email address </small>
-                        <h6><?= $row->email ?></h6> <small class="text-muted p-t-30 db">Phone</small>
-                        <h6>+91 654 784 547</h6> <small class="text-muted p-t-30 db">Address</small>
-                        <h6><?= $row->address ?></h6>
-                        <button type="button" onclick="changeLocation()" class="btn btn-info btn-sm">
-                            <i class="fa fa-pencil"></i>
-                        </button>
+                    <div class="card-body"> <small class="text-muted">Level mengajar mentor </small>
+
+                        <?php
+                        $level_mentor = '';
+                        if ($row->level_mentor == '1') {
+                            $level_mentor = 'SD';
+                        } elseif ($row->level_mentor == '2') {
+                            $level_mentor = 'SD - SMP';
+                        } elseif ($row->level_mentor == '3') {
+                            $level_mentor = 'SD - SMA';
+                        } ?>
+                        <h6><?= $level_mentor ?></h6>
+                        <small class="text-muted p-t-30 db">Address</small>
+                        <h6><?= $row->address ?><button type="button" onclick="changeLocation()" class="btn btn-info btn-sm">
+                                <i class="fa fa-pencil"></i>
+                            </button> </h6>
+
+                        <small class="text-muted p-t-30 db">Status Mentor</small>
+                        <?php
+                        $status_verif = '';
+                        if ($row->status_verified == '1') {
+                            $status_verif = 'Aktif';
+                        } else {
+                            $status_verif = 'Nonaktif';
+                        }
+                        ?>
+                        <h6><?= $status_verif ?></h6>
                         <!-- <div class="map-box">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d470029.1604841957!2d72.29955005258641!3d23.019996818380896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C+Gujarat!5e0!3m2!1sen!2sin!4v1493204785508" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>
                         </div> <small class="text-muted p-t-30 db">Social Profile</small>
@@ -69,7 +96,7 @@
                         <div class="form-group">
                             <label class="col-md-12">Username</label>
                             <div class="col-md-12">
-                                <input type="text" placeholder="" value="<?= $row->username ?>" class="form-control form-control-line">
+                                <input type="text" placeholder="" value="<?= $row->username ?>" disabled class="form-control form-control-line">
                             </div>
                         </div>
                         <div class="form-group">
@@ -95,9 +122,12 @@
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-info btn-sm" onclick="showIdentity('<?= $row->username ?>')">
                                     <i class="fa fa-eye"></i> Lihat File Identitas
-                                </button><br><br><br>
+                                </button><br><br>
                                 <i>Tekan tombol pilih file dibawah untuk mengubah file identitas anda</i>
                                 <input type="file" class="form-control" id="identity_file" name="identity_file">
+                                <br>
+                                <i>Tekan tombol pilih file dibawah untuk mengubah foto profil</i>
+                                <input type="file" class="form-control" id="profile_picture" name="profile_picture">
                             </div>
                         </div>
                         <!-- <div class="form-group">

@@ -24,7 +24,7 @@
                     }
                     ?>
                     <p><?= $level_mentor; ?></p>
-                    <p><?= $row->address ?></p>
+                    <p><?= substr($row->address, 0, 60); ?>...</p>
                     <div class="social">
                         <a onclick="request('<?= $row->username ?>')"><i class="ri-send-plane-fill"></i></a>
 

@@ -28,8 +28,20 @@ class RequestMentorModel extends Model
         return $this->db->table('request_mentor')
             ->join('users', 'users.username=request_mentor.username_siswa')
             ->orderBy('id_request_mentor', 'DESC')
-            ->getWhere(['username_mentor' => $usernow])
+            ->getWhere(['username_mentor' => $usernow, 'status_request' => 2])
             ->getResultArray();
+    }
+
+    public function getRequestHistoryByMentor()
+    {
+        $usernow = session()->get('username');
+        $query = $this->db->query("
+        SELECT * FROM request_mentor
+        INNER JOIN users ON users.username = request_mentor.username_siswa
+        WHERE request_mentor.username_mentor = '$usernow' AND request_mentor.status_request != 2
+        ");
+
+        return $query->getResultArray();
     }
 
     public function getSiswaMentored()

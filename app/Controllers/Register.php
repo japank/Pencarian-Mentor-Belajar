@@ -103,7 +103,7 @@ class Register extends BaseController
         $email->send();
         $email->printDebugger(['headers']);
 
-        return redirect()->to('/login');
+        return redirect()->to(site_url('register/activatenow/' . $this->request->getVar('username')));
     }
 
     public function activate($linkHere)

@@ -37,6 +37,11 @@
                 <h3>Sign In to <strong>Mentor</strong></h3>
                 <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
               </div>
+              <?php if (!empty(session()->getFlashdata('error'))) : ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <?php echo session()->getFlashdata('error'); ?>
+                </div>
+              <?php endif; ?>
               <form action="<?= site_url('login/process'); ?>" method="post">
                 <?= csrf_field(); ?>
                 <div class="form-group first">

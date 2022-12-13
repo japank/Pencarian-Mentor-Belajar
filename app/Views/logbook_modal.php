@@ -77,6 +77,7 @@
                 if (response.sukses) {
                     $('.viewModal').html(response.sukses).show();
                     $('#modalEdit').modal('show');
+
                 }
             },
             error: function(xhr, ajaxOptions, thrownError) {

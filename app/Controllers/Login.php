@@ -36,7 +36,7 @@ class Login extends BaseController
                     return redirect()->to(site_url('register/activatenow/' . $username));
                 }
             } else {
-                session()->setFlashdata('error', 'Username & Password Salah');
+                session()->setFlashdata('error', 'Password Salah');
                 return redirect()->back();
             }
         } else {

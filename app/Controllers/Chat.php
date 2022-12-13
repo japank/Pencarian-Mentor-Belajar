@@ -15,6 +15,7 @@ class Chat extends BaseController
     {
 
 
+
         $id = session()->get('username');
         $userModel = new \App\Models\UsersModel2();
         $user = $userModel->find($id);
@@ -23,12 +24,23 @@ class Chat extends BaseController
         $allUsers = $userModel->where('username !=', $id)->findAll();
         $recentChat = $roomModel->getRecentMessage();
 
-        return view('chat', [
-            'user' => $user,
-            'username' => $id,
-            'allUsers' => $allUsers,
-            'recentChat' => $recentChat,
-        ]);
+
+        $tes = session()->get('role');
+        if ($tes == 'pendamping') {;
+            return view('mentor/chat', [
+                'user' => $user,
+                'username' => $id,
+                'allUsers' => $allUsers,
+                'recentChat' => $recentChat,
+            ]);
+        } else {
+            return view('chat', [
+                'user' => $user,
+                'username' => $id,
+                'allUsers' => $allUsers,
+                'recentChat' => $recentChat,
+            ]);
+        }
     }
 
     public function getRoomByUser()

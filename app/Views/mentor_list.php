@@ -32,7 +32,8 @@
                                 <div class="social">
                                     <!-- <a href="<?= base_url("mylogbook/details/$row->username"); ?>"><i class="ri-book-fill"></i></a>
                                  -->
-                                    <button type="button" class="btn btn-primary btn-sm " onclick="showLogbook('<?= $username_mentor ?>')"><i class="ri ri-book-fill"></i> </button></a>
+                                    <a onclick="showLogbook('<?= $username_mentor ?>')"><i class="ri ri-book-fill"></i></a>
+
                                 </div>
                             </div>
                         </div>

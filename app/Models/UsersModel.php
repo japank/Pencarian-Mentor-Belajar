@@ -10,7 +10,7 @@ class UsersModel extends Model
     protected $primaryKey = "username";
     protected $returnType = "object";
     protected $useTimestamps = true;
-    protected $allowedFields = ['username', 'password', 'name', 'email', 'address', 'latitude', 'longitude', 'kelas', 'role', 'created_at', 'updated_at', 'link', 'status'];
+    protected $allowedFields = ['username', 'password', 'name', 'email', 'address', 'latitude', 'longitude', 'kelas', 'role', 'profile_picture', 'created_at', 'updated_at', 'link', 'status'];
 
     public function getjarak()
     {
@@ -85,7 +85,22 @@ class UsersModel extends Model
     {
         $usernow = session()->get('username');
         $query = $this->db->query("
-        SELECT * FROM users WHERE username = '$usernow'
+        SELECT * FROM users 
+
+        WHERE users.username = '$usernow'
+
+        ");
+
+        return $query->getResult();
+    }
+    public function getProfileMentor()
+    {
+        $usernow = session()->get('username');
+        $query = $this->db->query("
+        SELECT * FROM users 
+        INNER JOIN mentor_detail ON mentor_detail.username = users.username
+        WHERE users.username = '$usernow'
+
         ");
 
         return $query->getResult();
@@ -110,5 +125,13 @@ class UsersModel extends Model
         ");
 
         return $query->getResultArray();
+    }
+
+    public function updateProfilePict($username, $profile_picture)
+    {
+        $this->db->query("
+        UPDATE users SET profile_picture = '$profile_picture'
+        WHERE username = '$username'
+        ");
     }
 }

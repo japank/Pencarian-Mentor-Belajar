@@ -236,6 +236,40 @@ class Mentor extends BaseController
             exit('Maaf tidak dapat diproses');
         }
     }
+    public function requestHistory()
+    {
+
+        // $requestMentor = new RequestMentorModel();
+        // $requestMentorList = $this->requestMentor->getRequestMentoringbyMentor();
+        // $usernow = session()->get('username');
+        // return view('mentor/request_mentored', [
+        //     'username' => $usernow,
+        //     'requestMentorList' => $requestMentorList,
+        // ]);
+        return view('mentor/request_history');
+    }
+
+
+    public function loadRequestHistory()
+    {
+        if ($this->request->isAJAX()) {
+
+            $usernow = session()->get('username');
+            $data = [
+                'requestMentorList' => $this->requestMentor->getRequestHistorybyMentor(),
+                'username' => $usernow
+            ];
+
+            $msg = [
+                'data' => view('mentor/request_historyajax', $data)
+            ];
+
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
 
     public function accRequestMentored()
     {

@@ -47,6 +47,7 @@ $routes->get('/mentorchecked', 'Mentor::indexcheck');
 $routes->get('/mentor', 'Mentor::index');
 $routes->get('/mentor/request', 'Mentor::indexRequestBySiswa');
 $routes->get('/mentor/requested', 'Mentor::indexRequestByMentor');
+$routes->get('/mentor/request-history', 'Mentor::requestHistory');
 $routes->get('/mentor/request/(:any)', 'Mentor::request/$1');
 $routes->post('/mentor/process/(:any)', 'Mentor::process/$1');
 $routes->get('/mentor/edit/(:num)', 'Mentor::edit/$1');

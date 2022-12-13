@@ -43,6 +43,7 @@ class Filters extends BaseConfig
                     'register/*',
                     'login/*',
                     'logout/*',
+                    'tes',
                     '/'
                 ]
             ]

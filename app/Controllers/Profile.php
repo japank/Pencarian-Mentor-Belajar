@@ -16,10 +16,11 @@ class Profile extends BaseController
     public function index()
     {
         $dataUsers = $this->users->getProfile();
+        $dataMentor = $this->users->getProfileMentor();
         $tes = session()->get('role');
         if ($tes == 'pendamping') {
             return view('mentor/profile', [
-                'dataUsers' => $dataUsers,
+                'dataMentor' => $dataMentor,
             ]);
         } elseif ($tes == 'admin') {
             return view('admin/profile', [
@@ -50,6 +51,7 @@ class Profile extends BaseController
             $dataFile = $this->request->getFile('identity_file');
             $dataFileName = $dataFile->getRandomName();
 
+
             if ($dataFile->getError() == 4) {
             } else {
                 if (is_null($dataMentor->identity_file)) {
@@ -59,6 +61,61 @@ class Profile extends BaseController
                     unlink('file/identity/' . $dataMentor->identity_file);
                     $this->mentor_detail->updateFile($username, $dataFileName);
                     $dataFile->move('file/identity', $dataFileName);
+                }
+            }
+
+            $dataUsers = $this->users->where(['username' => $username,])->first();
+            $dataProfilePict = $this->request->getFile('profile_picture');
+            $dataProfileName = $dataProfilePict->getRandomName();
+
+            if ($dataProfilePict->getError() == 4) {
+            } else {
+                if (is_null($dataUsers->profile_picture)) {
+                    $this->users->updateProfilePict($username, $dataProfileName);
+                    $dataProfilePict->move('file/profile', $dataProfileName);
+                } else {
+                    unlink('file/profile/' . $dataUsers->profile_picture);
+                    $this->users->updateProfilePict($username, $dataProfileName);
+                    $dataProfilePict->move('file/profile', $dataProfileName);
+                }
+            }
+
+            $msg = [
+                'sukses' => 'Profile berhasil diupdate'
+            ];
+
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function updateSiswa($username)
+    {
+
+        if ($this->request->isAJAX()) {
+            $savedata = [
+                'name' => $this->request->getVar('name'),
+                'email' => $this->request->getVar('email'),
+                // 'password' => $this->request->getVar('password'),
+
+            ];
+            $this->users->update($username, $savedata);
+
+            $dataUsers = $this->users->where(['username' => $username,])->first();
+            $dataProfilePict = $this->request->getFile('profile_picture');
+            $dataProfileName = $dataProfilePict->getRandomName();
+
+            if ($dataProfilePict->getError() == 4) {
+            } else {
+                if (is_null($dataUsers->profile_picture)) {
+                    $this->users->updateProfilePict($username, $dataProfileName);
+                    $dataProfilePict->move('file/profile', $dataProfileName);
+                } else {
+                    unlink('file/profile/' . $dataUsers->profile_picture);
+                    $this->users->updateProfilePict($username, $dataProfileName);
+                    $dataProfilePict->move('file/profile', $dataProfileName);
                 }
             }
 

@@ -47,11 +47,12 @@ class Register extends BaseController
                 ]
             ],
             'email' => [
-                'rules' => 'required|min_length[4]|max_length[100]',
+                'rules' => 'required|min_length[4]|max_length[100]|is_unique[users.email]',
                 'errors' => [
                     'required' => '{field} Harus diisi',
                     'min_length' => '{field} Minimal 4 Karakter',
                     'max_length' => '{field} Maksimal 100 Karakter',
+                    'is_unique' => 'Email sudah digunakan sebelumnya'
                 ]
             ],
             'kelas' => [
@@ -70,10 +71,6 @@ class Register extends BaseController
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
-        helper('text');
-        $data['u_link'] = random_string('alnum', 20);
-        $message = "Please activate the account" . anchor('register/activate/' . $data['u_link'], 'Activate Now', '');
-
 
         $users = new UsersModel();
 
@@ -84,7 +81,7 @@ class Register extends BaseController
             'email' => $this->request->getVar('email'),
             'kelas' => $this->request->getVar('kelas'),
             'role' => $this->request->getVar('role'),
-            'link' => $data['u_link'],
+
         ]);
 
         $getRole = $this->request->getVar('role');
@@ -95,43 +92,14 @@ class Register extends BaseController
             ]);
         }
 
-        $email = \Config\Services::email();
-        $email->setFrom('jevinarda@gmail.com', 'Activate the account');
-        $email->setTo($this->request->getVar('email'));
-        $email->setSubject('Activate the accounttt');
-        $email->setMessage(($message));
-        $email->send();
-        $email->printDebugger(['headers']);
-
         return redirect()->to(site_url('register/activatenow/' . $this->request->getVar('username')));
-    }
-
-    public function activate($linkHere)
-    {
-        // echo $linkHere;
-        $users = new UsersModel();
-        $checkUserLink = $users->where('link', $linkHere)->findAll();
-        // echo $checkUserLink[0]->username;
-        if (count($checkUserLink) > 0) {
-            $data['status'] = 1;
-            $activateUser = $users->update($checkUserLink[0]->username, $data);
-            if ($activateUser) {
-                return view('activated_success');
-            } else {
-                echo 'not found';
-            }
-        } else {
-            echo 'link not found';
-        }
-
-        // var_dump($checkUserLink);
     }
 
     public function activatenow($username)
     {
         helper('text');
         $data['u_link'] = random_string('alnum', 20);
-        $message = "Please activate the account" . anchor('register/activate/' . $data['u_link'], 'Activate Now', '');
+        $message = "Please activate the account by click this " . anchor('register/activate/' . $data['u_link'], 'Link', '');
 
         $users = new UsersModel();
         $dataUser = $users->where([
@@ -145,11 +113,33 @@ class Register extends BaseController
         $email = \Config\Services::email();
         $email->setFrom('jevinarda@gmail.com', 'Activate the account');
         $email->setTo($dataUser->email);
-        $email->setSubject('Activate the accounttt');
+        $email->setSubject('Mentor.com | Activate the account');
         $email->setMessage(($message));
         $email->send();
         $email->printDebugger(['headers']);
 
         return view('activate_check_email');
+    }
+
+    public function activate($linkHere)
+    {
+        // echo $linkHere;
+        $users = new UsersModel();
+        $checkUserLink = $users->where('link', $linkHere)->findAll();
+        if (count($checkUserLink) > 0) {
+            $data['status'] = 1;
+            $activateUser = $users->update($checkUserLink[0]->username, $data);
+            if ($activateUser) {
+                return view('activated_success');
+            } else {
+                echo 'not found';
+            }
+        } else {
+            return view('activated_failed', [
+                // 'username' => $usernow,
+            ]);
+        }
+
+        // var_dump($checkUserLink);
     }
 }

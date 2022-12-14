@@ -65,7 +65,7 @@
                 </div>
                 <div class="form-group last mb-4">
                   <label for="email">Email</label>
-                  <input type="text" class="form-control" id="email" name="email">
+                  <input type="email" class="form-control" id="email" name="email">
                 </div>
                 <div class="form-group last mb-4">Kelas
                   <select style="background-color: transparent; border-color:transparent; color:dimgray" class="form-select" id="kelas" name="kelas">

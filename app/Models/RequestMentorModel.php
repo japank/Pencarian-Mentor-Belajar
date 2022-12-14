@@ -49,7 +49,7 @@ class RequestMentorModel extends Model
         $usernow = session()->get('username');
         $query = $this->db->query("
         SELECT * FROM users WHERE username IN 
-        (SELECT username_siswa FROM request_mentor WHERE username_mentor = '$usernow')
+        (SELECT username_siswa FROM request_mentor WHERE username_mentor = '$usernow' AND status_request = 1)
         ");
 
         return $query->getResultArray();

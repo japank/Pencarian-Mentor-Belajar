@@ -29,6 +29,7 @@ class Login extends BaseController
                         'role' => $dataUser->role,
                         'latitude' => $dataUser->latitude,
                         'longitude' => $dataUser->longitude,
+                        'profile_picture' => $dataUser->profile_picture,
                         'logged_in' => TRUE
                     ]);
                     return redirect()->to(site_url('home'));

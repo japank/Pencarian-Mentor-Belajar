@@ -10,7 +10,7 @@
 <meta charset="<?= csrf_meta() ?>
 	<link href=" https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300" rel="stylesheet" type="text/css">
 <link href="<?= base_url(); ?>/assets/css/wa.css" rel="stylesheet">
-<link href="<?= base_url(); ?>/assets/css/chat.css" rel="stylesheet">
+<link href="<?= base_url(); ?>/assets/css/chat_mentor.css" rel="stylesheet">
 
 <link href="<?= base_url(); ?>/assets/img/favicon.png" rel="icon">
 <link href="<?= base_url(); ?>/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -68,16 +68,22 @@
         </div>
         <div id="contacts">
             <ul>
+                <?php
 
+                $pp = "";
+                if (is_null(session()->get('profile_picture'))) {
+                    $pp = "default.jpg";
+                } else {
+                    $pp = session()->get('profile_picture');;
+                } ?>
                 <?php
                 foreach ($recentChat as $u) : ?>
                     <li class="contact" user-id=<?= $u->username ?> user-name=<?= $u->name ?>>
                         <div class="wrap">
                             <span class="contact-status online"></span>
-                            <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
+                            <img src="<?= base_url() ?>/file/profile/<?= $u->profile_picture ?>" alt="" width="40" height="40" />
                             <div class="meta">
-                                <p class="name"><?= $u->name ?></p>
-                                <p class="preview">You just got LITT up, Mike.</p>
+                                <p class="name" style="font-size: x-large;"><?= $u->name ?></p>
                             </div>
                         </div>
                     </li>
@@ -91,7 +97,7 @@
     <div class="content">
         <div class="contact-profile">
 
-            <p id="recipient-name" style="margin-left: 40%;"> Please select a contact</p>
+            <p id="recipient-name" style="margin-left: 40%;font-size: x-large;"> Please select a contact</p>
 
         </div>
 
@@ -112,6 +118,7 @@
         </div>
     </div>
 </div>
+<?php $ppnotme = $u->profile_picture ?>
 <!-- <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://code.jquery.com/jquery-2.2.4.min.js'></script> -->
 <script>
     $(".messages").animate({
@@ -199,7 +206,7 @@
 
             if (targetUserId != '<?= $username ?>' && targetRoomId == roomId) {
                 var template = `<ul><li class="sent">
-					<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+					
 					<p>` + incomingMessage + `</p>
 				</li></ul>
 `;
@@ -246,7 +253,7 @@
                         var template = null;
                         if (id_user == '<?= $username ?>') {
                             template = `<ul>				<li class="replies">
-					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+					<img src="<?= base_url() ?>/file/profile/<?= $pp ?>" width="40" height="30" alt="" />
 					<p>` + message + `</p>
           
           </li></ul>
@@ -256,7 +263,7 @@
 `;
                         } else {
                             template = `<ul><li class="sent">
-					<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+					
 					<p>` + message + `</p>
 				</li></ul>
         <span class="message-time pull-left">
@@ -310,7 +317,7 @@
                 success: function(data) {
                     console.log(data);
                     var template = `<ul>				<li class="replies">
-					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+					<img src="<?= base_url() ?>/file/profile/<?= $pp ?>" width="40" height="30" alt="" />
 					<p>` + data.message + `</p>
 				</li></ul>`;
                     $('#conversation').append(template);

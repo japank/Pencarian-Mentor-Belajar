@@ -1,9 +1,16 @@
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Java Source Code</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQm7fskSlerL2C1_1ODi4-49MMQanF63Y&callback=initMap">
-    </script>
-    <script type='text/javascript' src="<?= base_url(); ?>assets/location.users.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" crossorigin=""></script>
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@^3.0.8/dist/esri-leaflet.js"></script>
+    <!-- Load Esri Leaflet Geocoder from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@3.1.3/dist/esri-leaflet-geocoder.css" crossorigin="" />
+    <script src="https://unpkg.com/esri-leaflet-geocoder@3.1.3/dist/esri-leaflet-geocoder.js" crossorigin=""></script>
     <style>
         html {
             position: relative;
@@ -57,123 +64,110 @@
         }
     </style>
 
-    <!-- Button trigger modal -->
+</head>
 
-    <!-- Modal -->
-    <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Lokasi Anda </h5><br>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <?php $usernow = session()->get('username'); ?>
+                        <form method="post" action="<?= site_url('location/update/' . $usernow) ?>">
+                            <?= csrf_field(); ?>
+                            <input type="hidden" name="lat2" id="lat2" class="form-control">
+                            <input type="hidden" name="long2" id="long2" class="form-control">
+                            <label for="address">Alamat Anda</label>
+                            <input type="text" name="address" id="address" class="form-control"> <br>
+                            <a class="btn btn-primary btn-block" onclick="getlokasi()">Dapatkan lokasi</a>
+                            <p id="lokasi"></p>
+                            <!-- peta akan ditampilkan di bawah ini dengan ukuran lebar 600px dan tinggi 400px -->
+                            <div id="mapid" style="border-radius: 8px; width: 100%; height: 400px"></div>
 
-
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <?php $usernow = session()->get('username'); ?>
-                                    <form method="post" action="<?= site_url('location/update/' . $usernow) ?>">
-                                        <?= csrf_field(); ?>
-                                        <input type="hidden" name="lat2" id="lat2" class="form-control">
-                                        <input type="hidden" name="long2" id="long2" class="form-control">
-                                        <label for="address">Alamat Anda</label>
-                                        <input type="text" name="address" id="address" class="form-control"> <br>
-                                        <div id="map"></div>
-                                        <p class="card-text" style="font-size: 0px;" id="output"></p>
-                                        <button type="submit" class="w-100 btn btn-lg btn-success">Save</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                            <p class="card-text" style="font-size: 0px;" id="output"></p>
+                            <button type="submit" class="w-100 btn btn-lg btn-success">Save</button>
+                        </form>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function() {
+
+    });
+
+
+    var lokasi = document.getElementById("lokasi");
+
+    function getlokasi() {
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        }
+    }
+
+    function showPosition(position) {
+
+        const apiKey = "AAPK40a9b84e145248348faf7141af6f0a8cwEBJEVkfL6c19d8pfqMcvaDZ3TFGulklEN0ZJw2cuTUCG6cBH3MHx6weyhHZRpH4";
+        var mymap = L.map("mapid").setView(
+            [position.coords.latitude, position.coords.longitude],
+            20
+        );
+        var marker;
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mymap);
+
+        marker = L.marker([position.coords.latitude, position.coords.longitude])
+            .addTo(mymap)
+            .bindPopup("<b>Ini adalah lokasi mu</b>").openPopup();
+
+        document.getElementById("lat2").value = position.coords.latitude;
+        document.getElementById("long2").value = position.coords.longitude;
+
+        $.ajax({
+            url: "https://nominatim.openstreetmap.org/reverse",
+            data: "lat=" + position.coords.latitude +
+                "&lon=" + position.coords.longitude +
+                "&format=json",
+            dataType: "JSON",
+            success: function(data) {
+                console.log(data);
+                document.getElementById("address").value = data.display_name;
+            }
+        })
+
+        mymap.on("click", function(e) {
+            L.esri.Geocoding
+                .reverseGeocode({
+                    apikey: apiKey
+                })
+                .latlng(e.latlng)
+                .run(function(error, result) {
+                    if (error) {
+                        return;
+                    }
+
+                    marker.setLatLng(e.latlng).bindPopup(result.address.Match_addr).openPopup();
+
+                    document.getElementById("lat2").value = e.latlng.lat;
+                    document.getElementById("long2").value = e.latlng.lng;
+                    document.getElementById("address").value = result.address.Match_addr;
+
+                });
+
 
         });
 
-        var map, infoWindow, geocoder, marker, accuracyStatus;
-        var output = document.getElementById("output");
 
-        function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 7,
-                center: {
-                    lat: 0.3439242,
-                    lng: 102.3072246
-                }
-            });
+    }
+</script>
 
-            infowindow = new google.maps.InfoWindow();
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    if (position.coords.accuracy < 100) {
-                        accuracyStatus = "Akurasi : " + position.coords.accuracy.toFixed(2) + "Bagus";
-                        document.getElementById("lat2").value = position.coords.latitude;
-                        document.getElementById("long2").value = position.coords.longitude;
-                    } else {
-                        accuracyStatus = "Akurasi : " + position.coords.accuracy.toFixed(2) + "Lemah";
-                    }
-                    var pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    geocoder = new google.maps.Geocoder();
-                    geocoder.geocode({
-                        'latLng': pos
-                    }, function(results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            map.setZoom(18);
-                            map.setCenter(pos);
-                            marker = new google.maps.Marker({
-                                position: pos,
-                                map: map,
-                                animation: google.maps.Animation.BOUNCE,
-                            });
-
-                            var infowindowText = "<div class='text-center'><strong>Posisi Anda</strong><br>" + results[0].formatted_address + '</strong></div>';
-                            infowindow.setContent(infowindowText);
-                            infowindow.open(map, marker);
-                            marker.addListener('click', function() {
-                                infowindow.open(map, marker);
-                            });
-                            output.innerHTML = results[0].formatted_address + "<br>Latitude : <span id='latitude'>" + pos.lat + "</span>Longitude : <span id='longitude'>" + pos.lng + "</span>";
-                            document.getElementById("address").value = results[0].formatted_address;
-                            // var infowindowText = "<div class='text-center'><strong>Posisi Anda</strong><br>" + results[0].formatted_address + "<br>Lat : " + pos.lat.toFixed(5) + " |  Long : " + pos.lng.toFixed(5) + "<br>" + accuracyStatus + "" + '</strong></div>';
-                            // infowindow.setContent(infowindowText);
-                            // infowindow.open(map, marker);
-                            // marker.addListener('click', function() {
-                            //     infowindow.open(map, marker);
-                            // });
-                            // output.innerHTML = results[0].formatted_address + "<br>Latitude : <span id='latitude'>" + pos.lat + "</span>Longitude : <span id='longitude'>" + pos.lng + "</span>";
-                            // document.getElementById("address").value = results[0].formatted_address;
-
-                        }
-                    });
-                }, function() {
-                    handleLocationError(true, infoWindow, map.getCenter());
-                });
-            } else {
-                handleLocationError(false, infoWindow, map.getCenter());
-            }
-        }
-
-        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-            infoWindow.setPosition(pos);
-            infoWindow.setContent(browserHasGeolocation ?
-                '<span class="alert alert-danger">Error: The Geolocation service failed.</span>' :
-                '<span class="alert alert-danger">Error: Your browser doesnt support geolocation.</span>');
-            infoWindow.open(map);
-        }
-    </script>
+</html>

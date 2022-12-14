@@ -32,7 +32,7 @@
                 <div class="card">
                     <div class="card-body">
                         <center class="m-t-30"> <img src="<?= base_url() ?>/file/profile/<?= $pp ?>" class="rounded-circle" width="150" height="160" />
-                            <br><br>
+
                             <h3 class="card-title m-t-10"><?= $row->name ?></h3>
                             <!-- <h6 class="card-subtitle">Accounts Manager Amix corp</h6>
                             <div class="row text-center justify-content-md-center">
@@ -45,14 +45,14 @@
                             </div> -->
                         </center>
                     </div>
-                    <div>
-                        <hr>
-                    </div>
+
                     <div class="card-body"> <small class="text-muted">Level mengajar mentor </small>
 
                         <?php
                         $level_mentor = '';
-                        if ($row->level_mentor == '1') {
+                        if ($row->level_mentor == '0') {
+                            $level_mentor = 'Belum melakukan Ujian';
+                        } elseif ($row->level_mentor == '1') {
                             $level_mentor = 'SD';
                         } elseif ($row->level_mentor == '2') {
                             $level_mentor = 'SD - SMP';
@@ -60,7 +60,7 @@
                             $level_mentor = 'SD - SMA';
                         } ?>
                         <h6><?= $level_mentor ?></h6>
-                        <small class="text-muted p-t-30 db">Address</small>
+                        <small class="text-muted p-t-30 db">Alamat</small>
                         <h6><?= $row->address ?><button type="button" onclick="changeLocation()" class="btn btn-info btn-sm">
                                 <i class="fa fa-pencil"></i>
                             </button> </h6>
@@ -93,28 +93,34 @@
                         <?= form_open_multipart('profile/update/' . $row->username, ['class' => 'formProfile']) ?>
                         <?= csrf_field(); ?>
                         <!-- <form class="form-horizontal form-material mx-2"> -->
-                        <div class="form-group">
-                            <label class="col-md-12">Username</label>
-                            <div class="col-md-12">
-                                <input type="text" placeholder="" value="<?= $row->username ?>" disabled class="form-control form-control-line">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-12">Username</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="" value="<?= $row->username ?>" disabled class="form-control form-control-line">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Full Name</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="" id="name" name="name" value="<?= $row->name ?>" class="form-control form-control-line">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-12">Full Name</label>
-                            <div class="col-md-12">
-                                <input type="text" placeholder="" id="name" name="name" value="<?= $row->name ?>" class="form-control form-control-line">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="example-email" class="col-md-12">Email</label>
-                            <div class="col-md-12">
-                                <input type="email" placeholder="" id="email" name="email" value="<?= $row->email ?>" class="form-control form-control-line" name="example-email" id="example-email">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-12">Phone No</label>
-                            <div class="col-md-12">
-                                <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="example-email" class="col-md-12">Email</label>
+                                    <div class="col-md-12">
+                                        <input type="email" placeholder="" id="email" name="email" value="<?= $row->email ?>" class="form-control form-control-line" name="example-email" id="example-email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Phone No</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -123,10 +129,10 @@
                                 <button type="button" class="btn btn-info btn-sm" onclick="showIdentity('<?= $row->username ?>')">
                                     <i class="fa fa-eye"></i> Lihat File Identitas
                                 </button><br><br>
-                                <i>Tekan tombol pilih file dibawah untuk mengubah file identitas anda</i>
+                                <i>Tekan tombol pilih file dibawah untuk mengubah file identitas anda (opsional)</i>
                                 <input type="file" class="form-control" id="identity_file" name="identity_file">
                                 <br>
-                                <i>Tekan tombol pilih file dibawah untuk mengubah foto profil</i>
+                                <i>Tekan tombol pilih file dibawah untuk mengubah foto profil (opsional)</i>
                                 <input type="file" class="form-control" id="profile_picture" name="profile_picture">
                             </div>
                         </div>

@@ -1,10 +1,9 @@
 <table id="dataSiswa" class="table table-bordered">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Email</th>
-            <th>Kelas</th>
+            <th>No</th>
+            <th>Foto siswa</th>
+            <th>Detail Siswa</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -14,12 +13,25 @@
         <?php
         $no = 1;
         foreach ($listsiswa as $row) {
-            $username_siswa = $row['username']; ?>
+            $username_siswa = $row['username'];
+            $pp = "";
+            if (is_null($row['profile_picture'])) {
+                $pp = "default.jpg";
+            } else {
+                $pp = $row['profile_picture'];
+            } ?>
             <tr>
-                <td><?= $row['name'] ?></td>
-                <td><?= $row['address'] ?></td>
-                <td><?= $row['email'] ?></td>
-                <td><?= $row['kelas'] ?></td>
+                <td><?= $no++ ?></td>
+                <td>
+
+                    <img src="<?= base_url() ?>/file/profile/<?= $pp ?>" class="rounded-circle" width="80" height="80" />
+
+                </td>
+                <td>
+                    <b><?= $row['name']; ?></b><br>
+                    Kelas : <?= $row['kelas'] ?><br>
+                    <i><?= $row['address']; ?></i>
+                </td>
                 <td>
                     <a href="<?= base_url("logbook/details/$username_siswa"); ?>"><button type="button" class="btn btn-info btn-sm">
                             <i class="fa fa-address-book"></i>

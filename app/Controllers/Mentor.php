@@ -223,7 +223,8 @@ class Mentor extends BaseController
             $usernow = session()->get('username');
             $data = [
                 'requestMentorList' => $this->requestMentor->getRequestMentoringbyMentor(),
-                'username' => $usernow
+                'username' => $usernow,
+                'jarak' => $this->users->getjarak(),
             ];
 
             $msg = [
@@ -257,7 +258,8 @@ class Mentor extends BaseController
             $usernow = session()->get('username');
             $data = [
                 'requestMentorList' => $this->requestMentor->getRequestHistorybyMentor(),
-                'username' => $usernow
+                'username' => $usernow,
+                'jarak' => $this->users->getjarak(),
             ];
 
             $msg = [

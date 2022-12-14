@@ -2,10 +2,10 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Siswa</th>
+                                        <th>Foto siswa</th>
+                                        <th>Detail Siswa</th>
                                         <th>Tanggal Pertemuan</th>
                                         <th>Topik</th>
-                                        <th>Deskripsi Topik</th>
                                         <th>Status Permintaan</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -14,10 +14,27 @@
                                     <?php
                                     $no = 1;
                                     foreach ($requestMentorList as $row) {
-                                    ?>
+                                        foreach ($jarak as $jrk)
+                                            $pp = "";
+                                        if (is_null($row['profile_picture'])) {
+                                            $pp = "default.jpg";
+                                        } else {
+                                            $pp = $row['profile_picture'];
+                                        } ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $row['username_siswa']; ?></td>
+                                            <td>
+
+                                                <img src="<?= base_url() ?>/file/profile/<?= $pp ?>" class="rounded-circle" width="80" height="80" />
+
+                                            </td>
+                                            <td>
+                                                <b><?= $row['username_siswa']; ?></b><br>
+                                                <span><?= number_format((float)$jrk->jarak_km, 2, '.', ''); ?> km</span>
+                                                <br>
+                                                <i><?= $row['address']; ?></i>
+
+                                            </td>
                                             <td><?php
                                                 $dateExplode = explode(",", $row['date_started']);
                                                 foreach ($dateExplode as $dateExplode2) {
@@ -27,8 +44,7 @@
                                             </td>
 
                                             <!-- <td><?= strftime("%a %d %b %Y", strtotime($row['date_started'])) ?></td> -->
-                                            <td><?= $row['topic']; ?></td>
-                                            <td><?= $row['description']; ?></td>
+                                            <td><?= $row['topic']; ?>:<br><?= $row['description']; ?></td>
                                             <td><?php
                                                 if ($row['status_request'] == '2') {
                                                     echo '<span class="btn btn-warning">Menunggu Verifikasi</span>';

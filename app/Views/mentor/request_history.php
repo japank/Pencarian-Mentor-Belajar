@@ -21,8 +21,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Permintaan Mentoring</h4>
-                    <h6 class="card-subtitle">berikut merupakan daftar permintaan mentoring </h6>
+                    <h4 class="card-title">Riwayat Permintaan Mentoring</h4>
+                    <h6 class="card-subtitle">berikut merupakan riwayat permintaan mentoring </h6>
                 </div>
                 <div class="table-responsive viewdata">
 

@@ -4,7 +4,6 @@
             <th>No</th>
             <th>Tanggal Pertemuan</th>
             <th>Topik</th>
-            <th>Deskripsi Topik</th>
             <th>Deskripsi Pertemuan</th>
             <th>Foto Kegiatan</th>
             <th>Aksi</th>
@@ -20,9 +19,8 @@
             <tr>
                 <td><?= $no++; ?></td>
                 <td><?= strftime("%a %d %b %Y", strtotime($row->date_mentoring)) ?></td>
-                <td><?= $row->topic; ?></td>
-                <td><?= $row->topic_description; ?></td>
-                <td><?= $row->description; ?>
+                <td><?= $row->topic; ?> : <br><?= $row->topic_description; ?></td>
+                <td><?= $row->description; ?></td>
                 <td><button type="button" class="btn btn-info btn-sm" onclick="showPhoto('<?= $row->id_logbook ?>')">
                         <i class="fa fa-eye"></i>
                     </button></td>

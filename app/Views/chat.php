@@ -3,16 +3,31 @@
 <?= $this->section('contact') ?>
 <div id="contacts">
   <ul>
+    <?php
+    $pp = "";
+    if (is_null(session()->get('profile_picture'))) {
+      $pp = "default.jpg";
+    } else {
+      $pp = session()->get('profile_picture');;
+    } ?>
+
 
     <?php
     foreach ($recentChat as $u) : ?>
+      <?php
+      $ppnotme = "";
+      if (is_null($u->profile_picture)) {
+        $ppnotme = "default.jpg";
+      } else {
+        $ppnotme = $u->profile_picture;;
+      } ?>
       <li class="contact" user-id=<?= $u->username ?> user-name=<?= $u->name ?>>
         <div class="wrap">
           <span class="contact-status online"></span>
-          <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
-          <div class="meta">
-            <p class="name"><?= $u->name ?></p>
-            <p class="preview">You just got LITT up, Mike.</p>
+          <img src="<?= base_url() ?>/file/profile/<?= $ppnotme ?>" width="40" height="40" alt="" />
+          <div class=" meta">
+            <p class="name" style="font-size: x-large;"><?= $u->name ?></p>
+
           </div>
         </div>
       </li>
@@ -67,7 +82,7 @@
 
       if (targetUserId != '<?= $username ?>' && targetRoomId == roomId) {
         var template = `<ul><li class="sent">
-					<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+					
 					<p>` + incomingMessage + `</p>
 				</li></ul>
 `;
@@ -114,7 +129,7 @@
             var template = null;
             if (id_user == '<?= $username ?>') {
               template = `<ul>				<li class="replies">
-					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+					<img src="<?= base_url() ?>/file/profile/<?= $pp ?>" width="40" height="30" alt="" />
 					<p>` + message + `</p>
           
           </li></ul>
@@ -124,7 +139,7 @@
 `;
             } else {
               template = `<ul><li class="sent">
-					<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+					
 					<p>` + message + `</p>
 				</li></ul>
         <span class="message-time pull-left">
@@ -178,7 +193,7 @@
         success: function(data) {
           console.log(data);
           var template = `<ul>				<li class="replies">
-					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+					<img src="<?= base_url() ?>/file/profile/<?= $pp ?>" width="40" height="30" alt="" />
 					<p>` + data.message + `</p>
 				</li></ul>`;
           $('#conversation').append(template);

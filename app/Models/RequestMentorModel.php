@@ -86,4 +86,35 @@ class RequestMentorModel extends Model
 
         return $query->getResultArray();
     }
+
+    public function getTotalRequest()
+    {
+        $usernow = session()->get('username');
+        $query = $this->db->query("
+        SELECT COUNT(username_siswa) FROM request_mentor WHERE username_mentor = '$usernow' AND status_request = 2
+        ");
+
+
+        return $query->getRow();
+    }
+    public function getTotalRequestDecline()
+    {
+        $usernow = session()->get('username');
+        $query = $this->db->query("
+        SELECT COUNT(username_siswa) FROM request_mentor WHERE username_mentor = '$usernow' AND status_request = 0
+        ");
+
+
+        return $query->getRow();
+    }
+    public function getTotalStudentMentored()
+    {
+        $usernow = session()->get('username');
+        $query = $this->db->query("
+        SELECT COUNT(username_siswa) FROM request_mentor WHERE username_mentor = '$usernow' AND status_request = 1
+        ");
+
+
+        return $query->getRow();
+    }
 }

@@ -69,9 +69,9 @@
                         <?php
                         $status_verif = '';
                         if ($row->status_verified == '1') {
-                            $status_verif = 'Aktif';
+                            $status_verif = 'Aktif <span class="badge bg-success"> <i class="fa fa-check"></i></span>';
                         } else {
-                            $status_verif = 'Nonaktif';
+                            $status_verif = 'Nonaktif <span class="badge bg-danger"> <i class="fa fa-times"></i></span>';
                         }
                         ?>
                         <h6><?= $status_verif ?></h6>

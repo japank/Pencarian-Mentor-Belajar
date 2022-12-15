@@ -97,18 +97,26 @@
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
+                        <?php
+
+                        $pp = "";
+                        if (is_null(session()->get('profile_picture'))) {
+                            $pp = "default.jpg";
+                        } else {
+                            $pp = session()->get('profile_picture');;
+                        } ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="<?= base_url(); ?>/assets/mentor/assets/images/users/profile.png" alt="user" class="rounded-circle" width="31">
+                                <img src="<?= base_url() ?>/file/profile/<?= $pp ?>" alt="user" class="rounded-circle" width="40" height="40">
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
+                            <!-- <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="<?= base_url(); ?>/logout"><i class="ti-user m-r-5 m-l-5"></i>
                                     Logout</a>
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i>
                                     My Balance</a>
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i>
                                     Inbox</a>
-                            </ul>
+                            </ul> -->
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -130,14 +138,16 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/mentor/requested" aria-expanded="false"><i class="mdi mdi-account-network"></i><span class="hide-menu">Request Mentoring</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/profile" aria-expanded="false"><i class="mdi mdi-account-network"></i><span class="hide-menu">Profile</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/logbook" aria-expanded="false"><i class="mdi mdi-border-all"></i><span class="hide-menu">Logbook Siswa</span></a></li>
-                        <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/exam/list" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">add Exam</span></a></li> -->
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/exam/result" aria-expanded="false"><i class="mdi mdi-file"></i><span class="hide-menu">RESULT</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/exam/index" aria-expanded="false"><i class="mdi mdi-alert-outline"></i><span class="hide-menu">TEST fix</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/profile" aria-expanded="false"><i class="mdi mdi-face-profile"></i><span class="hide-menu">Profile</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/chat" aria-expanded="false"><i class="mdi mdi-message"></i><span class="hide-menu">Chats</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/mentor/requested" aria-expanded="false"><i class="mdi mdi-account-switch"></i><span class="hide-menu">Permintaan Mentoring</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/mentor/request-history" aria-expanded="false"><i class="mdi mdi-history"></i><span class="hide-menu">Riwayat Permintaan</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/logbook" aria-expanded="false"><i class="mdi mdi-book-multiple"></i><span class="hide-menu">Logbook Siswa</span></a></li>
+                        <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/exam/list" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Add Exam</span></a></li> -->
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/exam/index" aria-expanded="false"><i class="mdi mdi-grease-pencil"></i><span class="hide-menu">Tes</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/exam/result" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Hasil Tes</span></a></li>
                         <li class="text-center p-40 upgrade-btn">
-                            <a href="https://www.wrappixel.com/templates/flexy-bootstrap-admin-template/" class="btn d-block w-100 btn-danger text-white" target="_blank">Upgrade to Pro</a>
+                            <a href="<?= base_url(); ?>/logout" class="btn d-block w-100 btn-danger text-white">Logout</a>
                         </li>
                     </ul>
 
@@ -170,9 +180,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center">
-                All Rights Reserved by Flexy Admin. Designed and Developed by <a href="https://www.wrappixel.com">WrapPixel</a>.
-            </footer>
+
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->

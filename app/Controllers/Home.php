@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\RequestMentorModel;
 use App\Models\UsersModel;
 
 class Home extends BaseController
@@ -9,12 +10,18 @@ class Home extends BaseController
     public function index()
     {
         $this->users = new UsersModel();
-        // $usernow = session()->get('username');
-        // $data['users'] = $users->getjarak();
+        $this->request_mentor = new RequestMentorModel();
+
+        $dataMentor = $this->users->getProfileMentor();
+
         $tes = session()->get('role');
         if ($tes == 'pendamping') {
-            $dataMentor = $this->users->getProfileMentor();
-            return view('mentor/profile', [
+
+
+            return view('mentor/home', [
+                'total_request' => $this->request_mentor->getTotalRequest(),
+                'total_student_mentored' => $this->request_mentor->getTotalStudentMentored(),
+                'total_request_decline' => $this->request_mentor->getTotalRequestDecline(),
                 'dataMentor' => $dataMentor,
             ]);
         } elseif ($tes == 'admin') {

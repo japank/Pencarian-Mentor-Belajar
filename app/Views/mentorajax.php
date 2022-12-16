@@ -1,43 +1,48 @@
-<div class="row">
-    <?php
-    $no = 1;
+<?php
+$no = 1;
 
-    $usernow = session()->get('username');
-    foreach ($mentor as $row) {
-    ?>
-        <div class="col-lg-6">
-            <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
-                <div class="pic"><img src="<?= base_url(); ?>/assets/img/trainers/trainer-1.jpg" class="img-fluid" alt=""></div>
-                <div class="member-info">
-                    <h4><?= $row->name; ?></h4>
-                    <!-- <span><?= number_format((float)$row->jarak_km, 2, '.', ''); ?> km</span> -->
-                    <span><?= number_format((float)$row->jarak_km * 1000, 2, '.', ''); ?> m</span>
+$usernow = session()->get('username');
+foreach ($mentor as $row) {
+    $pp = "";
+    if (is_null($row->profile_picture)) {
+        $pp = "default.jpg";
+    } else {
+        $pp = $row->profile_picture;
+    }
+?>
+    <div class="col-lg-6 mt-4">
+        <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
+            <div class="pic"><img src="<?= base_url() ?>/file/profile/<?= $pp ?>" class="img-fluid" alt="" style="width: 100%; height:150px"></div>
+            <div class="member-info">
+                <h4><?= $row->name; ?></h4>
+                <!-- <span><?= number_format((float)$row->jarak_km, 2, '.', ''); ?> km</span> -->
+                <span><?= number_format((float)$row->jarak_km * 1000, 2, '.', ''); ?> m</span>
 
-                    <?php
-                    $level_mentor = '';
-                    if ($row->level_mentor == '1') {
-                        $level_mentor = 'SD';
-                    } elseif ($row->level_mentor == '2') {
-                        $level_mentor = 'SD - SMP';
-                    } elseif ($row->level_mentor == '3') {
-                        $level_mentor = 'SD - SMA';
-                    }
-                    ?>
-                    <p><?= $level_mentor; ?></p>
-                    <p><?= substr($row->address, 0, 60); ?>...</p>
-                    <div class="social">
-                        <a onclick="request('<?= $row->username ?>')"><i class="ri-send-plane-fill"></i></a>
+                <?php
+                $level_mentor = '';
+                if ($row->level_mentor == '1') {
+                    $level_mentor = 'SD';
+                } elseif ($row->level_mentor == '2') {
+                    $level_mentor = 'SD - SMP';
+                } elseif ($row->level_mentor == '3') {
+                    $level_mentor = 'SD - SMA';
+                }
+                ?>
+                <p><?= $level_mentor; ?></p>
+                <p><?= substr($row->address, 0, 60); ?>...</p>
+                <div class="social">
+                    <a onclick="request('<?= $row->username ?>')"><i class="ri-send-plane-fill"></i></a>
 
-                        <a><i class="ri-message-fill contact" user-id='<?= $row->username ?>' user-name='<?= $row->name ?>'></i></a>
-                    </div>
+                    <a><i class="ri-message-fill contact" user-id='<?= $row->username ?>' user-name='<?= $row->name ?>'></i></a>
                 </div>
             </div>
         </div>
-    <?php
-    }
-    ?>
+    </div>
+<?php
+}
+?>
 
-</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
     $('document').ready(function() {

@@ -2,10 +2,10 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Mentor</th>
+                                        <th>Foto</th>
+                                        <th>Detail Mentor</th>
                                         <th>Tanggal Pertemuan</th>
                                         <th>Topik</th>
-                                        <th>Deskripsi Topik</th>
                                         <th>Status Permintaan</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -14,10 +14,28 @@
                                     <?php
                                     $no = 1;
                                     foreach ($requestMentorList as $row) {
+                                        foreach ($jarak as $jrk)
+                                            $pp = "";
+                                        if (is_null($row['profile_picture'])) {
+                                            $pp = "default.jpg";
+                                        } else {
+                                            $pp = $row['profile_picture'];
+                                        }
                                     ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $row['username_mentor']; ?></td>
+                                            <td>
+
+                                                <img src="<?= base_url() ?>/file/profile/<?= $pp ?>" class="rounded-circle" width="80" height="80" />
+
+                                            </td>
+                                            <td>
+                                                <b><?= $row['username_mentor']; ?></b><br>
+                                                <span><?= number_format((float)$jrk->jarak_km, 2, '.', ''); ?> km</span>
+                                                <br>
+                                                <i><?= $row['address']; ?></i>
+
+                                            </td>
 
                                             <td><?php
                                                 $dateExplode = explode(",", $row['date_started']);
@@ -27,15 +45,14 @@
                                                 ?>
                                             </td>
 
-                                            <td><?= $row['topic']; ?></td>
-                                            <td><?= $row['description']; ?></td>
+                                            <td><?= $row['topic']; ?>:<br><?= $row['description']; ?></td>
                                             <td><?php
                                                 if ($row['status_request'] == '2') {
-                                                    echo 'Menunggu Verifikasi';
+                                                    echo '<span class="badge bg-warning">Menunggu Verifikasi</span>';
                                                 } elseif ($row['status_request'] == '1') {
-                                                    echo 'Diterima';
+                                                    echo '<span class="badge bg-success">Diterima</span>';
                                                 } else {
-                                                    echo 'Ditolak';
+                                                    echo '<span class="badge bg-danger">Ditolak</span>';
                                                 }
                                                 ?>
                                             <td>

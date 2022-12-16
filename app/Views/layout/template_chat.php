@@ -87,8 +87,8 @@ Website: http://emilcarlsson.se/
 			<nav id="navbar" class="navbar order-last order-lg-0">
 				<ul>
 					<li><a href="<?= base_url(); ?>/">Home</a></li>
-					<li><a class="active" href="<?= base_url(); ?>/mentorchecked">Mentor</a></li>
-					<li><a href="<?= base_url(); ?>/chat">Chat</a></li>
+					<li><a href="<?= base_url(); ?>/mentorchecked">Mentor</a></li>
+					<li><a class="active" href="<?= base_url(); ?>/chat">Chat</a></li>
 					<!-- <li><a href="<?= base_url(); ?>/events.html">Events</a></li>
         <li><a href="<?= base_url(); ?>/pricing.html">Pricing</a></li> 
 -->

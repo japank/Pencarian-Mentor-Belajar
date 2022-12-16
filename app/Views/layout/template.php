@@ -56,34 +56,16 @@
 
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
-                    <li><a href="<?= base_url(); ?>/">Home</a></li>
+                    <li><a href="<?= base_url(); ?>/">Dashboard</a></li>
                     <li><a class="" href="<?= base_url(); ?>/mentorchecked">Mentor</a></li>
                     <li><a href="<?= base_url(); ?>/chat">Chat</a></li>
                     <!-- <li><a href="<?= base_url(); ?>/events.html">Events</a></li>
         <li><a href="<?= base_url(); ?>/pricing.html">Pricing</a></li> 
 -->
-                    <?php
-                    $tes = session()->get('role');
-                    if ($tes == 'pendamping') {
-                    ?>
-                        <li class="dropdown"><a href="<?= base_url(); ?>/#"><span>Logbook</span> <i class="bi bi-chevron-down"></i></a>
-                            <ul>
-                                <li><a href="<?= base_url(); ?>/mylogbook">Logbook Saya</a></li>
-                                <li><a href="<?= base_url(); ?>/logbook">Logbook Siswa</a></li>
-                            </ul>
-                        </li>
 
-                        <li class="dropdown"><a href="<?= base_url(); ?>/#"><span>Request</span> <i class="bi bi-chevron-down"></i></a>
-                            <ul>
-                                <li><a href="<?= base_url(); ?>/mentor/request">Request Mentoring</a></li>
-                                <li><a href="<?= base_url(); ?>/mentor/requested">Request Jadi Mentor</a></li>
-                            </ul>
-                        </li>
-                    <?php } else { ?>
-                        <li><a href="<?= base_url(); ?>/mentor/request">Request</a></li>
-                        <li><a href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
-                    <?php }
-                    ?>
+                    <li><a href="<?= base_url(); ?>/mentor/request">Request</a></li>
+                    <li><a href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
+
                     <li class="dropdown"><a href="<?= base_url(); ?>/#"><span><?= session()->get('username') ?></span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                             <li><a href="<?= base_url(); ?>/profile">Profile</a></li>
@@ -163,7 +145,7 @@
                     <!-- You can delete the links only if you purchased the pro version. -->
                     <!-- Licensing information: https://bootstrapmade.com/license/ -->
                     <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/ -->
-                    Designed by <a href="<?= base_url(); ?>/https://bootstrapmade.com/">BootstrapMade</a>
+                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
                 </div>
             </div>
             <div class="social-links text-center text-md-right pt-3 pt-md-0">

@@ -86,7 +86,6 @@ class UsersModel extends Model
         $usernow = session()->get('username');
         $query = $this->db->query("
         SELECT * FROM users 
-
         WHERE users.username = '$usernow'
 
         ");

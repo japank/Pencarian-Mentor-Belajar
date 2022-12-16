@@ -1,7 +1,36 @@
 <?= $this->extend('layout/template') ?>
 
 <?= $this->section('content') ?>
+<header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
 
+        <h1 class="logo me-auto"><a href="<?= base_url(); ?>/index.html">Mentor</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="<?= base_url(); ?>/index.html" class="logo me-auto"><img src="<?= base_url(); ?>/assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a href="<?= base_url(); ?>/">Dashboard</a></li>
+                <li><a class="active" href="<?= base_url(); ?>/mentorchecked">Mentor</a></li>
+                <li><a href="<?= base_url(); ?>/chat">Chat</a></li>
+
+                <li><a class="" href="<?= base_url(); ?>/mentor/request">Request</a></li>
+                <li><a class="" href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
+
+                <li class="dropdown"><a href="<?= base_url(); ?>/profile"><span><?= session()->get('username') ?></span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        <li><a href="<?= base_url(); ?>/profile">Profile</a></li>
+                        <li><a href="<?= base_url(); ?>/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+
+    </div>
+</header><!-- End Header -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet" />
 
@@ -73,11 +102,11 @@
         }
     </style>
     <section id="team" class="team section-bg">
-        <div class="container viewdata" data-aos="fade-up">
+        <div class="container" data-aos="fade-up">
+            <div class="row  viewdata">
 
 
-
-
+            </div>
         </div>
     </section><!-- End Team Section -->
 </main><!-- End #main -->

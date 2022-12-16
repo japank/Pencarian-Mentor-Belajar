@@ -47,11 +47,11 @@
                                             <td><?= $row['topic']; ?>:<br><?= $row['description']; ?></td>
                                             <td><?php
                                                 if ($row['status_request'] == '2') {
-                                                    echo '<span class="btn btn-warning">Menunggu Verifikasi</span>';
+                                                    echo '<span class="badge bg-warning">Menunggu Verifikasi</span>';
                                                 } elseif ($row['status_request'] == '1') {
-                                                    echo '<span style="color: white;" class="btn btn-success">Diterima</span>';
+                                                    echo '<span class="badge bg-success">Diterima</span>';
                                                 } else {
-                                                    echo '<span style="color: white;" class="btn btn-danger">Ditolak</span>';
+                                                    echo '<span class="badge bg-danger">Ditolak</span>';
                                                 }
                                                 ?>
                                             <td>

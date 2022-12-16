@@ -1,6 +1,36 @@
 <?= $this->extend('layout/template') ?>
 
 <?= $this->section('content') ?>
+<header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+        <h1 class="logo me-auto"><a href="<?= base_url(); ?>/index.html">Mentor</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="<?= base_url(); ?>/index.html" class="logo me-auto"><img src="<?= base_url(); ?>/assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a href="<?= base_url(); ?>/">Dashboard</a></li>
+                <li><a href="<?= base_url(); ?>/mentorchecked">Mentor</a></li>
+                <li><a href="<?= base_url(); ?>/chat">Chat</a></li>
+
+                <li><a class="" href="<?= base_url(); ?>/mentor/request">Request</a></li>
+                <li><a class="" href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
+
+                <li class="dropdown active"><a href="<?= base_url(); ?>/#"><span><?= session()->get('username') ?></span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        <li><a href="<?= base_url(); ?>/profile">Profile</a></li>
+                        <li><a href="<?= base_url(); ?>/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+
+    </div>
+</header><!-- End Header -->
 <div class="breadcrumbs" style="margin-top: 3%;">
     <div class="container">
         <h4 style="text-align:left">Tentang kamu</h4>

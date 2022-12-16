@@ -107,7 +107,8 @@ class Mentor extends BaseController
             $usernow = session()->get('username');
             $data = [
                 'requestMentorList' => $this->requestMentor->getRequestMentoring(),
-                'username' => $usernow
+                'username' => $usernow,
+                'jarak' => $this->users->getjarak(),
             ];
 
             $msg = [

@@ -82,7 +82,7 @@ if ($dt->level_mentor == '0') {
             <!-- Content Row -->
             <div class="row">
 
-                <div class="col-xl-4 col-md-6 mb-4">
+                <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card bg-warning text-white shadow">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -90,7 +90,7 @@ if ($dt->level_mentor == '0') {
                                     <i class="fas fa-hands-helping fa-2x text-gray-300"></i>
                                 </div>
                                 <div class="col mr-2" style="margin-left: 5%;">
-                                    <b>Permintaan Mentoring</b>
+                                    <b>Permintaan</b><br><b> Mentoring</b>
                                 </div>
                                 <div class="col-auto">
                                     <?php foreach ($total_request as $row) ?>
@@ -102,7 +102,7 @@ if ($dt->level_mentor == '0') {
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-6 mb-4">
+                <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card bg-danger text-white shadow">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -110,7 +110,7 @@ if ($dt->level_mentor == '0') {
                                     <i class="fas fa-users-slash fa-2x text-gray-300"></i>
                                 </div>
                                 <div class="col mr-2" style="margin-left: 5%;">
-                                    <b>Permintaan Ditolak</b>
+                                    <b>Permintaan</b><br><b> Ditolak</b>
                                 </div>
                                 <div class="col-auto">
                                     <?php foreach ($total_request_decline as $row) ?>
@@ -122,7 +122,7 @@ if ($dt->level_mentor == '0') {
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-6 mb-4">
+                <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card bg-success text-white shadow">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -130,10 +130,30 @@ if ($dt->level_mentor == '0') {
                                     <i class="fas fa-user-graduate fa-2x text-gray-300"></i>
                                 </div>
                                 <div class="col mr-2" style="margin-left: 5%;">
-                                    <b>Siswa Dimbimbing</b>
+                                    <b>Siswa</b><br><b> Dimbimbing</b>
                                 </div>
                                 <div class="col-auto">
                                     <?php foreach ($total_student_mentored as $row) ?>
+                                    <b> <?= $row ?></b>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card bg-primary text-white shadow">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
+                                </div>
+                                <div class="col mr-2" style="margin-left: 5%;">
+                                    <b>Total </b><br><b>mentoring</b>
+                                </div>
+                                <div class="col-auto">
+                                    <?php foreach ($total_bimbingan as $row) ?>
                                     <b> <?= $row ?></b>
 
                                 </div>

@@ -94,4 +94,14 @@ class LogbookModel extends Model
 
         return $query->getRow();
     }
+    public function getTotalBimbinganByMentor()
+    {
+        $usernow = session()->get('username');
+        $query = $this->db->query("
+        SELECT COUNT(username_siswa) FROM logbook WHERE username_mentor = '$usernow' 
+        ");
+
+
+        return $query->getRow();
+    }
 }

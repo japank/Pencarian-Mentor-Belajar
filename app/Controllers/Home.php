@@ -22,6 +22,7 @@ class Home extends BaseController
                 'total_request' => $this->request_mentor->getTotalRequest(),
                 'total_student_mentored' => $this->request_mentor->getTotalStudentMentored(),
                 'total_request_decline' => $this->request_mentor->getTotalRequestDecline(),
+                'total_bimbingan' => $this->logbook->getTotalBimbinganByMentor(),
                 'dataMentor' => $this->users->getProfileMentor(),
             ]);
         } elseif ($tes == 'admin') {

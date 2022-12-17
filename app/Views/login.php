@@ -34,8 +34,8 @@
           <div class="row justify-content-center">
             <div class="col-md-8">
               <div class="mb-4">
-                <h3>Sign In to <strong>Mentor</strong></h3>
-                <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
+                <h3>Login to <strong>Mentor.com</strong></h3>
+                <p class="mb-4">Login sekarang agar kamu dapat mencari mentor semau kamu.</p>
               </div>
               <?php if (!empty(session()->getFlashdata('error'))) : ?>
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">

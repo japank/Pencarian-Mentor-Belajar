@@ -7,10 +7,12 @@
 <link href="<?= base_url() ?>/assets/mbohtable/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="<?= base_url() ?>/assets/mbohtable/css/icons.css" rel="stylesheet" type="text/css">
 <link href="<?= base_url() ?>/assets/mbohtable/css/style.css" rel="stylesheet" type="text/css">
-
-<!-- ============================================================== -->
-<!-- Page wrapper  -->
-<!-- ============================================================== -->
+<!-- Loader -->
+<div id="preloader">
+    <div id="status">
+        <div class="spinner"></div>
+    </div>
+</div>
 <div class="page-wrapper" style="min-height: 250px;">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
@@ -18,13 +20,22 @@
     <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
             <div class="col-lg-12 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title">List Student</h4>
+                <h4 class="page-title">Hasil Test Semua Mentor</h4>
             </div>
 
         </div>
-
+        <!-- /.col-lg-12 -->
     </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
     <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
         <div class="row">
             <div class="col-md-12">
                 <div class="white-box">
@@ -38,21 +49,18 @@
 
         </div>
     </div>
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
 </div>
-<footer class="footer text-center"> 2021 © Ample Admin brought to you by <a href="https://www.wrappixel.com/">wrappixel.com</a>
-</footer>
 </div>
-
-<!-- Loader -->
-<div id="preloader">
-    <div id="status">
-        <div class="spinner"></div>
-    </div>
-</div>
-
-
-</div>
-
 
 
 
@@ -63,11 +71,10 @@
 <script src="<?= base_url() ?>/assets/mbohtable/plugins/datatables/dataTables.bootstrap4.min.js"></script>
 
 <script src="<?= base_url() ?>/assets/mbohtable/js/app.js"></script>
-<div class="viewModal" style="display: none;"></div>
 <script type="text/javascript">
-    function listStudent() {
+    function listExamResult() {
         $.ajax({
-            url: "<?= site_url('users/loadstudent') ?>",
+            url: "<?= site_url('Exam/loadExamResultTestAllMentor') ?>",
             dataType: "json",
             success: function(response) {
                 $('.viewdata').html(response.data);
@@ -79,7 +86,8 @@
     }
 
     $(document).ready(function() {
-        listStudent();
+        listExamResult();
+
 
     });
 </script>

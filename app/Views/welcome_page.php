@@ -54,7 +54,7 @@
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="d-flex justify-content-center align-items-center">
         <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
-            <h1>Belajar,<br>Menjadi Lebih Mudah</h1>
+            <h1>Belajar<br>Menjadi Lebih Mudah</h1>
             <h2>Cari mentor belajar ga pake ribet</h2>
             <a href="<?= base_url(); ?>/login" class="btn-get-started">Cari Mentormu Sekarang</a>
         </div>

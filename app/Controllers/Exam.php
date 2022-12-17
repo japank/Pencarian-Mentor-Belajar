@@ -958,4 +958,25 @@ class Exam extends BaseController
             echo json_encode($msg);
         }
     }
+
+    public function resultTestAllMentor()
+    {
+        return view('admin/exam_result_list');
+    }
+    public function loadExamResultTestAllMentor()
+    {
+        if ($this->request->isAJAX()) {
+
+            $data = [
+                'exam_result' => $this->exam_detail->getExamTakedByAllMentor(),
+            ];
+
+            $msg = [
+                'data' => view('admin/exam_result_listajax', $data)
+            ];
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
 }

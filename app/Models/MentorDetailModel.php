@@ -42,4 +42,26 @@ class MentorDetailModel extends Model
         ");
         return $query->getResult();
     }
+
+    public function getTotalMentorPending()
+    {
+        $query = $this->db->query("
+        SELECT COUNT(username) FROM mentor_detail WHERE status_verified = 0
+        ");
+        return $query->getRow();
+    }
+    public function getTotalMentorAccept()
+    {
+        $query = $this->db->query("
+        SELECT COUNT(username) FROM mentor_detail WHERE status_verified = 1
+        ");
+        return $query->getRow();
+    }
+    public function getTotalMentorDecline()
+    {
+        $query = $this->db->query("
+        SELECT COUNT(username) FROM mentor_detail WHERE status_verified = 2
+        ");
+        return $query->getRow();
+    }
 }

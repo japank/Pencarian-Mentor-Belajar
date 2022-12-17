@@ -133,4 +133,19 @@ class UsersModel extends Model
         WHERE username = '$username'
         ");
     }
+
+    public function getTotalAllMentor()
+    {
+        $query = $this->db->query("
+        SELECT COUNT(username) FROM users WHERE role = 'pendamping' 
+        ");
+        return $query->getRow();
+    }
+    public function getTotalAllStudent()
+    {
+        $query = $this->db->query("
+        SELECT COUNT(username) FROM users WHERE role = 'siswa' 
+        ");
+        return $query->getRow();
+    }
 }

@@ -60,6 +60,7 @@ class ExamDetailModel extends Model
         return $query->getResultArray();
     }
 
+
     public function getExamDetail($exam_id)
     {
         $query = $this->db->query("
@@ -72,6 +73,26 @@ class ExamDetailModel extends Model
     {
         $query = $this->db->query("
         SELECT name FROM exam_detail WHERE exam_id = $exam_id
+        ");
+        return $query->getRow();
+    }
+
+    public function getExamTakedByAllMentor()
+    {
+        $usernow = session()->get('username');
+        $query = $this->db->query("
+        SELECT * FROM exam_detail 
+        INNER JOIN exam_user_take_exam ON exam_user_take_exam.exam_id = exam_detail.exam_id
+        
+        ");
+        // INNER JOIN users ON users.username = exam_user_take_exam.username
+        return $query->getResultArray();
+    }
+
+    public function getTotalTest()
+    {
+        $query = $this->db->query("
+        SELECT COUNT(exam_id) FROM exam_detail 
         ");
         return $query->getRow();
     }

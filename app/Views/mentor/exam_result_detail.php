@@ -26,9 +26,9 @@
                     <?php
                     $passedOrNot = '';
                     if ($score >= $pass_score) {
-                        $passedOrNot = 'Selamat Anda Lulus Ujian';
+                        $passedOrNot = '<span class="badge bg-success rounded">Selamat Anda Lulus Ujian</span>';
                     } else {
-                        $passedOrNot = 'Maaf Anda Belum Lulus Ujian, Skor minimal kelulusan adalah ' . $pass_score;
+                        $passedOrNot = '<span class="badge bg-danger rounded"> Maaf Anda Belum Lulus Ujian, Skor minimal kelulusan adalah ' . $pass_score . '</span>';
                     }
                     ?>
 

@@ -2,12 +2,9 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>Exam Name</th>
-            <th>Level</th>
-            <th>marks right</th>
-            <th>marks wrong</th>
-            <th>status</th>
-            <th>Action</th>
+            <th>Username Mentor</th>
+            <th>Test</th>
+            <th>Skor Akhir</th>
         </tr>
     </thead>
 
@@ -25,15 +22,19 @@
             } else {
                 $level = '<span class="badge bg-secondary rounded">SMA</span>';
             }
+
+            $passornot = '';
+            if ($row['score'] >= $row['pass_score']) {
+                $passornot = '<span class="badge bg-success rounded style="margin-left:3%">Lulus</span>';
+            } else {
+                $passornot = '<span class="badge bg-danger rounded style="margin-left:3%"">Gagal</span>';
+            }
         ?>
             <tr>
                 <td><?= $no++ ?></td>
-                <td><?= $row['name'] ?></td>
-                <td><?= $level ?></td>
-                <td><span class="badge bg-success rounded">+ <?= $row['marks_per_right_answer'] ?></span></td>
-                <td><span class="badge bg-danger rounded">- <?= $row['marks_per_wrong_answer'] ?></span></td>
-                <td><span class="badge bg-success rounded"> <?= $row['status'] ?></span></td>
-                <td><a href="<?= base_url("exam/resultdetail/$exam_id"); ?>" id="<?= $exam_id ?>">Lihat hasil</td>
+                <td><?= $row['username'] ?></td>
+                <td><?= $row['name']; ?> <br><?= $level ?></td>
+                <td> <?= $row['score']; ?> <?= $passornot ?></td>
             </tr>
         <?php } ?>
     </tbody>

@@ -22,7 +22,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Exam List Result</h4>
-                    <h6 class="card-subtitle">Dibawah ini adalah daftar siswa yang kamu mentorin.</h6>
+                    <h6 class="card-subtitle">Dibawah ini adalah daftar ujian yang pernah kamu ikuti.</h6>
                 </div>
                 <div class="table-responsive viewdata">
 

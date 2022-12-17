@@ -18,6 +18,7 @@
         $no = 1;
         foreach ($list_exam as $row) {
             $exam_id = $row['exam_id'];
+
         ?>
             <tr>
                 <td><?= $no++ ?></td>
@@ -26,16 +27,16 @@
                 <?php
                 $name_exam_based_level = '';
                 if ($row['level'] == 1) {
-                    $name_exam_based_level = 'SD';
+                    $name_exam_based_level = '<span class="badge bg-danger rounded">SD</span>';
                 } elseif ($row['level'] == 2) {
-                    $name_exam_based_level = 'SMP';
+                    $name_exam_based_level = '<span class="badge bg-primary rounded">SMP</span>';
                 } else {
-                    $name_exam_based_level = 'SMA';
+                    $name_exam_based_level = '<span class="badge bg-secondary rounded">SMA</span>';
                 } ?>
 
                 <td><?= $name_exam_based_level ?></td>
-                <td><?= $row['marks_per_right_answer'] ?></td>
-                <td><?= $row['marks_per_wrong_answer'] ?></td>
+                <td><span class="badge bg-success rounded">+ <?= $row['marks_per_right_answer'] ?></span></td>
+                <td><span class="badge bg-danger rounded">- <?= $row['marks_per_wrong_answer'] ?></span></td>
                 <td><?= $row['time'] ?> menit</td>
 
                 <?php

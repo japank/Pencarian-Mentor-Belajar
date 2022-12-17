@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\ExamDetailModel;
 use App\Models\LogbookModel;
+use App\Models\MentorDetailModel;
 use App\Models\RequestMentorModel;
 use App\Models\UsersModel;
 
@@ -13,6 +15,8 @@ class Home extends BaseController
         $this->users = new UsersModel();
         $this->request_mentor = new RequestMentorModel();
         $this->logbook = new LogbookModel();
+        $this->exam_detail = new ExamDetailModel();
+        $this->mentor_detail = new MentorDetailModel();
 
         $tes = session()->get('role');
         if ($tes == 'pendamping') {
@@ -26,7 +30,14 @@ class Home extends BaseController
                 'dataMentor' => $this->users->getProfileMentor(),
             ]);
         } elseif ($tes == 'admin') {
-            return view('admin/home');
+            return view('admin/home', [
+                'total_all_mentor' => $this->users->getTotalAllMentor(),
+                'total_all_student' => $this->users->getTotalAllStudent(),
+                'total_test' => $this->exam_detail->getTotalTest(),
+                'mentor_pending' => $this->mentor_detail->getTotalMentorPending(),
+                'mentor_accept' => $this->mentor_detail->getTotalMentorAccept(),
+                'mentor_decline' => $this->mentor_detail->getTotalMentorDecline(),
+            ]);
         } elseif ($tes == 'siswa') {
             return view('home', [
                 'dataUsers' => $this->users->getProfile(),

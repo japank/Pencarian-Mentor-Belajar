@@ -35,7 +35,7 @@
             <div class="col-md-8">
               <div class="mb-4">
                 <h3>Register <strong>Mentor</strong></h3>
-                <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
+                <p class="mb-4">Lengkapi data diri kamu ya.</p>
               </div>
               <?php if (!empty(session()->getFlashdata('error'))) : ?>
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -81,6 +81,7 @@
                     <option value="10">1 SMA</option>
                     <option value="11">2 SMA</option>
                     <option value="12">3 SMA</option>
+                    <option value="13">Mahasiswa</option>
                   </select>
                 </div>
                 <div class="form-group last mb-4">Daftar sebagai

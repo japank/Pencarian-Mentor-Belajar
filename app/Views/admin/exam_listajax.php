@@ -1,13 +1,13 @@
 <table id="dataExam" class="table table-bordered">
     <thead>
         <tr>
-            <th>Exam Id</th>
+            <th>No</th>
             <th>Name</th>
             <th>Level</th>
-            <th>marks right</th>
-            <th>marks wrong</th>
-            <th>Skor Kelulusan</th>
-            <th>waktu</th>
+            <th>Correct Answer</th>
+            <th>Wrong Answer</th>
+            <th>Pass Score</th>
+            <th>Time</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -18,13 +18,22 @@
         $no = 1;
         foreach ($list_exam as $row) {
             $exam_id = $row['exam_id'];
+            $level = '';
+            if ($row['level'] == 1) {
+                $level = '<span class="badge bg-danger rounded">SD</span>';
+            } elseif ($row['level'] == 2) {
+                $level = '<span class="badge bg-primary rounded">SMP</span>';
+            } else {
+                $level = '<span class="badge bg-secondary rounded">SMA</span>';
+            }
         ?>
             <tr>
-                <td><?= $row['exam_id'] ?></td>
+                <td><?= $no++ ?></td>
                 <td><?= $row['name'] ?></td>
-                <td><?= $row['level'] ?></a></td>
-                <td><?= $row['marks_per_right_answer'] ?></td>
-                <td><?= $row['marks_per_wrong_answer'] ?></td>
+                <td><?= $level ?></a></td>
+                <td><span class="badge bg-success rounded">+ <?= $row['marks_per_right_answer'] ?></span></td>
+                <td><span class="badge bg-danger rounded">- <?= $row['marks_per_wrong_answer'] ?></span></td>
+
                 <td><?= $row['pass_score'] ?></td>
                 <td><?= $row['time'] ?> menit</td>
                 <td><a href="<?= base_url("exam/detail/$exam_id"); ?>" id="<?= $exam_id ?>">

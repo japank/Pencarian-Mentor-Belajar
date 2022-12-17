@@ -454,6 +454,7 @@ class Exam extends BaseController
     {
         $data = [
             'exam_id' => $exam_id,
+            'exam_detail' => $this->exam_detail->getExamTitle($exam_id)
         ];
         return view('admin/exam_detail', $data);
     }
@@ -487,6 +488,7 @@ class Exam extends BaseController
 
             $data = [
                 'exam_id' => $exam_id,
+                'exam_detail' => $this->exam_detail->getExamTitle($exam_id)
             ];
 
             $msg = [

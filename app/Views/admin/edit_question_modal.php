@@ -8,7 +8,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Pertanyaan "<?= $question_title ?>"</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Pertanyaan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Option 1</label>
+                    <label for="" class="col-sm-2 col-form-label">A</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="option1" name="option1" value="<?= $option1 ?>">
                         <div class="invalid-feedback errorOption1">
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Option 2</label>
+                    <label for="" class="col-sm-2 col-form-label">B</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="option2" name="option2" value="<?= $option2 ?>">
                         <div class="invalid-feedback errorOption2">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Option3 </label>
+                    <label for="" class="col-sm-2 col-form-label">C</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="option3" name="option3" value="<?= $option3 ?>">
                         <div class="invalid-feedback errorOption3">
@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Option 4</label>
+                    <label for="" class="col-sm-2 col-form-label">D</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="option4" name="option4" value="<?= $option4 ?>">
                         <div class="invalid-feedback errorOption4">
@@ -92,19 +92,19 @@
 
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" id="correct_answer" name="correct_answer" value="1" <?= $checkhed1 ?>>
-                            <label class="form-check-label" for="option1">Option 1</label>
+                            <label class="form-check-label" for="option1">A</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" id="correct_answer" name="correct_answer" value="2" <?= $checkhed2 ?>>
-                            <label class="form-check-label" for="option2">Option 2</label>
+                            <label class="form-check-label" for="option2">B</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" id="correct_answer" name="correct_answer" value="3" <?= $checkhed3 ?>>
-                            <label class="form-check-label" for="option3">Option 3</label>
+                            <label class="form-check-label" for="option3">C</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" id="correct_answer" name="correct_answer" value="4" <?= $checkhed4 ?>>
-                            <label class="form-check-label" for="option4">Option 4</label>
+                            <label class="form-check-label" for="option4">D</label>
                         </div>
 
                     </div>

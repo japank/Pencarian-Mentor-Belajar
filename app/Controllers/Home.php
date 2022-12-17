@@ -27,7 +27,7 @@ class Home extends BaseController
             ]);
         } elseif ($tes == 'admin') {
             return view('admin/home');
-        } else {
+        } elseif ($tes == 'siswa') {
             return view('home', [
                 'dataUsers' => $this->users->getProfile(),
                 'total_request' => $this->request_mentor->getTotalRequestByStudent(),
@@ -35,6 +35,8 @@ class Home extends BaseController
                 'total_bimbingan' => $this->logbook->getTotalBimbingan(),
 
             ]);
+        } else {
+            return view('welcome_page');
         }
     }
 

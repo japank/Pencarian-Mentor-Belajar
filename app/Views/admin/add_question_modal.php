@@ -8,7 +8,9 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Pertanyaan <?= $exam_id ?></h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Pertanyaan <?php foreach ($exam_detail as $row) ?>
+                    <i>"<?= $row ?>"</i>
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 

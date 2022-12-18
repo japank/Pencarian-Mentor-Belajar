@@ -17,7 +17,12 @@ class Location extends BaseController
             echo json_encode($msg);
         } else {
             // exit('Maaf tidak dapat diproses');
-            return view('location_users');
+            $tes = session()->get('role');
+            if ($tes == 'pendamping') {
+                return view('mentor/location', []);
+            } elseif ($tes == 'siswa') {
+                return view('location_users');
+            }
         }
     }
 

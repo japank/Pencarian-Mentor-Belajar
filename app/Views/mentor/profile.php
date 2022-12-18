@@ -61,9 +61,11 @@
                         } ?>
                         <h6><?= $level_mentor ?></h6>
                         <small class="text-muted p-t-30 db">Alamat</small>
-                        <h6><?= $row->address ?><button type="button" onclick="changeLocation()" class="btn btn-info btn-sm">
-                                <i class="fa fa-pencil"></i>
-                            </button> </h6>
+                        <h6><?= $row->address ?>
+                            <a href="<?= site_url('location'); ?>"><button type="button" onclick="changeLocation()" class="btn btn-info btn-sm">
+                                    <i class="fa fa-pencil"></i>
+                                </button></a>
+                        </h6>
 
                         <small class="text-muted p-t-30 db">Status Mentor</small>
                         <?php
@@ -116,11 +118,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="example-email" class="col-md-12">Kelas</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="" id="kelas" name="kelas" value="<?= $row->kelas ?>" class="form-control form-control-line" name="example-email" id="example-email">
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
                                     <label class="col-md-12">Phone No</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="form-group">

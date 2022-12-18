@@ -46,8 +46,9 @@
             $currentLong = session()->get('longitude');
             $currentAddress = session()->get('address');
             ?>
-            <button type="button" class="btn btn-light btn-sm " onclick="changeLocation()"><i class="ri ri-book-fill"></i> Ubah Lokasi </button></a>
-            <!-- <p style="text-align:left" onclick="changeLocation()"><a class=" tombol-putih"><b>Ubah Lokasi</b></a></p> -->
+
+            <!-- <button type="button" class="btn btn-light btn-sm " onclick="changeLocation()"><i class="ri ri-book-fill"></i> Ubah Lokasi </button></a> -->
+            <p style="text-align:left" onclick="changeLocation()"><a class=" tombol-putih" href="<?= base_url(); ?>/location"><b>Ubah Alamat</b></a></p>
         </div>
     </div><!-- End Breadcrumbs -->
     <!-- ======= Team Section ======= -->

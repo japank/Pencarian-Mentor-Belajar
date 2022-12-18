@@ -60,8 +60,9 @@
 
                             <p class="text-muted mb-4"> <?= $row->address; ?><a href="<?= site_url('location'); ?>"><i class="ri-pencil-fill contact"></i></a> </p>
                             <div class="d-flex justify-content-center mb-2">
-                                <button type="button" class="btn btn-primary" onclick="changeLocation()">Ubah Alamat</button>
-                                <!-- <a href="<?= site_url('location'); ?>"> <button type="button" class="btn btn-outline-primary ms-1">Ubah Alamat</button></a> -->
+                                <!-- <button type="button" class="btn btn-primary" onclick="changeLocation()">Ubah Alamat</button> -->
+
+                                <a href="<?= site_url('location'); ?>"> <button type="button" class="btn btn-primary ms-1">Ubah Alamat</button></a>
                             </div>
                         </div>
                 </div>
@@ -107,24 +108,26 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
+                                <p class="mb-0">Kelas</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <!-- <p class="text-muted mb-0"><?= $row->email; ?></p> -->
+                                <input type="text" placeholder="" id="kelas" name="kelas" value="<?= $row->kelas ?>" class="form-control form-control-line" name="example-email" id="example-email">
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- <div class="row">
+                        
+                            <div class="col-sm-3">
                                 <p class="mb-0">Phone</p>
                             </div>
                             <div class="col-sm-9">
                                 <p class="text-muted mb-0">(097) 234-5678</p>
                             </div>
-                        </div>
+                        </div> -->
 
 
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Kelas</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0"><?= $row->kelas; ?></p>
-                            </div>
-                        </div>
-                        <hr>
+
                         <div class="row">
                             <div class="col-sm-3">
                                 <p class="mb-0">Ganti Foto Profil <i>(opsional)</i></p>

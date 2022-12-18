@@ -41,6 +41,7 @@ class Profile extends BaseController
             $savedata = [
                 'name' => $this->request->getVar('name'),
                 'email' => $this->request->getVar('email'),
+                'kelas' => $this->request->getVar('kelas'),
                 // 'password' => $this->request->getVar('password'),
 
             ];
@@ -98,6 +99,7 @@ class Profile extends BaseController
             $savedata = [
                 'name' => $this->request->getVar('name'),
                 'email' => $this->request->getVar('email'),
+                'kelas' => $this->request->getVar('kelas'),
                 // 'password' => $this->request->getVar('password'),
 
             ];

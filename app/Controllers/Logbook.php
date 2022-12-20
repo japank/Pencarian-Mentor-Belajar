@@ -232,12 +232,37 @@ class Logbook extends BaseController
                         'required' => '{field} tidak boleh kosong',
                     ],
                 ],
+                'date_mentoring' => [
+                    'label' => 'Tanggal Pertemuan',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+                'topic_description' => [
+                    'label' => 'Deskripsi Topik',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+                'description' => [
+                    'label' => 'Deskripsi Pertemuan',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+
             ]);
 
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'topic' => $validation->getError('topic')
+                        'topic' => $validation->getError('topic'),
+                        'date_mentoring' => $validation->getError('date_mentoring'),
+                        'description' => $validation->getError('description'),
+                        'topic_description' => $validation->getError('topic_description'),
 
                     ]
                 ];

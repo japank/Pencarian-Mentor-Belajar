@@ -17,8 +17,8 @@
                     <label for="" class="col-sm-2 col-form-label">Tanggal Pertemuan</label>
                     <div class="col-sm-8">
                         <input type="date" class="form-control" id="date_mentoring" name="date_mentoring" value="<?= strftime('%d/%m/%Y', strtotime($date_mentoring)) ?>">
-                        <!-- <div class="invalid-feedback errorDateMentoring">
-                        </div> -->
+                        <div class="invalid-feedback errorDateMentoring">
+                        </div>
                     </div>
                 </div>
 
@@ -36,6 +36,9 @@
                     <label for="" class="col-sm-2 col-form-label">Deskripsi Topik</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="topic_description" name="topic_description" value="<?= $topic_description ?>">
+                        <div class="invalid-feedback errorTopicDes">
+
+                        </div>
                     </div>
                 </div>
 
@@ -43,6 +46,9 @@
                     <label for="" class="col-sm-2 col-form-label">Deskripsi Pertemuan</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="description" name="description" value="<?= $description ?>">
+                        <div class="invalid-feedback errorDescription">
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -86,6 +92,27 @@
                         } else {
                             $('#topic').removeClass('is-invalid');
                             $('.errorTopic').html('');
+                        }
+                        if (response.error.date_mentoring) {
+                            $('#date_mentoring').addClass('is-invalid');
+                            $('.errorDateMentoring').html(response.error.date_mentoring);
+                        } else {
+                            $('#date_mentoring').removeClass('is-invalid');
+                            $('.errorDateMentoring').html('');
+                        }
+                        if (response.error.topic_description) {
+                            $('#topic_description').addClass('is-invalid');
+                            $('.errorTopicDes').html(response.error.topic_description);
+                        } else {
+                            $('#topic_description').removeClass('is-invalid');
+                            $('.errorTopicDes').html('');
+                        }
+                        if (response.error.description) {
+                            $('#description').addClass('is-invalid');
+                            $('.errorDescription').html(response.error.description);
+                        } else {
+                            $('#description').removeClass('is-invalid');
+                            $('.errorDescription').html('');
                         }
 
                     } else {

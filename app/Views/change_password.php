@@ -3,46 +3,42 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Logbook <?= $username_siswa ?></h5>
+                <h5 class="modal-title" id="exampleModalLabel">Ganti Password <?= $name ?></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <?= form_open('logbook/update/' . $id_logbook, ['class' => 'formLogbook']) ?>
+            <?= form_open('profile/updatePw/' . $username, ['class' => 'formPw']) ?>
             <?= csrf_field(); ?>
 
             <div class="modal-body">
 
-
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Tanggal Pertemuan</label>
+                    <label for="" class="col-sm-4 col-form-label">Password Lama</label>
                     <div class="col-sm-8">
-                        <input type="date" class="form-control" id="date_mentoring" name="date_mentoring" value="<?= strftime('%d/%m/%Y', strtotime($date_mentoring)) ?>">
-                        <!-- <div class="invalid-feedback errorDateMentoring">
-                        </div> -->
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Topik</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="topic" name="topic" value="<?= $topic ?>">
-                        <div class="invalid-feedback errorTopic">
+                        <input type="text" class="form-control" id="old_pw" name="old_pw" value="">
+                        <div class="invalid-feedback errorOldpw">
 
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Deskripsi Topik</label>
+                    <label for="" class="col-sm-4 col-form-label">Password Baru</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="topic_description" name="topic_description" value="<?= $topic_description ?>">
+                        <input type="text" class="form-control" id="new_pw" name="new_pw" value="">
+                        <div class="invalid-feedback errorNewpw">
+
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Deskripsi Pertemuan</label>
+                    <label for="" class="col-sm-4 col-form-label">Konfirmasi Password Baru</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="description" name="description" value="<?= $description ?>">
+                        <input type="text" class="form-control" id="new_pw_conf" name="new_pw_conf" value="">
+                        <div class="invalid-feedback errorNewpwconf">
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -50,7 +46,7 @@
 
 
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary btnsimpan">Update</button>
+                <button type="submit" class="btn btn-primary btnsimpan">Ganti Password</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
 
@@ -61,7 +57,7 @@
 
 <script>
     $(document).ready(function() {
-        $('.formLogbook').submit(function(e) {
+        $('.formPw').submit(function(e) {
             e.preventDefault();
             $.ajax({
                 type: "POST",
@@ -80,12 +76,26 @@
                 success: function(response) {
                     if (response.error) {
 
-                        if (response.error.topic) {
-                            $('#topic').addClass('is-invalid');
-                            $('.errorTopic').html(response.error.topic);
+                        if (response.error.old_pw) {
+                            $('#old_pw').addClass('is-invalid');
+                            $('.errorOldpw').html(response.error.old_pw);
                         } else {
-                            $('#topic').removeClass('is-invalid');
-                            $('.errorTopic').html('');
+                            $('#old_pw').removeClass('is-invalid');
+                            $('.errorOldpw').html('');
+                        }
+                        if (response.error.new_pw) {
+                            $('#new_pw').addClass('is-invalid');
+                            $('.errorNewpw').html(response.error.new_pw);
+                        } else {
+                            $('#new_pw').removeClass('is-invalid');
+                            $('.errorNewpw').html('');
+                        }
+                        if (response.error.new_pw_conf) {
+                            $('#new_pw_conf').addClass('is-invalid');
+                            $('.errorNewpwconf').html(response.error.new_pw_conf);
+                        } else {
+                            $('#new_pw_conf').removeClass('is-invalid');
+                            $('.errorNewpwconf').html('');
                         }
 
                     } else {
@@ -96,7 +106,7 @@
                         })
 
                         $('#modalEdit').modal('hide');
-                        studentLogbook();
+
                     }
 
                 },

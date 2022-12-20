@@ -223,19 +223,36 @@ class Logbook extends BaseController
     public function update($id_logbook)
     {
         if ($this->request->isAJAX()) {
-            $savedata = [
-                'topic' => $this->request->getVar('topic'),
-                'topic_description' => $this->request->getVar('topic_description'),
-                'date_mentoring' => $this->request->getVar('date_mentoring'),
-                'description' => $this->request->getVar('description')
-            ];
+            $validation = \Config\Services::validation();
+            $valid = $this->validate([
+                'topic' => [
+                    'label' => 'Topik',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+            ]);
 
-            $this->logbook->update($id_logbook, $savedata);
+            if (!$valid) {
+                $msg = [
+                    'error' => [
+                        'topic' => $validation->getError('topic')
 
-            $msg = [
-                'sukses' => 'Data Logbook berhasil diupdate'
-            ];
-
+                    ]
+                ];
+            } else {
+                $savedata = [
+                    'topic' => $this->request->getVar('topic'),
+                    'topic_description' => $this->request->getVar('topic_description'),
+                    'date_mentoring' => $this->request->getVar('date_mentoring'),
+                    'description' => $this->request->getVar('description')
+                ];
+                $this->logbook->update($id_logbook, $savedata);
+                $msg = [
+                    'sukses' => 'Data Logbook berhasil diupdate'
+                ];
+            }
 
             echo json_encode($msg);
         } else {

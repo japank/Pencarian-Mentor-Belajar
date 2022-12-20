@@ -157,6 +157,94 @@ class Profile extends BaseController
             echo json_encode($msg);
         }
     }
+    public function changePw()
+    {
+        if ($this->request->isAJAX()) {
+            $username = $this->request->getVar('username');
+            $dataUsers = $this->users->where(['username' => $username,])->first();
+            $data = [
+                'name' => $dataUsers->name,
+                'username' => $username
+
+            ];
+
+            $msg = [
+                'sukses' => view('change_password', $data)
+            ];
+            echo json_encode($msg);
+        }
+    }
+    public function updatePw($username)
+    {
+        if ($this->request->isAJAX()) {
+            $validation = \Config\Services::validation();
+            $valid = $this->validate([
+                'old_pw' => [
+                    'label' => 'Password Lama',
+                    'rules' => "required",
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+                'new_pw' => [
+                    'label' => 'Password Baru',
+                    'rules' => 'required|min_length[4]|max_length[50]',
+                    'errors' => [
+                        'required' => '{field} Harus diisi',
+                        'min_length' => '{field} Minimal 4 Karakter',
+                        'max_length' => '{field} Maksimal 50 Karakter',
+                    ]
+                ],
+                'new_pw_conf' => [
+                    'rules' => 'required|matches[new_pw]',
+                    'label' => 'Konfirmasi Password Baru',
+                    'errors' => [
+                        'matches' => 'Konfirmasi Password tidak sesuai dengan password baru',
+                        'required' => '{field} Harus diisi',
+                    ]
+                ],
+            ]);
+            if (!$valid) {
+                $msg = [
+                    'error' => [
+                        'old_pw' => $validation->getError('old_pw'),
+                        'new_pw' => $validation->getError('new_pw'),
+                        'new_pw_conf' => $validation->getError('new_pw_conf'),
+
+                    ]
+                ];
+            } else {
+
+                $dataUser = $this->users->where([
+                    'username' => $username,
+                ])->first();
+                if (password_verify($this->request->getVar('old_pw'), $dataUser->password)) {
+
+                    $savedata = [
+                        'password' => password_hash($this->request->getVar('new_pw'), PASSWORD_BCRYPT),
+
+                    ];
+                    $this->users->update($username, $savedata);
+                    $msg = [
+                        'sukses' => 'Password berhasil diubah'
+                    ];
+                } else {
+                    $msg = [
+                        'error' => [
+                            'old_pw' => 'Passsword Lama Salah',
+                            'new_pw' => $validation->getError('new_pw'),
+                            'new_pw_conf' => $validation->getError('new_pw_conf'),
+
+                        ]
+                    ];
+                }
+            }
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
 
     public function tes()
     {

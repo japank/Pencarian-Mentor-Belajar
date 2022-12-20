@@ -34,15 +34,17 @@
                         <center class="m-t-30"> <img src="<?= base_url() ?>/file/profile/<?= $pp ?>" class="rounded-circle" width="150" height="160" />
 
                             <h3 class="card-title m-t-10"><?= $row->name ?></h3>
-                            <!-- <h6 class="card-subtitle">Accounts Manager Amix corp</h6>
-                            <div class="row text-center justify-content-md-center">
-                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i>
-                                        <font class="font-medium">254</font>
-                                    </a></div>
-                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i>
-                                        <font class="font-medium">54</font>
-                                    </a></div>
-                            </div> -->
+
+                            <?php
+                            $status_verif = '';
+                            if ($row->status_verified == '1') {
+                                $status_verif = 'Aktif <span class="badge bg-success"> <i class="fa fa-check"></i></span>';
+                            } else {
+                                $status_verif = 'Nonaktif <span class="badge bg-danger"> <i class="fa fa-times"></i></span>';
+                            }
+                            ?>
+
+                            <h6>Status : <?= $status_verif ?></h6>
                         </center>
                     </div>
 
@@ -67,16 +69,7 @@
                                 </button></a>
                         </h6>
 
-                        <small class="text-muted p-t-30 db">Status Mentor</small>
-                        <?php
-                        $status_verif = '';
-                        if ($row->status_verified == '1') {
-                            $status_verif = 'Aktif <span class="badge bg-success"> <i class="fa fa-check"></i></span>';
-                        } else {
-                            $status_verif = 'Nonaktif <span class="badge bg-danger"> <i class="fa fa-times"></i></span>';
-                        }
-                        ?>
-                        <h6><?= $status_verif ?></h6>
+
                         <!-- <div class="map-box">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d470029.1604841957!2d72.29955005258641!3d23.019996818380896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C+Gujarat!5e0!3m2!1sen!2sin!4v1493204785508" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>
                         </div> <small class="text-muted p-t-30 db">Social Profile</small>
@@ -157,12 +150,17 @@
                                 </div>
                             </div> -->
                         <div class="form-group">
-                            <div class="col-sm-12">
+                            <div class="col">
                                 <button class="btn btn-success text-white btnsimpan">Update Profile</button>
                             </div>
                         </div>
 
                         <?= form_close() ?>
+                        <div class="form-group">
+                            <div class="col">
+                                <button class="btn btn-primary text-white" onclick="changePw('<?= $row->username ?>')">Ganti Password</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -224,6 +222,26 @@
         $.ajax({
             type: "post",
             url: "<?= site_url('profile/showIdentity') ?>",
+            data: {
+                username: username,
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.sukses) {
+                    $('.viewModal').html(response.sukses).show();
+                    $('#modalEdit').modal('show');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        })
+    }
+
+    function changePw(username) {
+        $.ajax({
+            type: "post",
+            url: "<?= site_url('profile/changePw') ?>",
             data: {
                 username: username,
             },

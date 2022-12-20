@@ -31,7 +31,7 @@ class UsersModel extends Model
                 as jarak_km FROM users
                 INNER JOIN mentor_detail ON mentor_detail.username = users.username
                 where users.username != '$usernow' AND mentor_detail.status_verified = '1'
-                HAVING role = 'pendamping' ORDER BY jarak_km ASC
+                HAVING role = 'pendamping' ORDER BY mentor_detail.username ASC
 
                 ");
 
@@ -76,7 +76,7 @@ class UsersModel extends Model
         SELECT * FROM users 
         INNER JOIN exam_user_take_exam ON exam_user_take_exam.username = users.username
         WHERE users.username IN (SELECT username FROM exam_user_take_exam) 
-        ORDER BY `exam_user_take_exam`.`score` DESC
+        ORDER BY jarak_km DESC
         ");
         return $query->getResult();
     }

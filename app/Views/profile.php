@@ -63,6 +63,7 @@
                                 <!-- <button type="button" class="btn btn-primary" onclick="changeLocation()">Ubah Alamat</button> -->
 
                                 <a href="<?= site_url('location'); ?>"> <button type="button" class="btn btn-primary ms-1">Ubah Alamat</button></a>
+                                <button type="button" class="btn btn-primary ms-1" onclick="changePw('<?= $row->username ?>')">Ubah Password</button>
                             </div>
                         </div>
                 </div>
@@ -141,10 +142,12 @@
                             <div class="col-sm-3">
                                 <button class="btn btn-success text-white btnsimpan">Update Profile</button>
                             </div>
+
                             <div class="col-sm-9">
 
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <?= form_close() ?>
@@ -177,6 +180,27 @@
                 }
             })
         }
+
+        function changePw(username) {
+            $.ajax({
+                type: "post",
+                url: "<?= site_url('profile/changePw') ?>",
+                data: {
+                    username: username,
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response.sukses) {
+                        $('.viewModal').html(response.sukses).show();
+                        $('#modalEdit').modal('show');
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                }
+            })
+        }
+
         $(document).ready(function() {
 
 

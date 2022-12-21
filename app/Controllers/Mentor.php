@@ -160,13 +160,21 @@ class Mentor extends BaseController
                         'required' => '{field} tidak boleh kosong',
                     ],
                 ],
+                'description' => [
+                    'label' => 'Deskripsi Topik',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
             ]);
 
             if (!$valid) {
                 $msg = [
                     'error' => [
                         'date_started' => $validation->getError('date_started'),
-                        'topic' => $validation->getError('topic')
+                        'topic' => $validation->getError('topic'),
+                        'description' => $validation->getError('description')
 
                     ]
                 ];

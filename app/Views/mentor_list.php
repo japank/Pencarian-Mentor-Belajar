@@ -119,6 +119,5 @@
             }
         })
     }
-
-
-    <?= $this->endSection('content'); ?>
+</script>
+<?= $this->endSection('content'); ?>

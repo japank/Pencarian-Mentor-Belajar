@@ -55,53 +55,109 @@
 
     <br>
 
-    <div id="myBtnContainer" style="position: absolute; right: 7%;">
-        <button class="btnfilter active" onclick="allMentor()"> Jarak</button>
-        <button class="btnfilter" onclick="allMentorByScore()"> Skor</button>
-    </div>
-
     <style>
-        .container {
-            overflow: hidden;
+        @import "//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css";
+
+        .active-tabs {
+
+            position: absolute;
+            right: 7%;
         }
 
-        .filterDiv {
-            float: left;
-            background-color: #2196F3;
-            color: #ffffff;
-            width: 100px;
-            line-height: 100px;
-            text-align: center;
-            margin: 2px;
+        .active-tabs input {
+            opacity: 0;
             display: none;
-            /* Hidden by default */
+            visibility: hidden;
         }
 
-        /* The "show" class is added to the filtered elements */
-        .show {
-            display: block;
-        }
-
-        /* Style the buttons */
-        .btnfilter {
-            border: none;
-            outline: none;
-            padding: 12px 16px;
-            background-color: #f1f1f1;
+        .btnjar {
+            background: #f1f1f1;
+            color: darkslategrey;
             cursor: pointer;
+            display: block;
+            float: left;
+            font-size: 15px;
+            height: 47px;
+            line-height: 35px;
+            margin-right: 1px;
+            text-align: center;
+            width: 100px;
+            opacity: 0.8;
+            transition: all 0.4s;
         }
 
-        /* Add a light grey background on mouse-over */
-        .btnfilter:hover {
-            background-color: #ddd;
+        .btnjar:hover {
+            transform: translateY(-5px);
+            opacity: 1;
         }
 
-        /* Add a dark background to the active button */
-        .btnfilter.active {
-            background-color: #5fcf80;
-            color: white;
+        .active-tabs input:checked+label {
+            background: #5fcf80;
+            opacity: 1;
+            transform: translateY(-5px);
+            box-shadow: 1px 0 0 0 rgba(0, 0, 0, 0.3);
+            color: #f1f1f1;
+        }
+
+        .tabs-container {
+            width: 100%;
+            position: relative;
+            float: left;
+            top: -5px;
+            background: #fff;
+        }
+
+        .tab-1,
+        .tab-2 {
+            height: 200px;
+            width: 100%;
+            box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.3);
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+        }
+
+        .tab-2 {
+            height: 300px;
+        }
+
+        .tab-1 p,
+        .tab-2 p {
+            color: #1babbb;
+            font-family: "Open Sans";
+            font-size: 50px;
+            line-height: 200px;
+            text-align: center;
+        }
+
+        .tab-2 p,
+        .tab-4 p,
+        .tab-6 p {
+            line-height: 300px;
+        }
+
+        .btnjar-1:checked~.tabs-container .tab-1,
+        .btnjar-2:checked~.tabs-container .tab-2 {
+            position: relative;
+            visibility: visible;
+            top: 0;
+            left: 0;
+            opacity: 1;
         }
     </style>
+    <div class="active-tabs">
+        <input type="radio" name="active_tabs" id="btnjar-1" class="btnjar-1" checked onclick="allMentor()">
+        <label for="btnjar-1" class="btnjar"><i class="fa fa-map-marker"></i> Jarak</label>
+
+        <input type="radio" name="active_tabs" id="btnjar-2" class="btnjar-2" onclick="allMentorByScore()">
+        <label for="btnjar-2" class="btnjar"><i class="fa fa-book"></i> Nilai</label>
+
+    </div>
+
+
     <section id="team" class="team section-bg">
         <div class="container" data-aos="fade-up">
             <div class="row  viewdata">
@@ -124,22 +180,6 @@
             </div>
             <div class="box-body">
                 <div class="direct-chat-messages" id="conversation">
-                    <!-- <div class="direct-chat-msg"> 
-                                <div class="direct-chat-text"> For what reason would it be advisable for me to think about business content? </div>
-                                <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span> </div> 
-                            </div>
-                            <div class="direct-chat-msg right ">
-                                <div class="direct-chat-text"> Thank you for your believe in our supports </div>
-                                <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span> </div>
-                            </div>
-                            <div class="direct-chat-msg">
-                                <div class="direct-chat-text"> For what reason would it be advisable for me to think about business content? </div>
-                                <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span> </div> 
-                            </div>
-                            <div class="direct-chat-msg right ">
-                                <div class="direct-chat-text"> Thank you for your believe in our supports </div>
-                                <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span> </div>
-                            </div>-->
                 </div>
             </div>
             <div class="box-footer">
@@ -292,16 +332,6 @@
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
         })
-    }
-
-    var btnContainer = document.getElementById("myBtnContainer");
-    var btns = btnContainer.getElementsByClassName("btnfilter");
-    for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener("click", function() {
-            var current = document.getElementsByClassName("active");
-            current[0].className = current[0].className.replace(" active", "");
-            this.className += " active";
-        });
     }
 </script>
 <?= $this->endSection() ?>

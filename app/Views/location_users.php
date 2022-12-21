@@ -77,6 +77,13 @@
                     <div class="card-body">
                         <div class="container">
                             <div class="row">
+                                <?php if (!empty(session()->getFlashdata('error'))) : ?>
+                                    <div class="alert bg-warning alert-dismissible fade show" role="alert">
+                                        <h4>Periksa Entrian Form</h4>
+                                        </hr />
+                                        <?php echo session()->getFlashdata('error'); ?>
+                                    </div>
+                                <?php endif; ?>
                                 <div class="col-lg-9">
                                     <?php $usernow = session()->get('username'); ?>
                                     <form method="post" action="<?= site_url('location/update/' . $usernow) ?>">

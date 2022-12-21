@@ -4,10 +4,16 @@
 
     $usernow = session()->get('username');
     foreach ($mentor as $row) {
+        $pp = "";
+        if (is_null($row->profile_picture)) {
+            $pp = "default.jpg";
+        } else {
+            $pp = $row->profile_picture;
+        }
     ?>
         <div class="col-lg-6">
             <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
-                <div class="pic"><img src="<?= base_url(); ?>/assets/img/trainers/trainer-1.jpg" class="img-fluid" alt=""></div>
+                <div class="pic"><img src="<?= base_url() ?>/file/profile/<?= $pp ?>" class="img-fluid" alt="" style="width: 100%; height:150px"></div>
                 <div class="member-info">
                     <h4><?= $row->name; ?></h4>
                     <span><?= $row->score ?></span>

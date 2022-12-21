@@ -779,30 +779,34 @@ class Exam extends BaseController
                 ],
                 'marks_per_right_answer' => [
                     'label' => 'Point Benar',
-                    'rules' => 'required',
+                    'rules' => 'required|numeric',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
+                        'numeric' => '{field} hanya menerima inputan angka'
                     ],
                 ],
                 'marks_per_wrong_answer' => [
                     'label' => 'Point Salah',
-                    'rules' => 'required',
+                    'rules' => 'required|numeric',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
+                        'numeric' => '{field} hanya menerima inputan angka'
                     ],
                 ],
                 'pass_score' => [
                     'label' => 'Skor Kelulusan',
-                    'rules' => 'required',
+                    'rules' => 'required|numeric',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
+                        'numeric' => '{field} hanya menerima inputan angka'
                     ],
                 ],
                 'time' => [
                     'label' => 'Waktu',
-                    'rules' => 'required',
+                    'rules' => 'required|numeric',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
+                        'numeric' => '{field} hanya menerima inputan angka'
                     ],
                 ],
             ]);
@@ -884,30 +888,34 @@ class Exam extends BaseController
                 ],
                 'marks_per_right_answer' => [
                     'label' => 'Point Benar',
-                    'rules' => 'required',
+                    'rules' => 'required|numeric',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
+                        'numeric' => '{field} hanya menerima inputan angka'
                     ],
                 ],
                 'marks_per_wrong_answer' => [
                     'label' => 'Point Salah',
-                    'rules' => 'required',
+                    'rules' => 'required|numeric',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
+                        'numeric' => '{field} hanya menerima inputan angka'
                     ],
                 ],
                 'pass_score' => [
                     'label' => 'Skor Kelulusan',
-                    'rules' => 'required',
+                    'rules' => 'required|numeric',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
+                        'numeric' => '{field} hanya menerima inputan angka'
                     ],
                 ],
                 'time' => [
                     'label' => 'Waktu',
-                    'rules' => 'required',
+                    'rules' => 'required|numeric',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
+                        'numeric' => '{field} hanya menerima inputan angka'
                     ],
                 ],
             ]);

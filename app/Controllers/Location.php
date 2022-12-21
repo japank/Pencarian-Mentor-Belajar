@@ -28,6 +28,26 @@ class Location extends BaseController
 
     public function UpdateLocation($usernow)
     {
+        if (!$this->validate([
+            'address' => [
+                'label' => 'Alamat',
+                'rules' => 'required|min_length[4]',
+                'errors' => [
+                    'required' => '{field} Harus diisi',
+                    'min_length' => '{field} Minimal 4 Karakter',
+                ]
+            ],
+            'lat2' => [
+                'label' => 'Titik',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Harus dipilih, Mohon klik dapatkan lokasi'
+                ]
+            ],
+        ])) {
+            session()->setFlashdata('error', $this->validator->listErrors());
+            return redirect()->back()->withInput();
+        }
         $this->users = new UsersModel();
         $this->users->update($usernow, [
             'latitude' => $this->request->getVar('lat2'),
@@ -44,7 +64,7 @@ class Location extends BaseController
             'address' => $dataUser->address,
             'logged_in' => TRUE
         ]);
-        return redirect()->to('/');
+        return redirect()->to('/mentor');
         // return redirect()->back();
     }
 }

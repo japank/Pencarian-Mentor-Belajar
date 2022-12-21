@@ -143,6 +143,7 @@ class Logbook extends BaseController
     public function process($username_siswa)
     {
         if ($this->request->isAJAX()) {
+
             $validation = \Config\Services::validation();
             $valid = $this->validate([
                 'date_mentoring' => [
@@ -159,37 +160,75 @@ class Logbook extends BaseController
                         'required' => '{field} tidak boleh kosong',
                     ],
                 ],
+                'topic_description' => [
+                    'label' => 'Deskripsi Topik',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+                'description' => [
+                    'label' => 'Deskripsi Pertemuan',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+                // 'activity_photo' => [
+                //     'label' => 'Foto Aktivitas',
+                //     'rules' => 'uploaded[activity_photo]|mime_in[activity_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[activity_photo,4096]',
+                //     'errors' => [
+                //         'uploaded' => '{field} tidak boleh kosong',
+                //     ],
+                // ],
+                // 'activity_photo' => [
+                //     'label' => 'Foto Aktivitas',
+                //     'rules' => 'required',
+                //     'errors' => [
+                //         'required' => '{field} tidak boleh kosong',
+                //     ],
+                // ],
             ]);
 
             if (!$valid) {
                 $msg = [
                     'error' => [
                         'date_mentoring' => $validation->getError('date_mentoring'),
-                        'topic' => $validation->getError('topic')
+                        'topic' => $validation->getError('topic'),
+                        'topic_description' => $validation->getError('topic_description'),
+                        'description' => $validation->getError('description'),
+                        'activity_photo' => $validation->getError('activity_photo'),
                     ]
                 ];
             } else {
 
                 $dataFile = $this->request->getFile('activity_photo');
-                $dataFileName = $dataFile->getName();
+                if ($dataFile->getError() == 4) {
+                    $msg = [
+                        'error' => [
+                            'activity_photo' => 'Mohon Upload Foto',
+                        ]
+                    ];
+                } else {
 
+                    $dataFileName = $dataFile->getName();
+                    $savedata = [
+                        'username_siswa' => $username_siswa,
+                        'username_mentor' => $this->request->getVar('username_mentor'),
+                        'topic' => $this->request->getVar('topic'),
+                        'topic_description' => $this->request->getVar('topic_description'),
+                        'date_mentoring' => $this->request->getVar('date_mentoring'),
+                        'description' => $this->request->getVar('description'),
+                        'activity_photo' => $dataFileName,
+                    ];
 
-                $savedata = [
-                    'username_siswa' => $username_siswa,
-                    'username_mentor' => $this->request->getVar('username_mentor'),
-                    'topic' => $this->request->getVar('topic'),
-                    'topic_description' => $this->request->getVar('topic_description'),
-                    'date_mentoring' => $this->request->getVar('date_mentoring'),
-                    'description' => $this->request->getVar('description'),
-                    'activity_photo' => $dataFileName,
-                ];
+                    $this->logbook->insert($savedata);
+                    $dataFile->move('file/logbook', $dataFileName);
 
-                $this->logbook->insert($savedata);
-                $dataFile->move('file/logbook', $dataFileName);
-
-                $msg = [
-                    'sukses' => 'Tambah Logbook berhasil'
-                ];
+                    $msg = [
+                        'sukses' => 'Tambah Logbook berhasil'
+                    ];
+                }
             }
 
             echo json_encode($msg);
@@ -288,7 +327,9 @@ class Logbook extends BaseController
     public function deleteLogbook()
     {
         if ($this->request->isAJAX()) {
-            $id_logbook = $this->request->getVar('id_logbook');;
+            $id_logbook = $this->request->getVar('id_logbook');
+            $dataLogbook = $this->logbook->where(['id_logbook' => $id_logbook,])->first();
+            unlink('file/logbook/' . $dataLogbook->activity_photo);
             $this->logbook->delete($id_logbook);
             $msg = [
                 'sukses' => 'Data Logbook berhasil dihapus'

@@ -40,6 +40,9 @@
                     <label for="" class="col-sm-2 col-form-label">Deskripsi Topik</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="description" name="description" value="<?= $dataRequestMentor->description; ?>">
+                        <div class="invalid-feedback errorDescriptionTopic">
+
+                        </div>
                     </div>
                 </div>
 
@@ -89,6 +92,13 @@
                             } else {
                                 $('#topic').removeClass('is-invalid');
                                 $('.errorTopic').html('');
+                            }
+                            if (response.error.description) {
+                                $('#description').addClass('is-invalid');
+                                $('.errorDescriptionTopic').html(response.error.description);
+                            } else {
+                                $('#description').removeClass('is-invalid');
+                                $('.errorDescriptionTopic').html('');
                             }
 
                         } else {

@@ -110,7 +110,7 @@ Website: http://emilcarlsson.se/
 							</ul>
 						</li>
 					<?php } else { ?>
-						<li><a href="<?= base_url(); ?>/mentor/request">Request</a></li>
+						<li><a href="<?= base_url(); ?>/mentor/request">Riwayat Permintaan</a></li>
 						<li><a href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
 					<?php }
 					?>
@@ -118,7 +118,7 @@ Website: http://emilcarlsson.se/
 				<i class="bi bi-list mobile-nav-toggle"></i>
 			</nav><!-- .navbar -->
 
-			<a href="<?= base_url(); ?>/logout" class="get-started-btn"><?= session()->get('username') ?></a>
+			<a href="<?= base_url(); ?>/profile" class="get-started-btn"><?= session()->get('username') ?></a>
 
 		</div>
 	</header><!-- End Header -->

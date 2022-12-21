@@ -27,6 +27,13 @@
         <!-- ============================================================== -->
         <!-- Row -->
         <div class="row">
+            <?php if (!empty(session()->getFlashdata('error'))) : ?>
+                <div class="alert bg-warning alert-dismissible fade show" role="alert">
+                    <h4>Periksa Entrian Form</h4>
+                    </hr />
+                    <?php echo session()->getFlashdata('error'); ?>
+                </div>
+            <?php endif; ?>
             <!-- Column -->
             <div class="col-lg-4 col-xlg-3 col-md-5">
                 <div class="card">

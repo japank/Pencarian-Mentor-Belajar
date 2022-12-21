@@ -14,7 +14,7 @@
                 <li><a href="<?= base_url(); ?>/mentorchecked">Mentor</a></li>
                 <li><a href="<?= base_url(); ?>/chat">Chat</a></li>
 
-                <li><a class="" href="<?= base_url(); ?>/mentor/request">Request</a></li>
+                <li><a class="" href="<?= base_url(); ?>/mentor/request">Riwayat Permintaan</a></li>
                 <li><a class="" href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
 
                 <li class="dropdown active"><a href="<?= base_url(); ?>/#"><span><?= session()->get('username') ?></span> <i class="bi bi-chevron-down"></i></a>

@@ -47,7 +47,6 @@ class Profile extends BaseController
             ];
             $this->users->update($username, $savedata);
 
-
             $dataMentor = $this->mentor_detail->where(['username' => $username,])->first();
             $dataFile = $this->request->getFile('identity_file');
             $dataFileName = $dataFile->getRandomName();
@@ -71,6 +70,21 @@ class Profile extends BaseController
 
             if ($dataProfilePict->getError() == 4) {
             } else {
+                // ini eror
+                // if (!$this->validate([
+                //     'identity_file' => [
+                //         'label' => 'File Identitas',
+                //         'rules' => 'uploaded[identity_file]'
+                //             . '|is_image[identity_file]'
+                //             . '|mime_in[identity_file,image/jpg,image/jpeg,image/gif,image/png,image/webp]'
+                //             . '|max_size[identity_file,100]'
+                //             . '|max_dims[identity_file,1024,768]',
+                //     ],
+                // ])) {
+                //     session()->setFlashdata('error', $this->validator->listErrors());
+                //     return redirect()->back()->withInput();
+                // } else {
+
                 if (is_null($dataUsers->profile_picture)) {
                     $this->users->updateProfilePict($username, $dataProfileName);
                     $dataProfilePict->move('file/profile', $dataProfileName);
@@ -84,8 +98,6 @@ class Profile extends BaseController
             $msg = [
                 'sukses' => 'Profile berhasil diupdate'
             ];
-
-
             echo json_encode($msg);
         } else {
             exit('Maaf tidak dapat diproses');

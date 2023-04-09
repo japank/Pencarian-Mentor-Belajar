@@ -110,8 +110,9 @@ Website: http://emilcarlsson.se/
 							</ul>
 						</li>
 					<?php } else { ?>
-						<li><a href="<?= base_url(); ?>/mentor/request">Request</a></li>
-						<li><a href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
+						<li><a class="" href="<?= base_url(); ?>/request-history">Pengajuan</a></li>
+						<li><a class="" href="<?= base_url(); ?>/request-accepted">Mentoring</a></li>
+
 					<?php }
 					?>
 				</ul>
@@ -173,7 +174,7 @@ Website: http://emilcarlsson.se/
 			<div class="contact-profile">
 				<!-- <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" /> -->
 
-				<p id="recipient-name" style="margin-left: 40%;"> Please select a contact</p>
+				<p id="recipient-name" style="margin-left: 40%;"> </p>
 
 				<!-- <div class="social-media">
 				<i class="fa fa-facebook" aria-hidden="true"></i>
@@ -188,7 +189,7 @@ Website: http://emilcarlsson.se/
 				<div class="wrap">
 					<?= csrf_field() ?>
 					<input type="text" placeholder="Write your message..." id="comment" />
-					<i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+
 					<button class="submit" id="send-message"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
 				</div>
 			</div>

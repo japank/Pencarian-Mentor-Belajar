@@ -2,15 +2,16 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Reverse geocode sample</title>
+  <title>Display a basemap layer</title>
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" crossorigin="" />
-  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" crossorigin=""></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" crossorigin=""></script>
+
   <!-- Load Esri Leaflet from CDN -->
-  <script src="https://unpkg.com/esri-leaflet@^3.0.8/dist/esri-leaflet.js"></script>
-  <!-- Load Esri Leaflet Geocoder from CDN -->
-  <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@3.1.3/dist/esri-leaflet-geocoder.css" crossorigin="" />
-  <script src="https://unpkg.com/esri-leaflet-geocoder@3.1.3/dist/esri-leaflet-geocoder.js" crossorigin=""></script>
+  <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
+
+  <!-- Load Esri Leaflet Vector from CDN -->
+  <script src="https://unpkg.com/esri-leaflet-vector@4.0.0/dist/esri-leaflet-vector.js" crossorigin=""></script>
   <style>
     html,
     body,
@@ -31,27 +32,14 @@
   <script>
     const apiKey = "AAPK40a9b84e145248348faf7141af6f0a8cwEBJEVkfL6c19d8pfqMcvaDZ3TFGulklEN0ZJw2cuTUCG6cBH3MHx6weyhHZRpH4";
 
-    const map = L.map("map").setView([40.725, -73.985], 13);
+    const map = L.map("map").setView([48.865195, 2.321033], 16);
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+    L.esri.Vector.vectorBasemapLayer("ArcGIS:Streets", {
+      apikey: apiKey
     }).addTo(map);
-
-
-    map.on("click", function(e) {
-      L.esri.Geocoding
-        .reverseGeocode({
-          apikey: apiKey
-        })
-        .latlng(e.latlng)
-        .run(function(error, result) {
-          if (error) {
-            return;
-          }
-
-          L.marker(result.latlng).addTo(map).bindPopup(result.address.Match_addr).openPopup();
-        });
-    });
+    L.marker([48.865195, 2.321033])
+      .addTo(map)
+      .bindPopup("<b>Ini adalah lokasi mu</b>").openPopup();
   </script>
 </body>
 

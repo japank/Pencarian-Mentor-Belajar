@@ -11,7 +11,7 @@ class MentorDetailModel extends Model
     protected $primaryKey = "id_mentor_detail";
     protected $returnType = "object";
     protected $useTimestamps = false;
-    protected $allowedFields = ['id_mentor_detail', 'username', 'status_verified', 'level_mentor', 'identity_file'];
+    protected $allowedFields = ['id_mentor_detail', 'username', 'status_verified', 'level_mentor', 'identity_file', 'price_sd', 'price_smp', 'price_sma'];
 
     public function updateFile($username, $identity_file)
     {
@@ -35,10 +35,20 @@ class MentorDetailModel extends Model
         ");
     }
 
+    public function updatePrice($username, $price_sd, $price_smp, $price_sma)
+    {
+        $this->db->query("
+        UPDATE mentor_detail SET price_sd = '$price_sd', price_smp = '$price_smp', price_sma = '$price_sma'
+        WHERE username = '$username'
+        ");
+    }
+
     public function getMentorDetail($username)
     {
         $query = $this->db->query("
-        SELECT * FROM mentor_detail WHERE username = '$username'
+        SELECT * FROM mentor_detail 
+        INNER JOIN users ON users.username = mentor_detail.username
+        WHERE mentor_detail.username = '$username'
         ");
         return $query->getResult();
     }

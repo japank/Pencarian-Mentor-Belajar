@@ -22,12 +22,8 @@
         } else {
             $pp = $row->profile_picture;
         } ?>
-        <!-- ============================================================== -->
-        <!-- Start Page Content -->
-        <!-- ============================================================== -->
-        <!-- Row -->
+
         <div class="row">
-            <!-- Column -->
             <div class="col-lg-4 col-xlg-3 col-md-5">
                 <div class="card">
                     <div class="card-body">
@@ -48,7 +44,8 @@
                         </center>
                     </div>
 
-                    <div class="card-body"> <small class="text-muted">Level mengajar mentor </small>
+                    <div class="card-body">
+                        <!-- <small class="text-muted">Level mengajar mentor </small> -->
 
                         <?php
                         $level_mentor = '';
@@ -61,22 +58,16 @@
                         } elseif ($row->level_mentor == '3') {
                             $level_mentor = 'SD - SMA';
                         } ?>
-                        <h6><?= $level_mentor ?></h6>
+                        <!-- <h6><?= $level_mentor ?></h6> -->
                         <small class="text-muted p-t-30 db">Alamat</small>
                         <h6><?= $row->address ?>
                             <a href="<?= site_url('location'); ?>"><button type="button" onclick="changeLocation()" class="btn btn-info btn-sm">
                                     <i class="fa fa-pencil"></i>
                                 </button></a>
                         </h6>
+                        <a href="<?= site_url('location'); ?>"> <button class="btn btn-success text-white">Ubah Lokasi</button></a>
+                        <button class="btn btn-primary text-white" onclick="changePw('<?= $row->username ?>')">Ganti Password</button>
 
-
-                        <!-- <div class="map-box">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d470029.1604841957!2d72.29955005258641!3d23.019996818380896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C+Gujarat!5e0!3m2!1sen!2sin!4v1493204785508" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>
-                        </div> <small class="text-muted p-t-30 db">Social Profile</small>
-                        <br />
-                        <button class="btn btn-circle btn-secondary"><i class="fab fa-facebook-f"></i></button>
-                        <button class="btn btn-circle btn-secondary"><i class="fab fa-twitter"></i></button>
-                        <button class="btn btn-circle btn-secondary"><i class="fab fa-youtube"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -107,21 +98,41 @@
                                 <div class="form-group">
                                     <label for="example-email" class="col-md-12">Email</label>
                                     <div class="col-md-12">
-                                        <input type="email" placeholder="" id="email" name="email" value="<?= $row->email ?>" class="form-control form-control-line" name="example-email" id="example-email">
+                                        <input type="email" placeholder="" id="email" name="email" value="<?= $row->email ?>" class="form-control form-control-line">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-email" class="col-md-12">Kelas</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="" id="kelas" name="kelas" value="<?= $row->kelas ?>" class="form-control form-control-line" name="example-email" id="example-email">
+                                        <input type="text" placeholder="" id="kelas" name="kelas" value="<?= $row->kelas ?>" class="form-control form-control-line">
                                     </div>
                                 </div>
-                                <!-- <div class="form-group">
-                                    <label class="col-md-12">Phone No</label>
-                                    <div class="col-md-12">
-                                        <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
+                            </div>
+                            <br>
+                            <label for="example-email" class="col-md-12"> Biaya Per Pertemuan</label>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="example-email" class="col-md-12">SD</label>
+                                    <div class="col-md-8">
+                                        <input type="number" placeholder="" id="price_sd" name="price_sd" value="<?= $row->price_sd ?>" class="form-control form-control-line">
                                     </div>
-                                </div> -->
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="example-email" class="col-md-12">SMP</label>
+                                    <div class="col-md-8">
+                                        <input type="number" placeholder="" id="price_smp" name="price_smp" value="<?= $row->price_smp ?>" class="form-control form-control-line">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="example-email" class="col-md-12">SMA</label>
+                                    <div class="col-md-8">
+                                        <input type="number" placeholder="" id="price_sma" name="price_sma" value="<?= $row->price_sma ?>" class="form-control form-control-line">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -137,18 +148,7 @@
                                 <input type="file" class="form-control" id="profile_picture" name="profile_picture">
                             </div>
                         </div>
-                        <!-- <div class="form-group">
-                                <label class="col-sm-12">Select Country</label>
-                                <div class="col-sm-12">
-                                    <select class="form-select shadow-none form-control-line">
-                                        <option>London</option>
-                                        <option>India</option>
-                                        <option>Usa</option>
-                                        <option>Canada</option>
-                                        <option>Thailand</option>
-                                    </select>
-                                </div>
-                            </div> -->
+
                         <div class="form-group">
                             <div class="col">
                                 <button class="btn btn-success text-white btnsimpan">Update Profile</button>
@@ -156,27 +156,13 @@
                         </div>
 
                         <?= form_close() ?>
-                        <div class="form-group">
-                            <div class="col">
-                                <button class="btn btn-primary text-white" onclick="changePw('<?= $row->username ?>')">Ganti Password</button>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
-            <!-- Column -->
+
         </div>
-        <!-- Row -->
-        <!-- ============================================================== -->
-        <!-- End PAge Content -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Right sidebar -->
-        <!-- ============================================================== -->
-        <!-- .right-sidebar -->
-        <!-- ============================================================== -->
-        <!-- End Right sidebar -->
-        <!-- ============================================================== -->
+
     <?php } ?>
 </div>
 </div>

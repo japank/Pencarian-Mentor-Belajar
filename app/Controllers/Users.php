@@ -89,4 +89,39 @@ class Users extends BaseController
             exit('Maaf tidak dapat diproses');
         }
     }
+    public function showLocation()
+    {
+        if ($this->request->isAJAX()) {
+            $lat = $this->request->getVar('lat');
+            $long = $this->request->getVar('long');
+            $name = $this->request->getVar('name');
+            $address = $this->request->getVar('address');
+
+
+            $data = [
+                'lat' => $lat,
+                'long' => $long,
+                'name' => $name,
+                'address' => $address
+            ];
+
+            $tes = session()->get('role');
+            if ($tes == 'pendamping') {
+                $msg = [
+                    'sukses' => view('mentor/users_location_modal', $data)
+                ];
+                echo json_encode($msg);
+            } elseif ($tes == 'admin') {
+                $msg = [
+                    'sukses' => view('admin/users_location_modal', $data)
+                ];
+                echo json_encode($msg);
+            } else {
+                $msg = [
+                    'sukses' => view('users_location_modal', $data)
+                ];
+                echo json_encode($msg);
+            }
+        }
+    }
 }

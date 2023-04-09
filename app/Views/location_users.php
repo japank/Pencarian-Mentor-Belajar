@@ -140,7 +140,7 @@
 
         marker = L.marker([position.coords.latitude, position.coords.longitude])
             .addTo(mymap)
-            .bindPopup("<b>Ini adalah lokasi mu</b>").openPopup();
+            .bindPopup("<strong>Ini adalah lokasi mu</strong>").openPopup();
 
         document.getElementById("lat2").value = position.coords.latitude;
         document.getElementById("long2").value = position.coords.longitude;

@@ -10,13 +10,15 @@ class LogbookModel extends Model
     protected $primaryKey = "id_logbook";
     protected $returnType = "object";
     protected $useTimestamps = false;
-    protected $allowedFields = ['id_logbook', 'username_siswa', 'username_mentor', 'date_mentoring', 'topic', 'topic_description', 'description', 'activity_photo'];
+    protected $allowedFields = ['id_logbook', 'id_request_mentor', 'date_mentoring', 'mentoring_description', 'activity_photo'];
 
-    public function getLogbookSiswaByMentor($username)
+    public function getLogbook($id_request)
     {
         $usernow = session()->get('username');
         $query = $this->db->query("
-        SELECT * FROM logbook WHERE username_siswa = '$username' && username_mentor = '$usernow';
+        SELECT * FROM logbook 
+        INNER JOIN request_mentor ON request_mentor.id_request_mentor = logbook.id_request_mentor
+        WHERE logbook.id_request_mentor = '$id_request'
         ");
 
         return $query->getResult();
@@ -25,16 +27,16 @@ class LogbookModel extends Model
         // ->getResultArray();
     }
 
-    public function getLogbookSiswa($username)
+    public function getLogbookSiswa($id_request)
     {
         $usernow = session()->get('username');
         $query = $this->db->query("
-        SELECT * FROM logbook WHERE username_siswa = '$usernow' && username_mentor = '$username';
+        SELECT * FROM logbook WHERE id_request_mentor = '$id_request';
         ");
-
-        if ($usernow != $username) {
-            return $query->getResult();
-        }
+        return $query->getResult();
+        // if ($usernow != $username) {
+        //     return $query->getResult();
+        // }
         // return $this->db->table('logbook')
         // ->getWhere(['username_siswa' => $username] && ['username_mentor' => $usernow])
         // ->getResultArray();
@@ -44,23 +46,6 @@ class LogbookModel extends Model
         $usernow = session()->get('username');
         $query = $this->db->query("
         SELECT * FROM logbook WHERE username_siswa = '$username_siswa' && username_mentor = '$username_mentor';
-        ");
-
-        return $query->getResultArray();
-    }
-
-    public function getAllLogbookStudent($username_siswa)
-    {
-        $query = $this->db->query("
-        SELECT * FROM logbook WHERE username_siswa = '$username_siswa';
-        ");
-
-        return $query->getResultArray();
-    }
-    public function getAllLogbookMentor($username_mentor)
-    {
-        $query = $this->db->query("
-        SELECT * FROM logbook WHERE username_mentor = '$username_mentor';
         ");
 
         return $query->getResultArray();
@@ -88,7 +73,7 @@ class LogbookModel extends Model
     {
         $usernow = session()->get('username');
         $query = $this->db->query("
-        SELECT COUNT(username_mentor) FROM logbook WHERE username_siswa = '$usernow' 
+        SELECT COUNT(id_logbook) FROM logbook 
         ");
 
 
@@ -98,7 +83,7 @@ class LogbookModel extends Model
     {
         $usernow = session()->get('username');
         $query = $this->db->query("
-        SELECT COUNT(username_siswa) FROM logbook WHERE username_mentor = '$usernow' 
+        SELECT COUNT(id_logbook) FROM logbook 
         ");
 
 

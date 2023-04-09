@@ -21,7 +21,7 @@
                 <input type="hidden" class="form-control" id="username_mentor" name="username_mentor" value="<?= session()->get('username'); ?>" readonly="">
 
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Question</label>
+                    <label for="" class="col-sm-4 col-form-label">Question</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="question_title" name="question_title">
                         <div class="invalid-feedback errorQuestiontitle">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Option 1</label>
+                    <label for="" class="col-sm-4 col-form-label">Option 1</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="option1" name="option1">
                         <div class="invalid-feedback errorOption1">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Option 2</label>
+                    <label for="" class="col-sm-4 col-form-label">Option 2</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="option2" name="option2">
                         <div class="invalid-feedback errorOption2">
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Option3 </label>
+                    <label for="" class="col-sm-4 col-form-label">Option3 </label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="option3" name="option3">
                         <div class="invalid-feedback errorOption3">
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Option 4</label>
+                    <label for="" class="col-sm-4 col-form-label">Option 4</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="option4" name="option4">
                         <div class="invalid-feedback errorOption4">
@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Correct Answer</label>
+                    <label for="" class="col-sm-4 col-form-label">Correct Answer</label>
                     <div class="col-sm-8">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" id="correct_answer" name="correct_answer" value="1">

@@ -42,4 +42,10 @@ class ExamUserTakeExamModel extends Model
         INNER JOIN exam_detail ON exam_detail.exam_id = exam_user_take_exam.exam_id");
         return $query->getResultArray();
     }
+    public function getMatpelMentor($username_mentor)
+    {
+        $query = $this->db->query("
+        select DISTINCT name_course FROM exam_user_take_exam INNER JOIN exam_detail on exam_detail.exam_id = exam_user_take_exam.exam_id INNER JOIN course ON course.id_course = exam_detail.id_course where username = '$username_mentor'");
+        return $query->getResultArray();
+    }
 }

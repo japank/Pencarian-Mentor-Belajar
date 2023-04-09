@@ -6,48 +6,61 @@
 <link href="<?= base_url() ?>/assets/mbohtable/css/icons.css" rel="stylesheet" type="text/css">
 <link href="<?= base_url() ?>/assets/mbohtable/css/style.css" rel="stylesheet" type="text/css">
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-</button>
-
 <!-- Modal -->
 <div class="modal fade" id="modaltambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Logbook Mentor <b><?= $username_mentor ?> Dengan Semua Siswa</b></h5><br>
+                <h5 class="modal-title" id="exampleModalLabel">Hasil Test Mentor <b><?= $username_mentor ?> </b></h5><br>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="table-responsive">
                 <table id="dataAllLogbook" class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Tanggal Pertemuan</th>
-                            <th>Siswa</th>
-                            <th>Topik</th>
-                            <th>Deskripsi Topik</th>
-                            <th>Deskripsi Pertemuan</th>
-                            <th>Foto</th>
+                            <th>Test</th>
+                            <th>Skor Akhir</th>
+                            <th>Biaya Per Pertemuan</th>
                         </tr>
                     </thead>
-
-
                     <tbody>
                         <?php
                         $no = 1;
-                        foreach ($logbook as $row) {
-                            $id_logbook = $row['id_logbook'];
+                        foreach ($exam_result as $row) {
+
                         ?>
                             <tr>
-                                <td><?= strftime("%d %b %Y, %A", strtotime($row['date_mentoring'])) ?></td>
-                                <td><?= $row['username_siswa'] ?></td>
-                                <td><?= $row['topic'] ?></td>
-                                <td><?= $row['topic_description'] ?></a></td>
-                                <td><?= $row['description'] ?></a></td>
-                                <td><button type="button" class="btn btn-info btn-sm" onclick="showPhoto('<?= $id_logbook ?>')">
-                                        <i class="fa fa-eye"></i></td>
-
+                                <td><?= $row['exam_name']; ?>
+                                    <?php
+                                    $level = '';
+                                    if ($row['level'] == '1') {
+                                        $level = '<span class="badge bg-danger rounded style=" margin-left:3%">SD</span>';
+                                    } elseif ($row['level'] == '2') {
+                                        $level = '<span class="badge bg-primary rounded style=" margin-left:3%"">SMP</span>';
+                                    } else {
+                                        $level = '<span class="badge bg-secondary rounded style=" margin-left:3%"">SMA</span>';
+                                    } ?>
+                                    <?= $level ?><br></td>
+                                <td>
+                                    <?php
+                                    $passornot = '';
+                                    if ($row['score'] >= $row['pass_score']) {
+                                        $passornot = '<span class="badge bg-success rounded style=" margin-left:3%">Lulus</span>';
+                                    } else {
+                                        $passornot = '<span class="badge bg-danger rounded style=" margin-left:3%"">Gagal</span>';
+                                    } ?>
+                                    <?= $row['score']; ?> <?= $passornot ?></td>
+                                <td>
+                                    <?php
+                                    $price = '';
+                                    if ($row['level'] == '1') {
+                                        $price = '<span class="badge bg-success rounded style=" margin-left:3%">' . $row['price_sd'] . ' rb</span>';
+                                    } elseif ($row['level'] == '2') {
+                                        $price = '<span class="badge bg-success rounded style=" margin-left:3%"">' . $row['price_smp'] . ' rb</span>';
+                                    } else {
+                                        $price = '<span class="badge bg-sucsess rounded style=" margin-left:3%"">' . $row['price_sma'] . ' rb</span>';
+                                    } ?>
+                                    <?= $price ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>

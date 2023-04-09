@@ -4,7 +4,7 @@
 <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-        <h1 class="logo me-auto"><a href="<?= base_url(); ?>/index.html">Mentor</a></h1>
+        <h1 class="logo me-auto"><a href="<?= base_url(); ?>/">Mentor</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="<?= base_url(); ?>/index.html" class="logo me-auto"><img src="<?= base_url(); ?>/assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -14,8 +14,9 @@
                 <li><a class="active" href="<?= base_url(); ?>/mentorchecked">Mentor</a></li>
                 <li><a href="<?= base_url(); ?>/chat">Chat</a></li>
 
-                <li><a class="" href="<?= base_url(); ?>/mentor/request">Request</a></li>
-                <li><a class="" href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
+                <li><a class="" href="<?= base_url(); ?>/request-history">Pengajuan</a></li>
+                <li><a class="" href="<?= base_url(); ?>/request-accepted">Mentoring</a></li>
+
 
                 <li class="dropdown"><a href="<?= base_url(); ?>/profile"><span><?= session()->get('username') ?></span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
@@ -39,8 +40,8 @@
     <!-- ======= Breadcrumbs ======= -->
     <div class="breadcrumbs">
         <div class="container">
-            <h4 style="text-align:left">Hai <b><?= $usernow = session()->get('name'); ?></b> ! Lokasi Anda adalah</h4>
-            <p style="text-align:left"><b><?= session()->get('address'); ?></b></p><br />
+            <h4 style="text-align:left">Hai <strong><?= $usernow = session()->get('name'); ?></strong> ! Lokasi Anda adalah</h4>
+            <p style="text-align:left"><strong><?= session()->get('address'); ?></strong></p><br />
             <?php
             $currentLat = session()->get('latitude');
             $currentLong = session()->get('longitude');
@@ -48,60 +49,57 @@
             ?>
 
             <!-- <button type="button" class="btn btn-light btn-sm " onclick="changeLocation()"><i class="ri ri-book-fill"></i> Ubah Lokasi </button></a> -->
-            <p style="text-align:left" onclick="changeLocation()"><a class=" tombol-putih" href="<?= base_url(); ?>/location"><b>Ubah Alamat</b></a></p>
+            <p style="text-align:left" onclick="changeLocation()"><a class=" tombol-putih" href="<?= base_url(); ?>/location"><strong>Ubah Alamat</strong></a></p>
         </div>
     </div><!-- End Breadcrumbs -->
     <!-- ======= Team Section ======= -->
 
     <br>
 
-    <div id="myBtnContainer" style="position: absolute; right: 7%;">
-        <button class="btnfilter active" onclick="allMentor()"> Jarak</button>
-        <button class="btnfilter" onclick="allMentorByScore()"> Skor</button>
+
+
+    <div class="container">
+        <div class="row col-lg-6" style="position: absolute; right: 1%;">
+            <div class="col-sm">
+
+                <select id="matkul" class="form-select">
+                    <option value="all">All</option>
+                    <?php
+                    foreach ($exam_list as $row) {
+                    ?>
+                        <option value="<?= $row['id_course'] ?>"><?= $row['name_course'] ?></option>
+
+                    <?php
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="col-sm">
+                <select id="level" class="form-select">
+
+                    <option value="all">All</option>
+                    <option value="1">SD</option>
+                    <option value="2">SMP</option>
+                    <option value="3">SMA</option>
+                </select>
+
+            </div>
+            <div class="col-sm">
+
+                <select id="distance_or_quality" class="form-select">
+
+                    <option value="1">Terdekat</option>
+                    <option value="2">Kualitas</option>
+                </select>
+            </div>
+            <div class="col-sm">
+
+                <button class="btn btn-success" type="button" style="border-radius: 50px;background-color:#5fcf80" onclick="allMentor()"><i class="fa fa-search" aria-hidden="true"></i></button>
+
+            </div>
+        </div>
     </div>
 
-    <style>
-        .container {
-            overflow: hidden;
-        }
-
-        .filterDiv {
-            float: left;
-            background-color: #2196F3;
-            color: #ffffff;
-            width: 100px;
-            line-height: 100px;
-            text-align: center;
-            margin: 2px;
-            display: none;
-            /* Hidden by default */
-        }
-
-        /* The "show" class is added to the filtered elements */
-        .show {
-            display: block;
-        }
-
-        /* Style the buttons */
-        .btnfilter {
-            border: none;
-            outline: none;
-            padding: 12px 16px;
-            background-color: #f1f1f1;
-            cursor: pointer;
-        }
-
-        /* Add a light grey background on mouse-over */
-        .btnfilter:hover {
-            background-color: #ddd;
-        }
-
-        /* Add a dark background to the active button */
-        .btnfilter.active {
-            background-color: #5fcf80;
-            color: white;
-        }
-    </style>
     <section id="team" class="team section-bg">
         <div class="container" data-aos="fade-up">
             <div class="row  viewdata">
@@ -124,22 +122,7 @@
             </div>
             <div class="box-body">
                 <div class="direct-chat-messages" id="conversation">
-                    <!-- <div class="direct-chat-msg"> 
-                                <div class="direct-chat-text"> For what reason would it be advisable for me to think about business content? </div>
-                                <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span> </div> 
-                            </div>
-                            <div class="direct-chat-msg right ">
-                                <div class="direct-chat-text"> Thank you for your believe in our supports </div>
-                                <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span> </div>
-                            </div>
-                            <div class="direct-chat-msg">
-                                <div class="direct-chat-text"> For what reason would it be advisable for me to think about business content? </div>
-                                <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span> </div> 
-                            </div>
-                            <div class="direct-chat-msg right ">
-                                <div class="direct-chat-text"> Thank you for your believe in our supports </div>
-                                <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span> </div>
-                            </div>-->
+
                 </div>
             </div>
             <div class="box-footer">
@@ -157,63 +140,6 @@
 
 
 
-<!-- <div class="form-popup" id="myForm">
-<div class="col-md-12">
-                <div class="card card-bordered">
-                    <div class="card-header">
-                        <h4 class="card-title"><strong>Chat</strong></h4> <a class="btn btn-xs btn-danger" href="#" data-abc="true" onclick="closeForm()" ><b>X</b></a>
-                    </div>
-                    <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important;">
-                        <div class="media media-chat"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
-                            <div class="media-body">
-                                <p>Hi</p>
-                                <p>How are you ...???</p>
-                                <p>What are you doing tomorrow?<br> Can we come up a bar?</p>
-                                <p class="meta"><time datetime="2018">23:58</time></p>
-                            </div>
-                        </div>
-                        <div class="media media-meta-day">Today</div>
-                        <div class="media media-chat media-chat-reverse">
-                            <div class="media-body">
-                                <p>Hiii, I'm good.</p>
-                                <p>How are you doing?</p>
-                                <p>Long time no see! Tomorrow office. will be free on sunday.</p>
-                                <p class="meta"><time datetime="2018">00:06</time></p>
-                            </div>
-                        </div>
-                        <div class="media media-chat"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
-                            <div class="media-body">
-                                <p>Okay</p>
-                                <p>We will go on sunday? </p>
-                                <p class="meta"><time datetime="2018">00:07</time></p>
-                            </div>
-                        </div>
-                        <div class="media media-chat media-chat-reverse">
-                            <div class="media-body">
-                                <p>Hiii, I'm good.</p>
-                                <p>How are you doing?</p>
-                                <p>Long time no see! Tomorrow office. will be free on sunday.</p>
-                                <p class="meta"><time datetime="2018">00:06</time></p>
-                            </div>
-                        </div>
-                        <div class="media media-chat"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
-                            <div class="media-body">
-                                <p>Okay i will meet you on Sandon Square </p>
-                                <p class="meta"><time datetime="2018">00:10</time></p>
-                            </div>
-                        </div>
-                        <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
-                            <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-                        </div>
-                        <div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">
-                            <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div>
-                        </div>
-                    </div>
-                    <div class="publisher bt-1 border-light"> <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="..."> <input class="publisher-input" type="text" placeholder="Write something"> <span class="publisher-btn file-group"> <i class="fa fa-paperclip file-browser"></i> <input type="file"> </span> <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a> <a class="publisher-btn text-info" href="#" data-abc="true"><i class="fa fa-paper-plane"></i></a> </div>
-                </div>
-            </div>
-</form>
-</div> -->
 <div class="viewModal" style="display: none;"></div>
 <script type="text/javascript">
     $('document').ready(function() {
@@ -268,9 +194,38 @@
         })
     }
 
+    function showMatpelMentor(username_mentor) {
+        var exam_id = '<? $exam_id ?>'
+        $.ajax({
+            type: "post",
+            url: "<?= site_url('exam/showmatpelmentor') ?>",
+            data: {
+                username_mentor: username_mentor
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.sukses) {
+                    $('.viewModal').html(response.sukses).show();
+                    $('#modalEdit').modal('show');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        })
+    }
+
     function allMentor() {
+        var matkul = document.getElementById("matkul").value;
+        var level = document.getElementById("level").value;
+        var distance_or_quality = document.getElementById("distance_or_quality").value;
         $.ajax({
             url: "<?= site_url('mentor/allMentor') ?>",
+            data: {
+                matkul: matkul,
+                level: level,
+                distance_or_quality: distance_or_quality,
+            },
             dataType: "json",
             success: function(response) {
                 $('.viewdata').html(response.data);
@@ -281,27 +236,27 @@
         })
     }
 
-    function allMentorByScore() {
+    function showLocation(lat, long, name, address) {
         $.ajax({
-            url: "<?= site_url('mentor/allMentorByScore') ?>",
+            type: "post",
+            url: "<?= site_url('users/showLocation') ?>",
+            data: {
+                lat: lat,
+                long: long,
+                name: name,
+                address: address
+            },
             dataType: "json",
             success: function(response) {
-                $('.viewdata').html(response.data);
+                if (response.sukses) {
+                    $('.viewModal').html(response.sukses).show();
+                    $('#modalEdit').modal('show');
+                }
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
         })
-    }
-
-    var btnContainer = document.getElementById("myBtnContainer");
-    var btns = btnContainer.getElementsByClassName("btnfilter");
-    for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener("click", function() {
-            var current = document.getElementsByClassName("active");
-            current[0].className = current[0].className.replace(" active", "");
-            this.className += " active";
-        });
     }
 </script>
 <?= $this->endSection() ?>

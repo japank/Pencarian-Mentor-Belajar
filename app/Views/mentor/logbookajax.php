@@ -3,7 +3,6 @@
         <tr>
             <th>No</th>
             <th>Tanggal Pertemuan</th>
-            <th>Topik</th>
             <th>Deskripsi Pertemuan</th>
             <th>Foto Kegiatan</th>
             <th>Aksi</th>
@@ -15,27 +14,34 @@
         <?php
         $no = 1;
         foreach ($studentlogbook as $row) {
+            $tesss = (explode(",", $row->date_started));
         ?>
+
             <tr>
-                <td><?= $no++; ?></td>
+                <td><?= $no++ ?></td>
                 <td><?= strftime("%a %d %b %Y", strtotime($row->date_mentoring)) ?></td>
-                <td><?= $row->topic; ?> : <br><?= $row->topic_description; ?></td>
-                <td><?= $row->description; ?></td>
-                <td><button type="button" class="btn btn-info btn-sm" onclick="showPhoto('<?= $row->id_logbook ?>')">
+                <td><?= $row->mentoring_description; ?></td>
+
+                <td><button type="button" class="btn btn-info btn-sm" onclick="showPhoto('<?= $row->activity_photo ?>')">
                         <i class="fa fa-eye"></i>
                     </button></td>
                 <td>
                     <?php $id_logbook_will_edit = $row->id_logbook;
                     $dataDate = strftime("%a %d %b %Y", strtotime($row->date_mentoring));
                     ?>
-                    <button type="button" class="btn btn-info btn-sm" onclick="editLogbook('<?= $id_logbook_will_edit ?>')">
-                        <i class="fa fa-pencil"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteLogbook('<?= $dataDate ?>', '<?= $id_logbook_will_edit ?>')">
-                        <i class="fa fa-trash"></i>
-                    </button>
+                    <?php if ($requestDetail->status_mentoring == '0') { ?>
+                        <button type="button" class="btn btn-info btn-sm" onclick="editLogbook('<?= $id_logbook_will_edit ?>','<?= $id_request ?>')">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteLogbook('<?= $dataDate ?>', '<?= $id_logbook_will_edit ?>')">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    <?php } else { ?>
+                        -
+                    <?php } ?>
                 </td>
             </tr>
+
         <?php
         }
         ?>
@@ -47,12 +53,13 @@
         $('#logbookSiswa').DataTable();
     });
 
-    function editLogbook(id_logbook_will_edit) {
+    function editLogbook(id_logbook_will_edit, id_request) {
         $.ajax({
             type: "post",
             url: "<?= site_url('logbook/editLogbook') ?>",
             data: {
                 id_logbook: id_logbook_will_edit,
+                id_request: id_request
             },
             dataType: "json",
             success: function(response) {
@@ -106,17 +113,12 @@
 
     function showPhoto(id_logbook) {
         $.ajax({
-            type: "post",
-            url: "<?= site_url('logbook/showPhoto') ?>",
-            data: {
-                id_logbook: id_logbook,
-            },
-            dataType: "json",
             success: function(response) {
-                if (response.sukses) {
-                    $('.viewModal').html(response.sukses).show();
-                    $('#modalEdit').modal('show');
-                }
+                Swal.fire({
+                    imageUrl: "<?= base_url() ?>/file/logbook/" + id_logbook,
+
+                    imageAlt: 'A tall image'
+                })
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);

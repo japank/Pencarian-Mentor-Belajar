@@ -33,7 +33,7 @@
             <tr>
                 <td><?= $no++ ?></td>
                 <td><?= $row['username'] ?></td>
-                <td><?= $row['name']; ?> <br><?= $level ?></td>
+                <td><?= $row['exam_name']; ?> <br><?= $level ?></td>
                 <td> <?= $row['score']; ?> <?= $passornot ?></td>
             </tr>
         <?php } ?>

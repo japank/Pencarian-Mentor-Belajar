@@ -12,6 +12,7 @@
             <div class="modal-body">
 
                 <input type="hidden" class="form-control" id="username_mentor" name="username_mentor" value="<?= session()->get('username'); ?>" readonly="">
+                <input type="hidden" class="form-control" id="id_course" name="id_course" value="<?= $id_course ?>" readonly="">
 
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Name</label>
@@ -21,16 +22,7 @@
 
                         </div>
                     </div>
-                    <!-- </div>
-                <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Level</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="level" name="level">
-                        <div class="invalid-feedback errorLevel">
 
-                        </div>
-                    </div>
-                </div> -->
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Level</label>
                         <div class="col-sm-8">

@@ -79,7 +79,7 @@
                         <ul>
                             <li><i class="bi bi-check-circle"></i> Ambil Smartphone Kamu.</li>
                             <li><i class="bi bi-check-circle"></i> Buka browser lalu
-                                <b> mentor.com</b>
+                                <strong> mentor.com</strong>
                             </li>
                             <li><i class="bi bi-check-circle"></i> Registrasi dan kamu bisa pilih mentormu deh.</li>
                         </ul>

@@ -2,12 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Models\CourseModel;
 use App\Models\ExamOptionModel;
 use App\Models\ExamQuestionModel;
 use App\Models\ExamDetailModel;
 use App\Models\ExamQuestionAnswerByUserModel;
 use App\Models\ExamUserTakeExamModel;
 use App\Models\MentorDetailModel;
+use App\Models\UsersModel;
 
 class Exam extends BaseController
 {
@@ -19,11 +21,45 @@ class Exam extends BaseController
         $this->exam_question_answer = new ExamQuestionAnswerByUserModel();
         $this->user_take_exam = new ExamUserTakeExamModel();
         $this->mentor_detail = new MentorDetailModel();
+        $this->course = new CourseModel();
+        $this->users = new UsersModel();
     }
 
     public function index()
     {
-        return view('mentor/exam_list');
+        return view('mentor/course');
+    }
+
+    public function loadCourse()
+    {
+        if ($this->request->isAJAX()) {
+
+            $data = [
+                'list_course' => $this->course->getCourse()
+            ];
+
+            $msg = [
+                'data' => view('mentor/courseajax', $data)
+            ];
+
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function examList($id_course)
+    {
+        $course = $this->course->where([
+            'id_course' => $id_course,
+        ])->first();
+
+        return view('mentor/exam_list', [
+            'id_course' => $id_course,
+            'course' => $course
+
+        ]);
     }
 
 
@@ -33,9 +69,11 @@ class Exam extends BaseController
 
             $usernow = session()->get('username');
             $data = [
-                'list_exam' => $this->exam_detail->getExamList(),
+                'list_exam' => $this->exam_detail->getExamList($this->request->getVar('id_course')),
                 'usernow' => $usernow,
                 'mentor_detail' => $this->mentor_detail->getMentorDetail($usernow),
+                'users_detail' => $this->users->where(['username' => $usernow])->first(),
+
             ];
 
             $msg = [
@@ -69,7 +107,7 @@ class Exam extends BaseController
             $dataExam = $this->exam_detail->find($exam_id);
             $data = [
                 'exam_id' => $exam_id,
-                'name' => $dataExam->name,
+                'name' => $dataExam->exam_name,
                 'level' => $dataExam->level,
                 'time' => $dataExam->time
             ];
@@ -392,7 +430,7 @@ class Exam extends BaseController
                 'score' => $this->exam_question_answer->getTotalScore($username, $exam_id),
                 'exam_id' => $exam_id,
                 'pass_score' => $dataExam->pass_score,
-                'name' => $dataExam->name,
+                'name' => $dataExam->exam_name,
             ];
             return view('mentor/exam_result_detail', $data);
         } else {
@@ -424,9 +462,164 @@ class Exam extends BaseController
 
     // ADMIN
     // //////////////////////////////////////////////////////////////
-    public function List()
+    public function list()
     {
-        return view('admin/exam_list');
+        return view('admin/course');
+    }
+
+    public function loadCourseByAdmin()
+    {
+        if ($this->request->isAJAX()) {
+
+            $usernow = session()->get('username');
+            $data = [
+                'list_course' => $this->course->getCourse()
+            ];
+
+            $msg = [
+                'data' => view('admin/courseajax', $data)
+            ];
+
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function addCourse()
+    {
+        if ($this->request->isAJAX()) {
+
+            $data = [];
+
+            $msg = [
+                'data' => view('admin/course_add_modal', $data)
+            ];
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function addingCourse()
+    {
+        if ($this->request->isAJAX()) {
+            $validation = \Config\Services::validation();
+            $valid = $this->validate([
+                'name_course' => [
+                    'label' => 'Nama Mata Pelajaran',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+            ]);
+
+            if (!$valid) {
+                $msg = [
+                    'error' => [
+                        'name_course' => $validation->getError('name_course'),
+                    ]
+                ];
+            } else {
+                $this->course->insert([
+                    'name_course' => $this->request->getVar('name_course'),
+                ]);
+
+                $msg = [
+                    'sukses' => 'Tambah Mata Pelajaran berhasil'
+                ];
+            }
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function editCourse()
+    {
+        if ($this->request->isAJAX()) {
+
+            $dataExam = $this->course->find($this->request->getVar('id_course'));
+            $data = [
+                'name_course' => $dataExam->name_course,
+                'id_course' => $dataExam->id_course
+            ];
+
+            $msg = [
+                'sukses' => view('admin/course_edit_modal', $data)
+            ];
+
+            echo json_encode($msg);
+        }
+    }
+
+    public function updateCourse($id_course)
+    {
+        if ($this->request->isAJAX()) {
+            $validation = \Config\Services::validation();
+            $valid = $this->validate([
+                'name_course' => [
+                    'label' => 'Nama Mata Pelajaran',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+            ]);
+
+            if (!$valid) {
+                $msg = [
+                    'error' => [
+                        'name_course' => $validation->getError('name_course'),
+
+
+                    ]
+                ];
+            } else {
+                $this->course->update($id_course, [
+                    'name_course' => $this->request->getVar('name_course'),
+
+                ]);
+
+                $msg = [
+                    'sukses' => 'Edit Mata pelajaran berhasil'
+                ];
+            }
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function deleteCourse()
+    {
+        if ($this->request->isAJAX()) {
+
+            $id_course = $this->request->getVar('id_course');
+            $this->course->delete($id_course);
+
+            $msg = [
+                'sukses' => 'Data Mata Pelajaran berhasil dihapus'
+            ];
+            echo json_encode($msg);
+        }
+    }
+
+
+
+
+
+
+    public function List2($id_course)
+    {
+        return view('admin/exam_list', [
+            'id_course' => $id_course,
+        ]);
     }
 
     public function loadExamByAdmin()
@@ -435,8 +628,9 @@ class Exam extends BaseController
 
             $usernow = session()->get('username');
             $data = [
-                'list_exam' => $this->exam_detail->getExamList(),
-                'usernow' => $usernow
+                'list_exam' => $this->exam_detail->getExamList($this->request->getVar('id_course')),
+                'usernow' => $usernow,
+                'id_course' => $this->request->getVar('id_course'),
             ];
 
             $msg = [
@@ -746,7 +940,9 @@ class Exam extends BaseController
     {
         if ($this->request->isAJAX()) {
 
-            $data = [];
+            $data = [
+                'id_course' => $this->request->getVar('id_course'),
+            ];
 
             $msg = [
                 'data' => view('admin/add_exam_modal', $data)
@@ -821,7 +1017,8 @@ class Exam extends BaseController
                 ];
             } else {
                 $this->exam_detail->insert([
-                    'name' => $this->request->getVar('name'),
+                    'exam_name' => $this->request->getVar('name'),
+                    'id_course' => $this->request->getVar('id_course'),
                     'level' => $this->request->getVar('level'),
                     'marks_per_right_answer' => $this->request->getVar('marks_per_right_answer'),
                     'marks_per_wrong_answer' => $this->request->getVar('marks_per_wrong_answer'),
@@ -846,7 +1043,7 @@ class Exam extends BaseController
 
             $dataExam = $this->exam_detail->find($this->request->getVar('exam_id'));
             $data = [
-                'name' => $dataExam->name,
+                'name' => $dataExam->exam_name,
                 'level' => $dataExam->level,
                 'marks_per_right_answer' => $dataExam->marks_per_right_answer,
                 'marks_per_wrong_answer' => $dataExam->marks_per_wrong_answer,
@@ -926,7 +1123,7 @@ class Exam extends BaseController
                 ];
             } else {
                 $this->exam_detail->update($exam_id, [
-                    'name' => $this->request->getVar('name'),
+                    'exam_name' => $this->request->getVar('name'),
                     'level' => $this->request->getVar('level'),
                     'marks_per_right_answer' => $this->request->getVar('marks_per_right_answer'),
                     'marks_per_wrong_answer' => $this->request->getVar('marks_per_wrong_answer'),
@@ -977,6 +1174,45 @@ class Exam extends BaseController
             echo json_encode($msg);
         } else {
             exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function showTestTakebyMentor()
+    {
+        if ($this->request->isAJAX()) {
+
+            $data = [
+                'username_mentor' => $this->request->getVar('username_mentor'),
+                'exam_result' => $this->exam_detail->showTestTakebyMentor($this->request->getVar('username_mentor')),
+
+            ];
+
+            $msg = [
+                'sukses' => view('admin/exam_result_permentor_modal', $data)
+            ];
+
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function showMatpelMentor()
+    {
+        if ($this->request->isAJAX()) {
+
+            $data = [
+
+                'username_mentor' => $this->users->where(['username' => $this->request->getVar('username_mentor')])->first(),
+                'exam_result' => $this->exam_detail->showTestTakebyMentor($this->request->getVar('username_mentor')),
+                'mentor_detail' => $this->mentor_detail->getMentorDetail($this->request->getVar('username_mentor')),
+            ];
+
+            $msg = [
+                'sukses' => view('matpel_mentor_modal', $data)
+            ];
+
+            echo json_encode($msg);
         }
     }
 }

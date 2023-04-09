@@ -21,38 +21,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Siswa yang kamu mentorin</h4>
-                    <h6 class="card-subtitle">Dibawah ini adalah daftar siswa yang kamu mentorin.</h6>
+                    <h4 class="card-title">Daftar Mentoring</h4>
+                    <h6 class="card-subtitle">berikut merupakan daftar mentoring </h6>
                 </div>
-                <div class="table-responsive">
-                    <table id="dataSiswa" class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                            </tr>
-                        </thead>
+                <div class="table-responsive viewdata">
 
-
-                        <tbody>
-                            <?php
-                            $no = 1;
-                            foreach ($siswaMentored as $row) { ?>
-                                <tr>
-                                    <td><?= $row->name; ?></td>
-                                    <td><?= $row->address; ?></td>
-                                    <td><a href="<?= base_url("logbook/details/$row->username"); ?>">Logbook</a></td>
-                                    <td>a</td>
-                                    <td>a</td>
-                                    <td>a</td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
@@ -70,9 +43,26 @@
 <script src="<?= base_url() ?>/assets/mbohtable/plugins/datatables/dataTables.bootstrap4.min.js"></script>
 
 <script src="<?= base_url() ?>/assets/mbohtable/js/app.js"></script>
+
+<div class="viewModal" style="display: none;"></div>
 <script type="text/javascript">
+    function requestMentoredList() {
+        $.ajax({
+            url: "<?= site_url('mentor/loadRequestAccepted') ?>",
+            dataType: "json",
+            success: function(response) {
+                $('.viewdata').html(response.data);
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        })
+    }
+
     $(document).ready(function() {
-        $('#dataSiswa').DataTable();
+        requestMentoredList();
+
+
     });
 </script>
 

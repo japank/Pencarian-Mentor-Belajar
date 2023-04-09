@@ -2,14 +2,8 @@
     <thead>
         <tr>
             <th>No</th>
-
             <th>About Mentor</th>
-
-
-
-            <th>level</th>
-
-            <th>Skor Test</th>
+            <th>Info</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -91,64 +85,38 @@
                         </div>
                         <div class="ml-3 w-100">
                             <h6 class="mb-0 mt-0"> <?= $row['name'] ?></h6>
-                            <span> <?= $row['username'] ?></span><br>
-                            <span> <?= $row['email'] ?></span>
+                            <span><i class="fa fa-id-card-o" style="margin-right: 5%;"></i> <?= $row['username'] ?></span><br>
+                            <span><i class="fa fa-envelope-o" style="margin-right: 5%;"></i> <?= $row['email'] ?></span><br>
+                            <span><i class="fa fa-graduation-cap" style="margin-right: 5%;"></i><?= $row['kelas'] ?></span>
                             <div class="p-2 mt-2  d-flex justify-content-between rounded stats">
-                                <span style="font-size: small;"> <?= $row['address'] ?></span>
+                                <span style="font-size: small;" onclick="showLocation('<?= $row['latitude'] ?>','<?= $row['longitude'] ?>','<?= $row['username'] ?>','<?= $row['address'] ?>')"> <?= $row['address'] ?></span>
                             </div>
                         </div>
                     </div>
                 </td>
-                <!-- <td>
-                    <img src="<?= base_url() ?>/file/profile/<?= $pp ?>" class="rounded-circle" width="80" height="80" />
+
+
+
+                <td><button type=" button" class="btn btn-info btn-sm " onclick="showTestTakebyMentor('<?= $username_mentor ?>')"><i class="fa fa-book"></i> Matpel </button> <br><br>
+                    <button type="button" class="btn btn-info btn-sm" onclick="showIdentity('<?= $username_mentor ?>')"><i class="fa fa-eye"></i> Identitas</button>
                 </td>
                 <td>
-                    <b> <?= $row['username'] ?></b><br><?= $row['name'] ?><br><?= $row['email'] ?><br><i><?= $row['address'] ?></i><br>Joined : <?= strftime("%d %b %Y", strtotime($row['created_at'])) ?>
-                </td> -->
-
-
-
-                <?php
-                $name_exam_based_level = '';
-                if ($row['level_mentor'] == 0) {
-                    $name_exam_based_level = '<span class="badge bg-warning rounded">Belum Ujian</span>';
-                } elseif ($row['level_mentor'] == 1) {
-                    $name_exam_based_level = '<span class="badge bg-danger rounded">SD</span>';
-                } elseif ($row['level_mentor'] == 2) {
-                    $name_exam_based_level = '<span class="badge bg-primary rounded">SD-SMP</span>';
-                } else {
-                    $name_exam_based_level = '<span class="badge bg-secondary rounded">SD-SMA</span>';
-                } ?>
-
-                <td><?= $name_exam_based_level ?></td>
-
-
-                <td><?php foreach ($list_score as $score) {
-                        if ($score['username'] == $row['username']) {
-                    ?>
-                            <span class="badge bg-info rounded">
-                                <?= $score['name'] ?>
-                                : <?= $score['score'] ?><br>
-                            </span>
                     <?php
-                        }
+                    $status = '';
+                    if ($row['status_verified'] == 0) {
+                        $status = '<span class="badge bg-warning rounded">Belum Diverifikasi</span>';
+                    } elseif ($row['status_verified'] == 1) {
+                        $status = '<span class="badge bg-success rounded">Diterima</span>';
+                    } else {
+                        $status = '<span class="badge bg-danger rounded">Ditolak</span>';
                     } ?>
-                </td>
-                <?php
-                $status = '';
-                if ($row['status_verified'] == 0) {
-                    $status = '<span class="badge bg-warning rounded">Belum Diverifikasi</span>';
-                } elseif ($row['status_verified'] == 1) {
-                    $status = '<span class="badge bg-success rounded">Diterima</span>';
-                } else {
-                    $status = '<span class="badge bg-danger rounded">Ditolak</span>';
-                } ?>
-                <td>ID : <button type="button" class="btn btn-info btn-sm" onclick="showIdentity('<?= $username_mentor ?>')"><i class="fa fa-eye"></i></button><br><br><?= $status ?> <br> </td>
-                <td> <a href="<?= base_url("logbook/mentoredStudent/$username_mentor"); ?>"><button type="button" class="btn btn-info btn-sm">
-                            <i class="fa fa-address-book"></i> Daftar siswa
+                    <?= $status ?> <br> </td>
+                <td>
+                    <a href="<?= base_url("mentor/mentoringHistory/$username_mentor"); ?>"><button type="button" class="btn btn-info btn-sm">
+                            <i class="fa fa-address-book"></i> Mentoring
                         </button></a> <br><br>
-                    <button type="button" class="btn btn-info btn-sm " onclick="showAllLogbookFromMentor('<?= $username_mentor ?>')"><i class="fa fa-book"></i>Logbook </button> <br><br>
-                    <button type="button" class="btn btn-info btn-sm " onclick="verifyMentor('<?= $username_mentor ?>')"><i class="fa fa-question"></i>Verifikasi </button>
+
+                    <button type="button" class="btn btn-info btn-sm " onclick="verifyMentor('<?= $username_mentor ?>')"><i class="fa fa-question"></i> Verifikasi </button>
 
                 </td>
 
@@ -166,6 +134,27 @@
         $.ajax({
             type: "post",
             url: "<?= site_url('logbook/showAllLogbookFromMentor') ?>",
+            data: {
+                username_mentor: username_mentor
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.sukses) {
+                    $('.viewModal').html(response.sukses).show();
+                    $('#modaltambah').modal('show');
+
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        })
+    }
+
+    function showTestTakebyMentor(username_mentor) {
+        $.ajax({
+            type: "post",
+            url: "<?= site_url('exam/showTestTakebyMentor') ?>",
             data: {
                 username_mentor: username_mentor
             },
@@ -258,6 +247,29 @@
                         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                     }
                 })
+            }
+        })
+    }
+
+    function showLocation(lat, long, name, address) {
+        $.ajax({
+            type: "post",
+            url: "<?= site_url('users/showLocation') ?>",
+            data: {
+                lat: lat,
+                long: long,
+                name: name,
+                address: address
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.sukses) {
+                    $('.viewModal').html(response.sukses).show();
+                    $('#modalEdit').modal('show');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
         })
     }

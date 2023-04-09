@@ -13,8 +13,8 @@
                 <li><a href="<?= base_url(); ?>/mentorchecked">Mentor</a></li>
                 <li><a href="<?= base_url(); ?>/chat">Chat</a></li>
 
-                <li><a class="" href="<?= base_url(); ?>/mentor/request">Request</a></li>
-                <li><a class="" href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
+                <li><a class="" href="<?= base_url(); ?>/request-history">Pengajuan</a></li>
+                <li><a class="" href="<?= base_url(); ?>/request-accepted">Mentoring</a></li>
 
                 <li class="dropdown"><a href="<?= base_url(); ?>/profile"><span><?= session()->get('username') ?></span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
@@ -85,7 +85,7 @@ if (is_null($dt->name) || is_null($dt->email) || is_null($dt->profile_picture) |
             <!-- Content Row -->
             <div class="row">
 
-                <div class="col-xl-4 col-md-6 mb-4">
+                <div class="col-xl-4 col-md-4 mb-4">
                     <div class="card bg-warning text-white shadow">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -93,11 +93,11 @@ if (is_null($dt->name) || is_null($dt->email) || is_null($dt->profile_picture) |
                                     <i class="fas fa-hands-helping fa-2x text-gray-300"></i>
                                 </div>
                                 <div class="col mr-2" style="margin-left: 5%;">
-                                    <b>Permintaan Mentoring</b>
+                                    <strong>Permintaan Mentoring</strong>
                                 </div>
                                 <div class="col-auto">
                                     <h3><?php foreach ($total_request as $row) ?>
-                                        <b> <?= $row ?></b>
+                                        <strong> <?= $row ?></strong>
                                     </h3>
                                 </div>
 
@@ -105,7 +105,7 @@ if (is_null($dt->name) || is_null($dt->email) || is_null($dt->profile_picture) |
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-6 mb-4">
+                <div class="col-xl-4 col-md-4 mb-4">
                     <div class="card bg-primary text-white shadow">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -113,11 +113,11 @@ if (is_null($dt->name) || is_null($dt->email) || is_null($dt->profile_picture) |
                                     <i class="fas fa-user-graduate fa-2x text-gray-300"></i>
                                 </div>
                                 <div class="col mr-2" style="margin-left: 5%;">
-                                    <b>Total Mentor</b>
+                                    <strong>Total Mentor</strong>
                                 </div>
                                 <div class="col-auto">
                                     <h3><?php foreach ($total_mentor as $row) ?>
-                                        <b> <?= $row ?></b>
+                                        <strong> <?= $row ?></strong>
                                     </h3>
                                 </div>
 
@@ -125,7 +125,7 @@ if (is_null($dt->name) || is_null($dt->email) || is_null($dt->profile_picture) |
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-6 mb-4">
+                <div class="col-xl-4 col-md-4 mb-4">
                     <div class="card bg-success text-white shadow">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -133,11 +133,11 @@ if (is_null($dt->name) || is_null($dt->email) || is_null($dt->profile_picture) |
                                     <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
                                 </div>
                                 <div class="col mr-2" style="margin-left: 5%;">
-                                    <b>Bimbingan Terselesaikan</b>
+                                    <strong>Bimbingan Terselesaikan</strong>
                                 </div>
                                 <div class="col-auto">
                                     <h3><?php foreach ($total_bimbingan as $row) ?>
-                                        <b> <?= $row ?></b>
+                                        <strong> <?= $row ?></strong>
                                     </h3>
                                 </div>
 

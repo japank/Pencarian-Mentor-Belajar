@@ -12,7 +12,7 @@ class UsersModel extends Model
     protected $useTimestamps = true;
     protected $allowedFields = ['username', 'password', 'name', 'email', 'address', 'latitude', 'longitude', 'kelas', 'role', 'profile_picture', 'created_at', 'updated_at', 'link', 'status'];
 
-    public function getjarak()
+    public function getjarak($matkul, $level)
     {
         $usernow = session()->get('username');
         $latnow = session()->get('latitude');
@@ -21,18 +21,23 @@ class UsersModel extends Model
         // hyang nareswara
         $query = $this->db->query("SELECT *, 
         ( 6371 * acos
-        (
-            sin( radians($latnow))  * sin(radians(latitude))
-        +
-         cos( radians($latnow) ) * cos( radians( latitude ) ) 
-        * 
-        cos (radians( longitude ) -  radians($longnow) )
-        ))
-                as jarak_km FROM users
-                INNER JOIN mentor_detail ON mentor_detail.username = users.username
-                where users.username != '$usernow' AND mentor_detail.status_verified = '1'
-                HAVING role = 'pendamping' ORDER BY mentor_detail.username ASC
+            (
+                sin(radians($latnow)) * sin(radians(latitude))
+                +
+                cos(radians($latnow)) * cos(radians(latitude)) 
+                * 
+                cos(radians(longitude) -  radians($longnow))
+            )
+        )
+        
+            AS jarak_km FROM users
+            INNER JOIN mentor_detail ON mentor_detail.username = users.username
+              INNER JOIN exam_user_take_exam ON exam_user_take_exam.username = mentor_detail.username
+            INNER JOIN exam_detail ON exam_detail.exam_id = exam_user_take_exam.exam_id
+            WHERE exam_detail.id_course = '$matkul' AND exam_detail.level = '$level' AND mentor_detail.status_verified = '1'
 
+
+            HAVING role = 'pendamping' ORDER BY jarak_km ASC
                 ");
 
 
@@ -69,15 +74,156 @@ class UsersModel extends Model
         // ");
         return $query->getResult();
     }
-
-    public function getMentorByScore()
+    public function getjarakAll()
     {
-        $query = $this->db->query("
-        SELECT * FROM users 
+        $usernow = session()->get('username');
+        $latnow = session()->get('latitude');
+        $longnow = session()->get('longitude');
+
+
+        $query = $this->db->query("SELECT *, 
+        ( 6371 * acos
+            (
+                sin(radians($latnow)) * sin(radians(latitude))
+                +
+                cos(radians($latnow)) * cos(radians(latitude)) 
+                * 
+                cos(radians(longitude) -  radians($longnow))
+            )
+        )
+        
+            AS jarak_km FROM users
+            INNER JOIN mentor_detail ON mentor_detail.username = users.username
+            --   INNER JOIN exam_user_take_exam ON exam_user_take_exam.username = mentor_detail.username
+            -- INNER JOIN exam_detail ON exam_detail.exam_id = exam_user_take_exam.exam_id
+            where users.username != '$usernow' AND mentor_detail.status_verified = '1' AND users.username IN(SELECT distinct username FROM exam_user_take_exam)
+                HAVING role = 'pendamping' ORDER BY jarak_km ASC
+                ");
+
+
+        return $query->getResult();
+    }
+
+    public function getjarakAllMatkul($level)
+    {
+        $usernow = session()->get('username');
+        $latnow = session()->get('latitude');
+        $longnow = session()->get('longitude');
+
+
+        $query = $this->db->query("SELECT *, 
+        ( 6371 * acos
+            (
+                sin(radians($latnow)) * sin(radians(latitude))
+                +
+                cos(radians($latnow)) * cos(radians(latitude)) 
+                * 
+                cos(radians(longitude) -  radians($longnow))
+            )
+        )
+        
+            AS jarak_km FROM users
+            INNER JOIN mentor_detail ON mentor_detail.username = users.username
+               INNER JOIN exam_user_take_exam ON exam_user_take_exam.username = mentor_detail.username
+            INNER JOIN exam_detail ON exam_detail.exam_id = exam_user_take_exam.exam_id
+            WHERE exam_detail.level = '$level' AND mentor_detail.status_verified = '1'
+                HAVING role = 'pendamping' ORDER BY jarak_km ASC
+                ");
+
+
+        return $query->getResult();
+    }
+    public function getjarakAllLevel($matkul)
+    {
+        $usernow = session()->get('username');
+        $latnow = session()->get('latitude');
+        $longnow = session()->get('longitude');
+
+
+        $query = $this->db->query("SELECT *, 
+        ( 6371 * acos
+            (
+                sin(radians($latnow)) * sin(radians(latitude))
+                +
+                cos(radians($latnow)) * cos(radians(latitude)) 
+                * 
+                cos(radians(longitude) -  radians($longnow))
+            )
+        )
+        
+            AS jarak_km FROM users
+            INNER JOIN mentor_detail ON mentor_detail.username = users.username
+               INNER JOIN exam_user_take_exam ON exam_user_take_exam.username = mentor_detail.username
+            INNER JOIN exam_detail ON exam_detail.exam_id = exam_user_take_exam.exam_id
+            WHERE exam_detail.id_course = '$matkul' AND mentor_detail.status_verified = '1'
+                HAVING role = 'pendamping' ORDER BY jarak_km ASC
+                ");
+
+
+        return $query->getResult();
+    }
+    public function getjarakForHistoryRequest()
+    {
+        $usernow = session()->get('username');
+        $latnow = session()->get('latitude');
+        $longnow = session()->get('longitude');
+
+
+        $query = $this->db->query("SELECT *, 
+        ( 6371 * acos(sin(radians($latnow)) * sin(radians(latitude))+cos(radians($latnow)) * cos(radians(latitude)) * cos(radians(longitude) -  radians($longnow))))        
+            AS jarak_km FROM users
+            INNER JOIN mentor_detail ON mentor_detail.username = users.username
+            where users.username != '$usernow' AND mentor_detail.status_verified = '1'
+                HAVING role = 'pendamping' ORDER BY jarak_km ASC
+                ");
+        return $query->getResult();
+    }
+
+    public function getMentorByScoreCustomMatkulLevel($matkul, $level)
+    {
+        $query = $this->db->query("SELECT * FROM users 
+        INNER JOIN mentor_detail ON mentor_detail.username = users.username
         INNER JOIN exam_user_take_exam ON exam_user_take_exam.username = users.username
-        WHERE users.username IN (SELECT username FROM exam_user_take_exam) 
-        ORDER BY jarak_km DESC
+        INNER JOIN exam_detail ON exam_detail.exam_id = exam_user_take_exam.exam_id
+        WHERE exam_detail.id_course = '$matkul' AND exam_detail.level = '$level'
+        ORDER BY exam_user_take_exam.score DESC
         ");
+        return $query->getResult();
+    }
+
+    public function getMentorByScoreAll()
+    {
+        $query = $this->db->query("SELECT * FROM users 
+        INNER JOIN mentor_detail ON mentor_detail.username = users.username
+        INNER JOIN exam_user_take_exam ON exam_user_take_exam.username = users.username
+        WHERE mentor_detail.status_verified = '1' AND users.username IN (SELECT DISTINCT username FROM exam_user_take_exam) 
+        ORDER BY exam_user_take_exam.score DESC
+                ");
+        return $query->getResult();
+    }
+
+    public function getMentorByScoreCustomLevel($level)
+    {
+        $query = $this->db->query("SELECT * FROM users 
+        INNER JOIN mentor_detail ON mentor_detail.username = users.username
+        INNER JOIN exam_user_take_exam ON exam_user_take_exam.username = users.username
+        INNER JOIN exam_detail ON exam_detail.exam_id = exam_user_take_exam.exam_id
+        WHERE mentor_detail.status_verified = '1' AND exam_detail.level = '$level'
+        ORDER BY exam_user_take_exam.score DESC
+                ");
+        return $query->getResult();
+    }
+
+    public function getMentorByScoreCustomMatkul($matkul)
+    {
+        $query = $this->db->query("SELECT * FROM users 
+        INNER JOIN mentor_detail ON mentor_detail.username = users.username
+        INNER JOIN exam_user_take_exam ON exam_user_take_exam.username = users.username
+        INNER JOIN exam_detail ON exam_detail.exam_id = exam_user_take_exam.exam_id
+        WHERE mentor_detail.status_verified = '1' AND exam_detail.id_course = '$matkul'
+        ORDER BY exam_user_take_exam.score DESC
+                ");
+
         return $query->getResult();
     }
 

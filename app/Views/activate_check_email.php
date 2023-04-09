@@ -82,8 +82,8 @@
 
 <body>
     <div class="wrap">
-        <h1><b>Account need to be activate.
-            </b></h1>
+        <h1><strong>Account need to be activate.
+            </strong></h1>
 
 
         <p>

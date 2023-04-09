@@ -42,11 +42,12 @@ class Profile extends BaseController
                 'name' => $this->request->getVar('name'),
                 'email' => $this->request->getVar('email'),
                 'kelas' => $this->request->getVar('kelas'),
-                // 'password' => $this->request->getVar('password'),
-
             ];
             $this->users->update($username, $savedata);
-
+            $price_sd = $this->request->getVar('price_sd');
+            $price_smp = $this->request->getVar('price_smp');
+            $price_sma = $this->request->getVar('price_sma');
+            $this->mentor_detail->updatePrice($username, $price_sd, $price_smp, $price_sma);
 
             $dataMentor = $this->mentor_detail->where(['username' => $username,])->first();
             $dataFile = $this->request->getFile('identity_file');
@@ -100,7 +101,6 @@ class Profile extends BaseController
                 'name' => $this->request->getVar('name'),
                 'email' => $this->request->getVar('email'),
                 'kelas' => $this->request->getVar('kelas'),
-                // 'password' => $this->request->getVar('password'),
 
             ];
             $this->users->update($username, $savedata);

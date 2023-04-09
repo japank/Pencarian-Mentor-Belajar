@@ -13,16 +13,31 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Logbook Siswa <b><?= $username_siswa ?></b> dengan mentor <b> <?= $username_mentor ?></b></h5><br>
+                <h5 class="modal-title" id="exampleModalLabel">Logbook kamu dengan mentor "<strong><?= $username_mentor ?></strong>"</h5><br>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
+            <div class="card-body">
+                <h5 class="card-title" style="position: absolute; right: 7%;">
+                    <?php
+                    if ($request_mentor->status_mentoring == '0') {
+                        echo '<span class="badge bg-warning"><strong>Proses Mentoring</strong></span>';
+                    } else {
+                        echo '<span class="badge bg-success"><strong>Mentoring Selesai</strong></span>';
+                    }
+                    ?></h5>
+
+
+                <h6 class="modal-title" id=" exampleModalLabel">Mata Pelajaran "<strong><?= $request_mentor->topic ?></strong>"</h6>
+                <h6 class="modal-title" id=" exampleModalLabel">Topik "<strong><?= $request_mentor->description ?></strong>"</h6><br>
+            </div>
+
+
             <div class="table-responsive">
                 <table id="dataLogbook" class="table table-bordered">
                     <thead>
                         <tr>
                             <th>Tanggal Pertemuan</th>
-                            <th>Topik</th>
-                            <th>Deskripsi Topik</th>
                             <th>Deskripsi Pertemuan</th>
                             <th>Foto Kegiatan</th>
                         </tr>
@@ -36,11 +51,9 @@
 
                         ?>
                             <tr>
-                                <td><?= strftime("%d %b %Y, %A", strtotime($row->date_mentoring)) ?></td>
-                                <td><?= $row->topic ?></td>
-                                <td><?= $row->topic_description ?></a></td>
-                                <td><?= $row->description ?></a></td>
-                                <td><button type="button" class="btn btn-info btn-sm" onclick="showPhoto('<?= $row->id_logbook ?>')">
+                                <td><?= strftime(" %A, %d %b %Y", strtotime($row->date_mentoring)) ?></td>
+                                <td><?= $row->mentoring_description ?></a></td>
+                                <td><button type="button" class="btn btn-info btn-sm" onclick="showPhoto('<?= $row->activity_photo ?>')">
                                         <i class="fa fa-eye"></i>
                                     </button></td>
 
@@ -67,18 +80,11 @@
 <script>
     function showPhoto(id_logbook) {
         $.ajax({
-            type: "post",
-            url: "<?= site_url('logbook/showPhoto') ?>",
-            data: {
-                id_logbook: id_logbook,
-            },
-            dataType: "json",
             success: function(response) {
-                if (response.sukses) {
-                    $('.viewModal').html(response.sukses).show();
-                    $('#modalEdit').modal('show');
-
-                }
+                Swal.fire({
+                    imageUrl: "<?= base_url() ?>/file/logbook/" + id_logbook,
+                    imageAlt: 'A tall image'
+                })
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);

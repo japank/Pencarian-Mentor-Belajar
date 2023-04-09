@@ -82,7 +82,7 @@
 
 <body>
     <div class="wrap">
-        <h1><b>Activation Success</b></h1>
+        <h1><strong>Activation Success</strong></h1>
 
         <p>
             <?php if (!empty($message) && $message !== '(null)') : ?>

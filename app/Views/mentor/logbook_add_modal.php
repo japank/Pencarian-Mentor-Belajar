@@ -1,58 +1,41 @@
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-</button>
-
 <!-- Modal -->
 <div class="modal fade" id="modaltambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Logbook <?= $username_siswa ?></h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Logbook </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <?= form_open_multipart('logbook/process/' . $username_siswa, ['class' => 'formLogbook']) ?>
+            <?= form_open_multipart('logbook/process/' . $id_request, ['class' => 'formLogbook']) ?>
             <?= csrf_field(); ?>
             <div class="modal-body">
 
-                <input type="hidden" class="form-control" id="username_mentor" name="username_mentor" value="<?= session()->get('username'); ?>" readonly="">
-
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Tanggal Pertemuan</label>
+                    <label for="" class="col-sm-4 col-form-label">Tanggal Pertemuan</label>
                     <div class="col-sm-8">
-                        <input type="date" class="form-control" id="date_mentoring" name="date_mentoring">
-                        <div class="invalid-feedback errorDateMentoring">
+                        <select id="date_mentoring" name="date_mentoring" required class="form-select">
+                            <option value="">Pilih salah satu</option>
+                            <?php
+                            foreach ($datementoring as $dm) {
+                            ?>
+                                <option value="<?= strftime("%Y-%m-%d", strtotime($dm)) ?>"><?= strftime("%a %d %b %Y", strtotime($dm)) ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
 
-                        </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Topik</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="topic" name="topic">
-                        <div class="invalid-feedback errorTopic">
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Deskripsi Topik</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="topic_description" name="topic_description">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Deskripsi Pertemuan</label>
+                    <label for="" class="col-sm-4 col-form-label">Deskripsi Pertemuan</label>
                     <div class="col-sm-8">
                         <textarea type="text" class="form-control" id="description" name="description"></textarea>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Foto Kegiatan</label>
+                    <label for="" class="col-sm-4 col-form-label">Foto Kegiatan</label>
                     <div class="col-sm-8">
                         <input type="file" class="form-control" id="activity_photo" name="activity_photo">
                     </div>
@@ -97,21 +80,7 @@
                 },
                 success: function(response) {
                     if (response.error) {
-                        if (response.error.date_mentoring) {
-                            $('#date_mentoring').addClass('is-invalid');
-                            $('.errorDateMentoring').html(response.error.date_mentoring);
-                        } else {
-                            $('#date_mentoring').removeClass('is-invalid');
-                            $('.errorDatementoring').html('');
-                        }
 
-                        if (response.error.topic) {
-                            $('#topic').addClass('is-invalid');
-                            $('.errorTopic').html(response.error.topic);
-                        } else {
-                            $('#topic').removeClass('is-invalid');
-                            $('.errorTopic').html('');
-                        }
 
                     } else {
                         Swal.fire({

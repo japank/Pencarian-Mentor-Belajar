@@ -18,7 +18,7 @@
     <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title">Daftar siswa yang dimentori oleh <?= $username_mentor ?></h4>
+                <h4 class="page-title">Riwayat Mentoring dari siswa "<?= $username_siswa ?>"</h4>
             </div>
             <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                 <div class="d-md-flex">
@@ -112,10 +112,9 @@
 <script src="<?= base_url() ?>/assets/mbohtable/js/app.js"></script>
 <div class="viewModal" style="display: none;"></div>
 <script type="text/javascript">
-    function listMentoredStudent() {
-
+    function listMentoringHistory() {
         $.ajax({
-            url: "<?= site_url('logbook/loadMentoredStudent/' . $username_mentor) ?>",
+            url: "<?= site_url('mentor/loadMentoringHistoryfromSiswa/' . $username_siswa) ?>",
             dataType: "json",
             success: function(response) {
                 $('.viewdata').html(response.data);
@@ -126,8 +125,30 @@
         })
     }
 
+    function showLocation(lat, long, name, address) {
+        $.ajax({
+            type: "post",
+            url: "<?= site_url('users/showLocation') ?>",
+            data: {
+                lat: lat,
+                long: long,
+                name: name,
+                address: address
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.sukses) {
+                    $('.viewModal').html(response.sukses).show();
+                    $('#modalEdit').modal('show');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        })
+    }
     $(document).ready(function() {
-        listMentoredStudent();
+        listMentoringHistory();
 
     });
 </script>

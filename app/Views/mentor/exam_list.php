@@ -1,4 +1,4 @@
-<?= $this->extend('layout/templateMentor2'); ?>
+<?= $this->extend('layout/templateMentor_sidebar_tes'); ?>
 <?= $this->section('content'); ?>
 <!-- DataTables -->
 <link href="<?= base_url() ?>/assets/mbohtable/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
@@ -21,8 +21,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Exam List</h4>
-                    <h6 class="card-subtitle">Dibawah ini adalah daftar siswa yang kamu mentorin.</h6>
+                    <h4 class="card-title">Daftar Test Mata Pelajaran <?= $course->name_course ?></h4>
+                    <h6 class="card-subtitle">pilih salah satu test yang ingin kamu ikuti</h6>
                 </div>
                 <div class="table-responsive viewdata">
 
@@ -48,6 +48,9 @@
     function listExam() {
         $.ajax({
             url: "<?= site_url('exam/loadexam') ?>",
+            data: {
+                id_course: '<?= $id_course ?>'
+            },
             dataType: "json",
             success: function(response) {
                 $('.viewdata').html(response.data);

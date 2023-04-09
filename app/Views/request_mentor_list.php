@@ -13,8 +13,9 @@
                 <li><a href="<?= base_url(); ?>/mentorchecked">Mentor</a></li>
                 <li><a href="<?= base_url(); ?>/chat">Chat</a></li>
 
-                <li><a class="active" href="<?= base_url(); ?>/mentor/request">Request</a></li>
-                <li><a class="" href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
+                <li><a class="active" href="<?= base_url(); ?>/request-history">Pengajuan</a></li>
+                <li><a class="" href="<?= base_url(); ?>/request-accepted">Mentoring</a></li>
+
 
                 <li class="dropdown"><a href="<?= base_url(); ?>/profile"><span><?= session()->get('username') ?></span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
@@ -56,7 +57,7 @@
                 <!-- Page Heading -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">History Request Mentor</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Riwayat Pengajuan Mentoring</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive viewdata">
@@ -104,6 +105,29 @@
                     dataType: "json",
                     success: function(response) {
                         $('.viewdata').html(response.data);
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                })
+            }
+
+            function showLocation(lat, long, name, address) {
+                $.ajax({
+                    type: "post",
+                    url: "<?= site_url('users/showLocation') ?>",
+                    data: {
+                        lat: lat,
+                        long: long,
+                        name: name,
+                        address: address
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.sukses) {
+                            $('.viewModal').html(response.sukses).show();
+                            $('#modalEdit').modal('show');
+                        }
                     },
                     error: function(xhr, ajaxOptions, thrownError) {
                         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);

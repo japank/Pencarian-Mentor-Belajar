@@ -10,7 +10,7 @@ class ExamDetailModel extends Model
     protected $primaryKey = "exam_id";
     protected $returnType = "object";
     protected $useTimestamps = false;
-    protected $allowedFields = ['exam_id', 'name', 'level', 'marks_per_right_answer', 'marks_per_wrong_answer', 'pass_score', 'time'];
+    protected $allowedFields = ['exam_id', 'id_course', 'exam_name', 'level', 'marks_per_right_answer', 'marks_per_wrong_answer', 'pass_score', 'time'];
 
 
     public function getQuestionRightAnswerMark($exam_id)
@@ -40,7 +40,15 @@ class ExamDetailModel extends Model
         }
     }
 
-    public function getExamList()
+    public function getExamList($id_course)
+    {
+        $query = $this->db->query("
+        SELECT * FROM exam_detail WHERE id_course = $id_course
+        ");
+
+        return $query->getResultArray();
+    }
+    public function getExamListAll()
     {
         $query = $this->db->query("
         SELECT * FROM exam_detail ORDER BY level ASC
@@ -72,7 +80,7 @@ class ExamDetailModel extends Model
     public function getExamTitle($exam_id)
     {
         $query = $this->db->query("
-        SELECT name FROM exam_detail WHERE exam_id = $exam_id
+        SELECT exam_name FROM exam_detail WHERE exam_id = $exam_id
         ");
         return $query->getRow();
     }
@@ -85,6 +93,20 @@ class ExamDetailModel extends Model
         INNER JOIN exam_user_take_exam ON exam_user_take_exam.exam_id = exam_detail.exam_id
         
         ");
+        // INNER JOIN users ON users.username = exam_user_take_exam.username
+        return $query->getResultArray();
+    }
+    public function showTestTakebyMentor($username_mentor)
+    {
+        $usernow = session()->get('username');
+        $query = $this->db->query(
+            "SELECT * FROM exam_detail
+            INNER JOIN exam_user_take_exam ON exam_user_take_exam.exam_id = exam_detail.exam_id
+            INNER JOIN course ON course.id_course = exam_detail.id_course 
+            INNER JOIN mentor_detail ON mentor_detail.username = exam_user_take_exam.username
+            WHERE  exam_user_take_exam.username = '$username_mentor'
+        "
+        );
         // INNER JOIN users ON users.username = exam_user_take_exam.username
         return $query->getResultArray();
     }

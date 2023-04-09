@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ajukan Permintaan Mentoring kepada "<?= $username_mentor ?>"</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Ajukan Permintaan Mentoring kepada <strong><?= $username_mentor ?></strong></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -15,21 +15,45 @@
                 <input type="hidden" class="form-control" id="username_mentor" name="username_mentor" value="<?= $username_mentor ?>" readonly="">
 
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Tanggal Pertemuan</label>
+                    <label for="" class="col-sm-4 col-form-label">Tanggal Pertemuan</label>
                     <div class="col-sm-8">
                         <!-- <input type="date" class="form-control" id="date_mentoring" name="date_mentoring"> -->
-                        <input type="text" readonly class="form-control" id="date_mentoring" name="date_mentoring" placeholder="Choose Date" style="cursor: pointer;">
+                        <input type="text" readonly class="form-control" id="date_mentoring" name="date_mentoring" placeholder="Pilih tanggal" style="cursor: pointer;">
                         <div class="invalid-feedback errorDateMentoring">
 
                         </div>
                     </div>
                 </div>
+                <br>
 
-                <!-- <input type="text" readonly id="Txt_Date" name="Txt_Date" placeholder="Choose Date" style="cursor: pointer;"> -->
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Topik</label>
+                    <label for="" class="col-sm-4 col-form-label">Jam</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="topic" name="topic">
+                        <input type="time" class="form-control" id="time_mentoring" name="time_mentoring">
+                        <div class="invalid-feedback errorTimeMentoring">
+
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group row">
+                    <label for="" class="col-sm-4 col-form-label">Topik</label>
+                    <div class="col-sm-8">
+                        <span class="custom-dropdown">
+                            <select id="topic" name="topic" required class="form-select">
+                                <option value="">Pilih salah satu</option>
+                                <?php
+                                foreach ($matpel as $row) {
+                                ?>
+                                    <option value="<?= $row['name_course'] ?>">
+                                        <?= $row['name_course'] ?>
+                                    </option>
+
+                                <?php
+                                }
+                                ?>
+                            </select>
+                        </span>
                         <div class="invalid-feedback errorTopic">
 
                         </div>
@@ -38,9 +62,12 @@
                 <br>
 
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Deskripsi Topik</label>
+                    <label for="" class="col-sm-4 col-form-label">Deskripsi Topik</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="topic_description" name="topic_description">
+                        <div class="invalid-feedback errorTopicDescription">
+
+                        </div>
                     </div>
                 </div>
 
@@ -84,6 +111,13 @@
                             $('#date_mentoring').removeClass('is-invalid');
                             $('.errorDatementoring').html('');
                         }
+                        if (response.error.time_mentoring) {
+                            $('#time_mentoring').addClass('is-invalid');
+                            $('.errorTimeMentoring').html(response.error.time_mentoring);
+                        } else {
+                            $('#time_mentoring').removeClass('is-invalid');
+                            $('.errorTimeMentoring').html('');
+                        }
 
                         if (response.error.topic) {
                             $('#topic').addClass('is-invalid');
@@ -91,6 +125,14 @@
                         } else {
                             $('#topic').removeClass('is-invalid');
                             $('.errorTopic').html('');
+                        }
+
+                        if (response.error.topic_description) {
+                            $('#topic_description').addClass('is-invalid');
+                            $('.errorTopicDescription').html(response.error.topic_description);
+                        } else {
+                            $('#topic_description').removeClass('is-invalid');
+                            $('.errorTopicDescription').html('');
                         }
 
                     } else {
@@ -115,7 +157,7 @@
     })
 
     $("#date_mentoring").datepicker({
-        format: 'yyyy-mm-dd',
+        format: 'dd-mm-yyyy',
         inline: false,
         lang: 'en',
         step: 15,

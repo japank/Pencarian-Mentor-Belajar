@@ -13,9 +13,18 @@
     <link rel="canonical" href="https://www.wrappixel.com/templates/Flexy-admin-lite/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url(); ?>/assets/mentor/assets/images/favicon.png">
-    <!-- Custom CSS -->
-    <link href="<?= base_url(); ?>/assets/mentor/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
-    <link href="<?= base_url(); ?>/assets/mentor/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" crossorigin=""></script>
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
+
+    <!-- Load Esri Leaflet Vector from CDN -->
+    <script src="https://unpkg.com/esri-leaflet-vector@4.0.0/dist/esri-leaflet-vector.js" crossorigin=""></script>
+
     <!-- Custom CSS -->
     <link href="<?= base_url(); ?>/assets/mentor/dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -147,7 +156,7 @@
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/chat" aria-expanded="false"><i class="mdi mdi-message"></i><span class="hide-menu">Chats</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/mentor/requested" aria-expanded="false"><i class="mdi mdi-account-switch"></i><span class="hide-menu">Permintaan Mentoring</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/mentor/request-history" aria-expanded="false"><i class="mdi mdi-history"></i><span class="hide-menu">Riwayat Permintaan</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/logbook" aria-expanded="false"><i class="mdi mdi-book-multiple"></i><span class="hide-menu">Logbook Siswa</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/mentor/request-accepted" aria-expanded="false"><i class="mdi mdi-book-multiple"></i><span class="hide-menu">Mentoring</span></a></li>
                         <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/exam/list" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Add Exam</span></a></li> -->
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/exam/index" aria-expanded="false"><i class="mdi mdi-grease-pencil"></i><span class="hide-menu">Tes</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url(); ?>/exam/result" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Hasil Tes</span></a></li>

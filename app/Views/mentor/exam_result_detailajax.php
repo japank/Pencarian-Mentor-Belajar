@@ -160,8 +160,8 @@
                                 ?>
                                 <?= $huruf ?> . <?= $rowoption['option_title'] ?>
 
-                                <span><?= $benar ?></span>
                                 <span><?= $user_answer ?></span>
+                                <span><?= $benar ?></span>
                             </label>
                         <?php endif; ?>
                     </div>

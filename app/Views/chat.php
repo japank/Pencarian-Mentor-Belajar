@@ -40,14 +40,15 @@
 <?= $this->section('conversation') ?>
 <div class="messages" id="conversation">
   <ul>
-    <!-- <li class="sent">
-					<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-					<p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
-				</li>
-				<li class="replies">
-					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-					<p>When you're backed against the wall, break the god damn thing down.</p>
-				</li> -->
+    <br><br><br>
+    <div class="card-body">
+      <div class="text-center">
+        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;height:10rem" src="<?= base_url(); ?>/assets/dashboard/img/undraw_posting_photo.svg" alt="...">
+      </div>
+      <h1 style="font-size:xx-large;text-align:center">Chat Mentormu Sekarang!</h1><br>
+      <p style="text-align:center">Diskusikan tentang mentoring kamu dengan mentor kamu. Diskusi cepat, mudah dan tanpa batasan</p>
+
+    </div>
 
   </ul>
 </div>

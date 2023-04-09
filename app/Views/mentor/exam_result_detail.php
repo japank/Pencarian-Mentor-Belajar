@@ -1,4 +1,4 @@
-<?= $this->extend('layout/templateMentor2'); ?>
+<?= $this->extend('layout/templateMentor_sidebar_exam_result'); ?>
 <?= $this->section('content'); ?>
 <!-- DataTables -->
 <link href="<?= base_url() ?>/assets/mbohtable/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />

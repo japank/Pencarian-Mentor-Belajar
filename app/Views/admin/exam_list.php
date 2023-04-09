@@ -110,6 +110,9 @@
     function listExamByAdmin() {
         $.ajax({
             url: "<?= site_url('exam/loadExamByAdmin') ?>",
+            data: {
+                id_course: '<?= $id_course ?>'
+            },
             dataType: "json",
             success: function(response) {
                 $('.viewdata').html(response.data);
@@ -127,6 +130,9 @@
             e.preventDefault();
             $.ajax({
                 url: "<?= base_url('exam/addExam') ?>",
+                data: {
+                    id_course: '<?= $id_course ?>'
+                },
                 dataType: "json",
                 success: function(response) {
                     $('.viewModal').html(response.data).show();

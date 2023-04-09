@@ -29,7 +29,7 @@
         ?>
             <tr>
                 <td><?= $no++ ?></td>
-                <td><?= $row['name'] ?></td>
+                <td><?= $row['exam_name'] ?></td>
                 <td><?= $level ?></a></td>
                 <td><span class="badge bg-success rounded">+ <?= $row['marks_per_right_answer'] ?></span></td>
                 <td><span class="badge bg-danger rounded">- <?= $row['marks_per_wrong_answer'] ?></span></td>

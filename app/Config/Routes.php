@@ -48,12 +48,18 @@ $routes->get('/mentor', 'Mentor::index');
 $routes->get('/mentor/request', 'Mentor::indexRequestBySiswa');
 $routes->get('/mentor/requested', 'Mentor::indexRequestByMentor');
 $routes->get('/mentor/request-history', 'Mentor::requestHistory');
+$routes->get('/mentor/request-accepted', 'Mentor::requestAccepted');
+
 $routes->get('/mentor/request/(:any)', 'Mentor::request/$1');
 $routes->post('/mentor/process/(:any)', 'Mentor::process/$1');
 $routes->get('/mentor/edit/(:num)', 'Mentor::edit/$1');
 $routes->post('/mentor/update/(:num)', 'Mentor::update/$1');
 $routes->get('/mentor/delete/(:num)', 'Mentor::delete/$1');
 $routes->get('/mentor/verification/(:num)', 'Mentor::verification/$1');
+
+
+$routes->get('/request-history', 'Mentor::indexRequestBySiswa');
+$routes->get('/request-accepted', 'Mentor::requestHistoryBySiswa');
 
 $routes->get('/mylogbook', 'Logbook::index');
 $routes->get('/logbook', 'Logbook::indexLogbookAsMentor');

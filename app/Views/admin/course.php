@@ -17,18 +17,10 @@
     <!-- ============================================================== -->
     <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
-            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title">Daftar mentor dari siswa <?= $username ?></h4>
+            <div class="col-lg-12 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Daftar Mata Pelajaran</h4>
             </div>
-            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                <div class="d-md-flex">
-                    <ol class="breadcrumb ms-auto">
-                        <li><a href="#" class="fw-normal">Dashboard</a></li>
-                    </ol>
-                    <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank" class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Upgrade
-                        to Pro</a>
-                </div>
-            </div>
+
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -45,6 +37,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="white-box">
+                    <a style="padding-left:40px">
+                        <button type="button" class="btn btn-primary btn-sm tomboltambah"><i class="fa fa-plus-circle"></i> Tambah
+                            Mata Pelajaran</button></a><br><br>
                     <div class="table-responsive viewdata">
 
 
@@ -112,10 +107,9 @@
 <script src="<?= base_url() ?>/assets/mbohtable/js/app.js"></script>
 <div class="viewModal" style="display: none;"></div>
 <script type="text/javascript">
-    function listMentoredStudent() {
-        var username_siswa = '<?= $username ?>'
+    function listCourseByAdmin() {
         $.ajax({
-            url: "<?= site_url('logbook/loadListMentorFromStudent/' . $username) ?>",
+            url: "<?= site_url('exam/loadCourseByAdmin') ?>",
             dataType: "json",
             success: function(response) {
                 $('.viewdata').html(response.data);
@@ -127,7 +121,23 @@
     }
 
     $(document).ready(function() {
-        listMentoredStudent();
+        listCourseByAdmin();
+
+        $('.tomboltambah').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "<?= base_url('exam/addCourse') ?>",
+                dataType: "json",
+                success: function(response) {
+                    $('.viewModal').html(response.data).show();
+
+                    $('#modaltambah').modal('show');
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                }
+            })
+        })
 
     });
 </script>

@@ -22,7 +22,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Permintaan Mentoring</h4>
-                    <h6 class="card-subtitle">berikut merupakan daftar permintaan mentoring </h6>
+                    <h6 class="card-subtitle">berikut merupakan daftar permintaan mentoring yang diajukan kepada anda </h6>
                 </div>
                 <div class="table-responsive viewdata">
 

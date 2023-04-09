@@ -20,24 +20,6 @@ class Logbook extends BaseController
     // =============================================================================
     public function index()
     {
-        $mentor = $this->requestMentor->getMentor();
-        $usernow = session()->get('username');
-        return view('mentor_list', [
-            'mentor' => $mentor,
-            'username' => $usernow,
-        ]);
-    }
-
-    public function logbook($username)
-    {
-        $dataLogbook = $this->logbook->getLogbookSiswa($username);
-        $usernow = session()->get('username');
-
-        return view('logbook_siswa', [
-            'username_mentor' => $username,
-            'username' => $usernow,
-            'dataLogbook' => $dataLogbook,
-        ]);
     }
 
     public function showLogbookStudent()
@@ -45,15 +27,23 @@ class Logbook extends BaseController
         if ($this->request->isAJAX()) {
 
             $data = [
+                'request_mentor' => $this->requestMentor->where(['id_request_mentor' => $this->request->getVar('id_request_mentor')])->first(),
+                'logbook' => $this->logbook->getLogbookSiswa($this->request->getVar('id_request_mentor')),
                 'username_mentor' => $this->request->getVar('username_mentor'),
                 'username_siswa' => $this->request->getVar('username_siswa'),
-                'logbook' => $this->logbook->getLogbookSiswa($this->request->getVar('username_mentor')),
-
             ];
 
-            $msg = [
-                'sukses' => view('logbook_modal', $data)
-            ];
+            $tes = session()->get('role');
+            if ($tes == 'siswa') {
+                $msg = [
+                    'sukses' => view('logbook_modal', $data)
+                ];
+            } elseif ($tes == 'admin') {
+                $msg = [
+                    'sukses' => view('admin/logbook_modal', $data)
+                ];
+            } else {
+            }
 
             echo json_encode($msg);
         } else {
@@ -65,53 +55,29 @@ class Logbook extends BaseController
     // |                                     Mentor                               |
     // =============================================================================
 
-    public function indexLogbookAsMentor()
-    {
-        return view('mentor/list_student_datatable');
-    }
-
-    public function liststudent()
-    {
-        if ($this->request->isAJAX()) {
-            $siswaMentored = $this->requestMentor->getSiswaMentored();
-            $usernow = session()->get('username');
-            $data = [
-                'listsiswa' => $siswaMentored,
-                'usernow' => $usernow
-            ];
-
-            $msg = [
-                'data' => view('mentor/list_studentajax', $data)
-            ];
-
-            echo json_encode($msg);
-        } else {
-            exit('Maaf tidak dapat diproses');
-        }
-    }
-
-
-
-    public function logbookSiswaByMentor($username)
+    public function detail($id_request)
     {
         $data = [
-            'username_siswa' => $username,
+            'requestDetail' => $this->requestMentor->where(['id_request_mentor' => $id_request,])->first(),
+            'id_request' => $id_request
         ];
-        return view('mentor/logbook_siswa', $data);
+        return view('mentor/logbook', $data);
     }
 
-    public function studentlogbook($username)
+    public function loadDetail($id_request)
     {
         if ($this->request->isAJAX()) {
-            $dataLogbookByMentor = $this->logbook->getLogbookSiswaByMentor($username);
+            $dataLogbookByMentor = $this->logbook->getLogbook($id_request);
             $usernow = session()->get('username');
             $data = [
                 'studentlogbook' => $dataLogbookByMentor,
-                'usernow' => $usernow
+                'usernow' => $usernow,
+                'id_request' => $id_request,
+                'requestDetail' => $this->requestMentor->where(['id_request_mentor' => $id_request,])->first(),
             ];
 
             $msg = [
-                'data' => view('mentor/logbook_siswaajax', $data)
+                'data' => view('mentor/logbookajax', $data)
             ];
 
             echo json_encode($msg);
@@ -120,13 +86,20 @@ class Logbook extends BaseController
         }
     }
 
+    // 
 
-    public function addlogbook($username)
+
+    public function addlogbook($id_request)
     {
         if ($this->request->isAJAX()) {
-
+            $dataLogbookByMentor = $this->logbook->getLogbook($id_request);
+            $dateRequest = $this->requestMentor->where(['id_request_mentor' => $id_request,])->first();
+            $datementoring = explode(",", $dateRequest->date_started);
             $data = [
-                'username_siswa' => $username,
+                'dataLogbook' => $dataLogbookByMentor,
+                'id_request' => $id_request,
+                'datementoring' => $datementoring
+
             ];
 
             $msg = [
@@ -140,7 +113,7 @@ class Logbook extends BaseController
     }
 
 
-    public function process($username_siswa)
+    public function process($id_request)
     {
         if ($this->request->isAJAX()) {
             $validation = \Config\Services::validation();
@@ -152,20 +125,14 @@ class Logbook extends BaseController
                         'required' => '{field} tidak boleh kosong',
                     ],
                 ],
-                'topic' => [
-                    'label' => 'Topik',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} tidak boleh kosong',
-                    ],
-                ],
+
             ]);
 
             if (!$valid) {
                 $msg = [
                     'error' => [
                         'date_mentoring' => $validation->getError('date_mentoring'),
-                        'topic' => $validation->getError('topic')
+
                     ]
                 ];
             } else {
@@ -173,14 +140,10 @@ class Logbook extends BaseController
                 $dataFile = $this->request->getFile('activity_photo');
                 $dataFileName = $dataFile->getName();
 
-
                 $savedata = [
-                    'username_siswa' => $username_siswa,
-                    'username_mentor' => $this->request->getVar('username_mentor'),
-                    'topic' => $this->request->getVar('topic'),
-                    'topic_description' => $this->request->getVar('topic_description'),
+                    'id_request_mentor' => $id_request,
                     'date_mentoring' => $this->request->getVar('date_mentoring'),
-                    'description' => $this->request->getVar('description'),
+                    'mentoring_description' => $this->request->getVar('description'),
                     'activity_photo' => $dataFileName,
                 ];
 
@@ -203,12 +166,13 @@ class Logbook extends BaseController
         if ($this->request->isAJAX()) {
             $id_logbook = $this->request->getVar('id_logbook');
             $dataLogbook = $this->logbook->find($id_logbook);
+
+            $dateRequest = $this->requestMentor->where(['id_request_mentor' => $this->request->getVar('id_request'),])->first();
+            $datementoring = explode(",", $dateRequest->date_started);
             $data = [
-                'date_mentoring' => $dataLogbook->date_mentoring,
-                'topic' => $dataLogbook->topic,
-                'topic_description' => $dataLogbook->topic_description,
-                'description' => $dataLogbook->description,
-                'username_siswa' => $dataLogbook->username_siswa,
+                'datementoring' => $datementoring,
+                'description' => $dataLogbook->mentoring_description,
+                'activity_photo' => $dataLogbook->activity_photo,
                 'id_logbook' => $id_logbook
             ];
 
@@ -225,22 +189,8 @@ class Logbook extends BaseController
         if ($this->request->isAJAX()) {
             $validation = \Config\Services::validation();
             $valid = $this->validate([
-                'topic' => [
-                    'label' => 'Topik',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} tidak boleh kosong',
-                    ],
-                ],
                 'date_mentoring' => [
                     'label' => 'Tanggal Pertemuan',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} tidak boleh kosong',
-                    ],
-                ],
-                'topic_description' => [
-                    'label' => 'Deskripsi Topik',
                     'rules' => 'required',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
@@ -259,21 +209,36 @@ class Logbook extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'topic' => $validation->getError('topic'),
                         'date_mentoring' => $validation->getError('date_mentoring'),
-                        'description' => $validation->getError('description'),
-                        'topic_description' => $validation->getError('topic_description'),
-
                     ]
                 ];
             } else {
-                $savedata = [
-                    'topic' => $this->request->getVar('topic'),
-                    'topic_description' => $this->request->getVar('topic_description'),
-                    'date_mentoring' => $this->request->getVar('date_mentoring'),
-                    'description' => $this->request->getVar('description')
-                ];
-                $this->logbook->update($id_logbook, $savedata);
+
+
+
+
+                $dataFile = $this->request->getFile('activity_photo');
+                $dataFileName = $dataFile->getRandomName();
+
+
+                if ($dataFile->getError() == 4) {
+                    $savedata = [
+                        'date_mentoring' => $this->request->getVar('date_mentoring'),
+                        'mentoring_description' => $this->request->getVar('description')
+                    ];
+                    $this->logbook->update($id_logbook, $savedata);
+                } else {
+                    $dataLogbook = $this->logbook->where(['id_logbook' => $id_logbook,])->first();
+                    unlink('file/logbook/' . $dataLogbook->activity_photo);
+                    $savedata = [
+                        'date_mentoring' => $this->request->getVar('date_mentoring'),
+                        'mentoring_description' => $this->request->getVar('description'),
+                        'activity_photo' => $dataFileName
+                    ];
+                    $this->logbook->update($id_logbook, $savedata);
+                    $dataFile->move('file/logbook', $dataFileName);
+                }
+
                 $msg = [
                     'sukses' => 'Data Logbook berhasil diupdate'
                 ];
@@ -288,7 +253,9 @@ class Logbook extends BaseController
     public function deleteLogbook()
     {
         if ($this->request->isAJAX()) {
-            $id_logbook = $this->request->getVar('id_logbook');;
+            $id_logbook = $this->request->getVar('id_logbook');
+            $dataLogbook = $this->logbook->where(['id_logbook' => $id_logbook,])->first();
+            unlink('file/logbook/' . $dataLogbook->activity_photo);
             $this->logbook->delete($id_logbook);
             $msg = [
                 'sukses' => 'Data Logbook berhasil dihapus'
@@ -319,38 +286,6 @@ class Logbook extends BaseController
         }
     }
     // ADMIINNN
-    //Daftar Mentor dari siswa
-    public function listMentorFromStudent($username)
-    {
-        $mentor = $this->requestMentor->getMentor();
-        return view('admin/list_mentor_from_student', [
-            'mentor' => $mentor,
-            'username' => $username,
-        ]);
-    }
-
-    public function loadListMentorFromStudent($username)
-    {
-        if ($this->request->isAJAX()) {
-
-            $usernow = session()->get('username');
-            $data = [
-                'list_mentor' => $this->requestMentor->getMentorFromStudent($username),
-                'usernow' => $usernow,
-                'username_siswa' => $username,
-            ];
-
-            $msg = [
-                'data' => view('admin/list_mentor_from_student_ajax', $data)
-            ];
-
-
-            echo json_encode($msg);
-        } else {
-            exit('Maaf tidak dapat diproses');
-        }
-    }
-
     //show logbook by siswa side
     public function showLogbook()
     {
@@ -365,98 +300,6 @@ class Logbook extends BaseController
 
             $msg = [
                 'sukses' => view('admin/logbook_modal', $data)
-            ];
-
-            echo json_encode($msg);
-        } else {
-            exit('Maaf tidak dapat diproses');
-        }
-    }
-    public function showAllLogbook()
-    {
-        if ($this->request->isAJAX()) {
-
-            $data = [
-                'username_siswa' => $this->request->getVar('username_siswa'),
-                'logbook' => $this->logbook->getAllLogbookStudent($this->request->getVar('username_siswa')),
-
-            ];
-
-            $msg = [
-                'sukses' => view('admin/logbook_all_modal', $data)
-            ];
-
-            echo json_encode($msg);
-        } else {
-            exit('Maaf tidak dapat diproses');
-        }
-    }
-
-
-
-    public function mentoredStudent($username_mentor)
-    {
-
-        return view('admin/list_mentored_student', [
-
-            'username_mentor' => $username_mentor
-        ]);
-    }
-
-    public function loadMentoredStudent($username)
-    {
-        if ($this->request->isAJAX()) {
-
-            $usernow = session()->get('username');
-            $data = [
-                'list_mentored_student' => $this->requestMentor->getMentoredStudent($username),
-                'username_mentor' => $username,
-
-            ];
-
-            $msg = [
-                'data' => view('admin/list_mentored_student_ajax', $data)
-            ];
-
-
-            echo json_encode($msg);
-        } else {
-            exit('Maaf tidak dapat diproses');
-        }
-    }
-    public function showLogbookByMentor()
-    {
-        if ($this->request->isAJAX()) {
-
-            $data = [
-                'username_mentor' => $this->request->getVar('username_mentor'),
-                'username_siswa' => $this->request->getVar('username_siswa'),
-                'logbook' => $this->logbook->getLogbookSiswaByAdmin($this->request->getVar('username_siswa'), $this->request->getVar('username_mentor')),
-
-            ];
-
-            $msg = [
-                'sukses' => view('admin/logbook_by_mentor_modal', $data)
-            ];
-
-            echo json_encode($msg);
-        } else {
-            exit('Maaf tidak dapat diproses');
-        }
-    }
-
-    public function showAllLogbookFromMentor()
-    {
-        if ($this->request->isAJAX()) {
-
-            $data = [
-                'username_mentor' => $this->request->getVar('username_mentor'),
-                'logbook' => $this->logbook->getAllLogbookMentor($this->request->getVar('username_mentor')),
-
-            ];
-
-            $msg = [
-                'sukses' => view('admin/logbook_all_by_mentor_modal', $data)
             ];
 
             echo json_encode($msg);

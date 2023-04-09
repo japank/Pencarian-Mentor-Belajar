@@ -135,9 +135,7 @@ class Register extends BaseController
                 echo 'not found';
             }
         } else {
-            return view('activated_failed', [
-                // 'username' => $usernow,
-            ]);
+            return view('activated_failed', []);
         }
 
         // var_dump($checkUserLink);

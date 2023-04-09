@@ -14,8 +14,8 @@
                 <li><a href="<?= base_url(); ?>/mentorchecked">Mentor</a></li>
                 <li><a href="<?= base_url(); ?>/chat">Chat</a></li>
 
-                <li><a class="" href="<?= base_url(); ?>/mentor/request">Request</a></li>
-                <li><a class="" href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
+                <li><a class="" href="<?= base_url(); ?>/request-history">Pengajuan</a></li>
+                <li><a class="" href="<?= base_url(); ?>/request-accepted">Mentoring</a></li>
 
                 <li class="dropdown active"><a href="<?= base_url(); ?>/#"><span><?= session()->get('username') ?></span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
@@ -53,7 +53,7 @@
                         }
                     ?>
                         <div class="card-body text-center">
-                            <img src="<?= base_url() ?>/file/profile/<?= $pp ?>" alt="avatar" class="rounded-circle img-fluid" style="width: 170px; height:210px">
+                            <img src="<?= base_url() ?>/file/profile/<?= $pp ?>" alt="avatar" class="rounded-circle img-fluid" style="width: 170px; height:190px">
                             <h5 class="my-3">
                                 <?= $row->name; ?></h5>
                             <p class="text-muted mb-1"><?= $row->role ?></p>

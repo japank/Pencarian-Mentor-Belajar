@@ -10,79 +10,146 @@ class RequestMentorModel extends Model
     protected $primaryKey = "id_request_mentor";
     protected $returnType = "object";
     protected $useTimestamps = false;
-    protected $allowedFields = ['id_request_mentor', 'username_siswa', 'username_mentor', 'date_started', 'topic', 'description', 'status_request'];
+    protected $allowedFields = ['id_request_mentor', 'username_siswa', 'username_mentor', 'date_started', 'time_mentoring', 'topic', 'description', 'status_request', 'status_mentoring'];
 
     public function getRequestMentoring()
     {
         $usernow = session()->get('username');
-        return $this->db->table('request_mentor')
-            ->join('users', 'users.username=request_mentor.username_mentor')
-            ->orderBy('request_mentor.id_request_mentor', 'DESC')
-            ->getWhere(['username_siswa' => $usernow])
-            ->getResultArray();
+        $latnow = session()->get('latitude');
+        $longnow = session()->get('longitude');
+
+
+        $query = $this->db->query("SELECT *, 
+        ( 6371 * acos
+            (
+                sin(radians($latnow)) * sin(radians(latitude))
+                +
+                cos(radians($latnow)) * cos(radians(latitude)) 
+                * 
+                cos(radians(longitude) -  radians($longnow))
+            )
+        )
+        
+            AS jarak_km FROM users
+            INNER JOIN request_mentor ON request_mentor.username_mentor = users.username
+            where request_mentor.username_siswa = '$usernow' 
+            ORDER BY request_mentor.id_request_mentor DESC
+                ");
+
+
+        return $query->getResultArray();
+    }
+
+    public function getAccRequestMentoring()
+    {
+        $usernow = session()->get('username');
+        $latnow = session()->get('latitude');
+        $longnow = session()->get('longitude');
+
+
+        $query = $this->db->query("SELECT *, 
+        ( 6371 * acos
+            (
+                sin(radians($latnow)) * sin(radians(latitude))
+                +
+                cos(radians($latnow)) * cos(radians(latitude)) 
+                * 
+                cos(radians(longitude) -  radians($longnow))
+            )
+        )
+        
+            AS jarak_km FROM users
+            INNER JOIN request_mentor ON request_mentor.username_mentor = users.username
+            where request_mentor.username_siswa = '$usernow' AND request_mentor.status_request = '1'
+            ORDER BY request_mentor.id_request_mentor DESC
+                ");
+
+
+        return $query->getResultArray();
     }
 
     public function getRequestMentoringByMentor()
     {
+
         $usernow = session()->get('username');
-        return $this->db->table('request_mentor')
-            ->join('users', 'users.username=request_mentor.username_siswa')
-            ->orderBy('id_request_mentor', 'DESC')
-            ->getWhere(['username_mentor' => $usernow, 'status_request' => 2])
-            ->getResultArray();
+        $latnow = session()->get('latitude');
+        $longnow = session()->get('longitude');
+
+
+        $query = $this->db->query("SELECT *, 
+        ( 6371 * acos
+            (
+                sin(radians($latnow)) * sin(radians(latitude))
+                +
+                cos(radians($latnow)) * cos(radians(latitude)) 
+                * 
+                cos(radians(longitude) -  radians($longnow))
+            )
+        )
+        
+            AS jarak_km FROM users
+            INNER JOIN request_mentor ON request_mentor.username_siswa = users.username
+            where request_mentor.username_mentor = '$usernow' AND request_mentor.status_request = '2'
+            ORDER BY request_mentor.id_request_mentor DESC
+                ");
+
+
+        return $query->getResultArray();
     }
 
     public function getRequestHistoryByMentor()
     {
+
         $usernow = session()->get('username');
-        $query = $this->db->query("
-        SELECT * FROM request_mentor
-        INNER JOIN users ON users.username = request_mentor.username_siswa
-        WHERE request_mentor.username_mentor = '$usernow' AND request_mentor.status_request != 2
-        ");
+        $latnow = session()->get('latitude');
+        $longnow = session()->get('longitude');
+
+
+        $query = $this->db->query("SELECT *, 
+        ( 6371 * acos
+            (
+                sin(radians($latnow)) * sin(radians(latitude))
+                +
+                cos(radians($latnow)) * cos(radians(latitude)) 
+                * 
+                cos(radians(longitude) -  radians($longnow))
+            )
+        )
+        
+            AS jarak_km FROM users
+            INNER JOIN request_mentor ON request_mentor.username_siswa = users.username
+            where request_mentor.username_mentor = '$usernow' AND request_mentor.status_request != '2'
+            ORDER BY request_mentor.id_request_mentor DESC
+                ");
+
 
         return $query->getResultArray();
     }
-
-    public function getSiswaMentored()
+    public function getRequestAcceptedByMentor()
     {
+
         $usernow = session()->get('username');
-        $query = $this->db->query("
-        SELECT * FROM users WHERE username IN 
-        (SELECT username_siswa FROM request_mentor WHERE username_mentor = '$usernow' AND status_request = 1)
-        ");
+        $latnow = session()->get('latitude');
+        $longnow = session()->get('longitude');
 
-        return $query->getResultArray();
-    }
 
-    public function getMentor()
-    {
-        $usernow = session()->get('username');
-        $query = $this->db->query("
-        SELECT * FROM users WHERE username IN 
-        (SELECT username_mentor FROM request_mentor WHERE username_siswa = '$usernow')
-        ");
+        $query = $this->db->query("SELECT *, 
+        ( 6371 * acos
+            (
+                sin(radians($latnow)) * sin(radians(latitude))
+                +
+                cos(radians($latnow)) * cos(radians(latitude)) 
+                * 
+                cos(radians(longitude) -  radians($longnow))
+            )
+        )
+        
+            AS jarak_km FROM users
+            INNER JOIN request_mentor ON request_mentor.username_siswa = users.username
+            where request_mentor.username_mentor = '$usernow' AND request_mentor.status_request = '1'
+            ORDER BY request_mentor.id_request_mentor DESC
+                ");
 
-        return $query->getResult();
-    }
-
-    public function getMentorFromStudent($username)
-    {
-        $usernow = session()->get('username');
-        $query = $this->db->query("
-        SELECT * FROM users WHERE username IN 
-        (SELECT username_mentor FROM request_mentor WHERE username_siswa = '$username')
-        ");
-
-        return $query->getResultArray();
-    }
-    public function getMentoredStudent($username)
-    {
-        $usernow = session()->get('username');
-        $query = $this->db->query("
-        SELECT * FROM users WHERE username IN 
-        (SELECT username_siswa FROM request_mentor WHERE username_mentor = '$username')
-        ");
 
         return $query->getResultArray();
     }
@@ -136,5 +203,30 @@ class RequestMentorModel extends Model
 
 
         return $query->getRow();
+    }
+
+    public function getMentoringHistory($username)
+    {
+
+        $query = $this->db->query("SELECT * FROM users
+            INNER JOIN request_mentor ON request_mentor.username_siswa = users.username
+            where request_mentor.username_mentor = '$username' AND request_mentor.status_request = '1'
+            ORDER BY request_mentor.id_request_mentor DESC
+                ");
+
+
+        return $query->getResultArray();
+    }
+    public function getMentoringHistoryFromSiswa($username)
+    {
+
+        $query = $this->db->query("SELECT * FROM users
+            INNER JOIN request_mentor ON request_mentor.username_mentor = users.username
+            where request_mentor.username_siswa = '$username' AND request_mentor.status_request = '1'
+            ORDER BY request_mentor.id_request_mentor DESC
+                ");
+
+
+        return $query->getResultArray();
     }
 }

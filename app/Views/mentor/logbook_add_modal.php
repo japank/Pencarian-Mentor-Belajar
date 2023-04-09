@@ -29,15 +29,45 @@
                 </div>
 
                 <div class="form-group row">
+<<<<<<< HEAD
                     <label for="" class="col-sm-4 col-form-label">Deskripsi Pertemuan</label>
+=======
+                    <label for="" class="col-sm-2 col-form-label">Topik</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="topic" name="topic">
+                        <div class="invalid-feedback errorTopic">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label">Deskripsi Topik</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="topic_description" name="topic_description">
+                        <div class="invalid-feedback errorTopicDescription">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label">Deskripsi Pertemuan</label>
+>>>>>>> b60230be6a74b6e83a6ed782e122e1adfb91890e
                     <div class="col-sm-8">
                         <textarea type="text" class="form-control" id="description" name="description"></textarea>
+                        <div class="invalid-feedback errorDescription">
+
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-sm-4 col-form-label">Foto Kegiatan</label>
                     <div class="col-sm-8">
                         <input type="file" class="form-control" id="activity_photo" name="activity_photo">
+                        <div class="invalid-feedback errorActivityPhoto">
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,6 +99,7 @@
                 cache: false,
                 processData: false,
                 contentType: false,
+                dataType: "json",
                 beforeSend: function() {
                     $('.btnsimpan').attr('disable', 'disabled');
                     $('.btnsimpan').html('<i class="fa fa-spin fa-spinner"></i>');
@@ -81,6 +112,29 @@
                 success: function(response) {
                     if (response.error) {
 
+
+                        if (response.error.topic_description) {
+                            $('#topic_description').addClass('is-invalid');
+                            $('.errorTopicDescription').html(response.error.topic_description);
+                        } else {
+                            $('#topic_description').removeClass('is-invalid');
+                            $('.errorTopicDescription').html('');
+                        }
+
+                        if (response.error.description) {
+                            $('#description').addClass('is-invalid');
+                            $('.errorDescription').html(response.error.description);
+                        } else {
+                            $('#description').removeClass('is-invalid');
+                            $('.errorDescription').html('');
+                        }
+                        if (response.error.activity_photo) {
+                            $('#activity_photo').addClass('is-invalid');
+                            $('.errorActivityPhoto').html(response.error.activity_photo);
+                        } else {
+                            $('#activity_photo').removeClass('is-invalid');
+                            $('.errorActivityPhoto').html('');
+                        }
 
                     } else {
                         Swal.fire({

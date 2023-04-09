@@ -14,9 +14,14 @@
                 <li><a class="active" href="<?= base_url(); ?>/mentorchecked">Mentor</a></li>
                 <li><a href="<?= base_url(); ?>/chat">Chat</a></li>
 
+<<<<<<< HEAD
                 <li><a class="" href="<?= base_url(); ?>/request-history">Pengajuan</a></li>
                 <li><a class="" href="<?= base_url(); ?>/request-accepted">Mentoring</a></li>
 
+=======
+                <li><a class="" href="<?= base_url(); ?>/mentor/request">Riwayat Permintaan</a></li>
+                <li><a class="" href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
+>>>>>>> b60230be6a74b6e83a6ed782e122e1adfb91890e
 
                 <li class="dropdown"><a href="<?= base_url(); ?>/profile"><span><?= session()->get('username') ?></span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
@@ -56,6 +61,7 @@
 
     <br>
 
+<<<<<<< HEAD
 
 
     <div class="container">
@@ -100,6 +106,111 @@
         </div>
     </div>
 
+=======
+    <style>
+        @import "//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css";
+
+        .active-tabs {
+
+            position: absolute;
+            right: 7%;
+        }
+
+        .active-tabs input {
+            opacity: 0;
+            display: none;
+            visibility: hidden;
+        }
+
+        .btnjar {
+            background: #f1f1f1;
+            color: darkslategrey;
+            cursor: pointer;
+            display: block;
+            float: left;
+            font-size: 15px;
+            height: 47px;
+            line-height: 35px;
+            margin-right: 1px;
+            text-align: center;
+            width: 100px;
+            opacity: 0.8;
+            transition: all 0.4s;
+        }
+
+        .btnjar:hover {
+            transform: translateY(-5px);
+            opacity: 1;
+        }
+
+        .active-tabs input:checked+label {
+            background: #5fcf80;
+            opacity: 1;
+            transform: translateY(-5px);
+            box-shadow: 1px 0 0 0 rgba(0, 0, 0, 0.3);
+            color: #f1f1f1;
+        }
+
+        .tabs-container {
+            width: 100%;
+            position: relative;
+            float: left;
+            top: -5px;
+            background: #fff;
+        }
+
+        .tab-1,
+        .tab-2 {
+            height: 200px;
+            width: 100%;
+            box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.3);
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+        }
+
+        .tab-2 {
+            height: 300px;
+        }
+
+        .tab-1 p,
+        .tab-2 p {
+            color: #1babbb;
+            font-family: "Open Sans";
+            font-size: 50px;
+            line-height: 200px;
+            text-align: center;
+        }
+
+        .tab-2 p,
+        .tab-4 p,
+        .tab-6 p {
+            line-height: 300px;
+        }
+
+        .btnjar-1:checked~.tabs-container .tab-1,
+        .btnjar-2:checked~.tabs-container .tab-2 {
+            position: relative;
+            visibility: visible;
+            top: 0;
+            left: 0;
+            opacity: 1;
+        }
+    </style>
+    <div class="active-tabs">
+        <input type="radio" name="active_tabs" id="btnjar-1" class="btnjar-1" checked onclick="allMentor()">
+        <label for="btnjar-1" class="btnjar"><i class="fa fa-map-marker"></i> Jarak</label>
+
+        <input type="radio" name="active_tabs" id="btnjar-2" class="btnjar-2" onclick="allMentorByScore()">
+        <label for="btnjar-2" class="btnjar"><i class="fa fa-book"></i> Nilai</label>
+
+    </div>
+
+
+>>>>>>> b60230be6a74b6e83a6ed782e122e1adfb91890e
     <section id="team" class="team section-bg">
         <div class="container" data-aos="fade-up">
             <div class="row  viewdata">
@@ -122,7 +233,10 @@
             </div>
             <div class="box-body">
                 <div class="direct-chat-messages" id="conversation">
+<<<<<<< HEAD
 
+=======
+>>>>>>> b60230be6a74b6e83a6ed782e122e1adfb91890e
                 </div>
             </div>
             <div class="box-footer">

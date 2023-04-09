@@ -21,6 +21,7 @@ class UsersModel extends Model
         // hyang nareswara
         $query = $this->db->query("SELECT *, 
         ( 6371 * acos
+<<<<<<< HEAD
             (
                 sin(radians($latnow)) * sin(radians(latitude))
                 +
@@ -35,6 +36,19 @@ class UsersModel extends Model
               INNER JOIN exam_user_take_exam ON exam_user_take_exam.username = mentor_detail.username
             INNER JOIN exam_detail ON exam_detail.exam_id = exam_user_take_exam.exam_id
             WHERE exam_detail.id_course = '$matkul' AND exam_detail.level = '$level' AND mentor_detail.status_verified = '1'
+=======
+        (
+            sin( radians($latnow))  * sin(radians(latitude))
+        +
+         cos( radians($latnow) ) * cos( radians( latitude ) ) 
+        * 
+        cos (radians( longitude ) -  radians($longnow) )
+        ))
+                as jarak_km FROM users
+                INNER JOIN mentor_detail ON mentor_detail.username = users.username
+                where users.username != '$usernow' AND mentor_detail.status_verified = '1'
+                HAVING role = 'pendamping' ORDER BY jarak_km ASC
+>>>>>>> b60230be6a74b6e83a6ed782e122e1adfb91890e
 
 
             HAVING role = 'pendamping' ORDER BY jarak_km ASC
@@ -184,9 +198,14 @@ class UsersModel extends Model
         $query = $this->db->query("SELECT * FROM users 
         INNER JOIN mentor_detail ON mentor_detail.username = users.username
         INNER JOIN exam_user_take_exam ON exam_user_take_exam.username = users.username
+<<<<<<< HEAD
         INNER JOIN exam_detail ON exam_detail.exam_id = exam_user_take_exam.exam_id
         WHERE exam_detail.id_course = '$matkul' AND exam_detail.level = '$level'
         ORDER BY exam_user_take_exam.score DESC
+=======
+        WHERE users.username IN (SELECT username FROM exam_user_take_exam) 
+        ORDER BY score DESC
+>>>>>>> b60230be6a74b6e83a6ed782e122e1adfb91890e
         ");
         return $query->getResult();
     }

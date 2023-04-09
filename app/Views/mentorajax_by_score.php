@@ -29,6 +29,29 @@ foreach ($mentor as $row) {
 
                     <button class="btn btn-success" style="border-radius: 50px;margin-left:10%" onclick="request('<?= $row->username ?>')"><i class="ri-send-plane-fill"></i><strong style="margin-left: 7%;">Order</strong></button>
 
+<<<<<<< HEAD
+=======
+    $usernow = session()->get('username');
+    foreach ($mentor as $row) {
+        $pp = "";
+        if (is_null($row->profile_picture)) {
+            $pp = "default.jpg";
+        } else {
+            $pp = $row->profile_picture;
+        }
+    ?>
+        <div class="col-lg-6">
+            <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
+                <div class="pic"><img src="<?= base_url() ?>/file/profile/<?= $pp ?>" class="img-fluid" alt="" style="width: 100%; height:150px"></div>
+                <div class="member-info">
+                    <h4><?= $row->name; ?></h4>
+                    <span><?= $row->score ?></span>
+                    <p><?= $row->address; ?></p>
+                    <div class="social">
+                        <a onclick="request('<?= $row->username ?>')"><i class="ri-send-plane-fill"></i></a>
+                        <a><i class="ri-message-fill contact" user-id='<?= $row->username ?>' user-name='<?= $row->name ?>'></i></a>
+                    </div>
+>>>>>>> b60230be6a74b6e83a6ed782e122e1adfb91890e
                 </div>
             </div>
         </div>

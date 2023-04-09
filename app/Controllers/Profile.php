@@ -44,10 +44,13 @@ class Profile extends BaseController
                 'kelas' => $this->request->getVar('kelas'),
             ];
             $this->users->update($username, $savedata);
+<<<<<<< HEAD
             $price_sd = $this->request->getVar('price_sd');
             $price_smp = $this->request->getVar('price_smp');
             $price_sma = $this->request->getVar('price_sma');
             $this->mentor_detail->updatePrice($username, $price_sd, $price_smp, $price_sma);
+=======
+>>>>>>> b60230be6a74b6e83a6ed782e122e1adfb91890e
 
             $dataMentor = $this->mentor_detail->where(['username' => $username,])->first();
             $dataFile = $this->request->getFile('identity_file');
@@ -72,6 +75,21 @@ class Profile extends BaseController
 
             if ($dataProfilePict->getError() == 4) {
             } else {
+                // ini eror
+                // if (!$this->validate([
+                //     'identity_file' => [
+                //         'label' => 'File Identitas',
+                //         'rules' => 'uploaded[identity_file]'
+                //             . '|is_image[identity_file]'
+                //             . '|mime_in[identity_file,image/jpg,image/jpeg,image/gif,image/png,image/webp]'
+                //             . '|max_size[identity_file,100]'
+                //             . '|max_dims[identity_file,1024,768]',
+                //     ],
+                // ])) {
+                //     session()->setFlashdata('error', $this->validator->listErrors());
+                //     return redirect()->back()->withInput();
+                // } else {
+
                 if (is_null($dataUsers->profile_picture)) {
                     $this->users->updateProfilePict($username, $dataProfileName);
                     $dataProfilePict->move('file/profile', $dataProfileName);
@@ -85,8 +103,6 @@ class Profile extends BaseController
             $msg = [
                 'sukses' => 'Profile berhasil diupdate'
             ];
-
-
             echo json_encode($msg);
         } else {
             exit('Maaf tidak dapat diproses');

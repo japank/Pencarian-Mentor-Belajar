@@ -110,16 +110,21 @@ Website: http://emilcarlsson.se/
 							</ul>
 						</li>
 					<?php } else { ?>
+<<<<<<< HEAD
 						<li><a class="" href="<?= base_url(); ?>/request-history">Pengajuan</a></li>
 						<li><a class="" href="<?= base_url(); ?>/request-accepted">Mentoring</a></li>
 
+=======
+						<li><a href="<?= base_url(); ?>/mentor/request">Riwayat Permintaan</a></li>
+						<li><a href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
+>>>>>>> b60230be6a74b6e83a6ed782e122e1adfb91890e
 					<?php }
 					?>
 				</ul>
 				<i class="bi bi-list mobile-nav-toggle"></i>
 			</nav><!-- .navbar -->
 
-			<a href="<?= base_url(); ?>/logout" class="get-started-btn"><?= session()->get('username') ?></a>
+			<a href="<?= base_url(); ?>/profile" class="get-started-btn"><?= session()->get('username') ?></a>
 
 		</div>
 	</header><!-- End Header -->

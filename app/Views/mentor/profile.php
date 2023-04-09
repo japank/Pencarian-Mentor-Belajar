@@ -24,6 +24,17 @@
         } ?>
 
         <div class="row">
+<<<<<<< HEAD
+=======
+            <?php if (!empty(session()->getFlashdata('error'))) : ?>
+                <div class="alert bg-warning alert-dismissible fade show" role="alert">
+                    <h4>Periksa Entrian Form</h4>
+                    </hr />
+                    <?php echo session()->getFlashdata('error'); ?>
+                </div>
+            <?php endif; ?>
+            <!-- Column -->
+>>>>>>> b60230be6a74b6e83a6ed782e122e1adfb91890e
             <div class="col-lg-4 col-xlg-3 col-md-5">
                 <div class="card">
                     <div class="card-body">

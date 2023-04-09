@@ -306,7 +306,11 @@ class Mentor extends BaseController
                     ],
                 ],
                 'description' => [
+<<<<<<< HEAD
                     'label' => 'Topik',
+=======
+                    'label' => 'Deskripsi Topik',
+>>>>>>> b60230be6a74b6e83a6ed782e122e1adfb91890e
                     'rules' => 'required',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
@@ -318,9 +322,15 @@ class Mentor extends BaseController
                 $msg = [
                     'error' => [
                         'date_started' => $validation->getError('date_started'),
+<<<<<<< HEAD
                         'time_mentoring' => $validation->getError('time_mentoring'),
                         'topic' => $validation->getError('topic'),
                         'description' => $validation->getError('description')
+=======
+                        'topic' => $validation->getError('topic'),
+                        'description' => $validation->getError('description')
+
+>>>>>>> b60230be6a74b6e83a6ed782e122e1adfb91890e
                     ]
                 ];
             } else {

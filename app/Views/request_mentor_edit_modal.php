@@ -62,9 +62,15 @@
                     <label for="" class="col-sm-4 col-form-label">Topik</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="description" name="description" value="<?= $dataRequestMentor->description; ?>">
+<<<<<<< HEAD
                         <div class="invalid-feedback errorDescription">
                         </div>
 
+=======
+                        <div class="invalid-feedback errorDescriptionTopic">
+
+                        </div>
+>>>>>>> b60230be6a74b6e83a6ed782e122e1adfb91890e
                     </div>
                 </div>
 
@@ -123,10 +129,17 @@
                             }
                             if (response.error.description) {
                                 $('#description').addClass('is-invalid');
+<<<<<<< HEAD
                                 $('.errorDescription').html(response.error.description);
                             } else {
                                 $('#description').removeClass('is-invalid');
                                 $('.errorDescription').html('');
+=======
+                                $('.errorDescriptionTopic').html(response.error.description);
+                            } else {
+                                $('#description').removeClass('is-invalid');
+                                $('.errorDescriptionTopic').html('');
+>>>>>>> b60230be6a74b6e83a6ed782e122e1adfb91890e
                             }
 
                         } else {

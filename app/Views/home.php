@@ -13,8 +13,13 @@
                 <li><a href="<?= base_url(); ?>/mentorchecked">Mentor</a></li>
                 <li><a href="<?= base_url(); ?>/chat">Chat</a></li>
 
+<<<<<<< HEAD
                 <li><a class="" href="<?= base_url(); ?>/request-history">Pengajuan</a></li>
                 <li><a class="" href="<?= base_url(); ?>/request-accepted">Mentoring</a></li>
+=======
+                <li><a class="" href="<?= base_url(); ?>/mentor/request">Riwayat Permintaan</a></li>
+                <li><a class="" href="<?= base_url(); ?>/mylogbook">Logbook</a></li>
+>>>>>>> b60230be6a74b6e83a6ed782e122e1adfb91890e
 
                 <li class="dropdown"><a href="<?= base_url(); ?>/profile"><span><?= session()->get('username') ?></span> <i class="bi bi-chevron-down"></i></a>
                     <ul>

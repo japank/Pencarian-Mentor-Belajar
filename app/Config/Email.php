@@ -4,8 +4,6 @@ namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 
-
-// fmpzzcjlxxfdkfls
 class Email extends BaseConfig
 {
     /**
@@ -56,14 +54,17 @@ class Email extends BaseConfig
      *
      * @var string
      */
-    public $SMTPUser = 'nycticorax25@gmail.com';
-    // new pw
+
+    // enter your email
+    public $SMTPUser = 'yourgmail@gmail.com';
+    
     /**
      * SMTP Password
      *
      * @var string
      */
-    public $SMTPPass = 'ylkmmwskbnuwycww';
+    // enter ur pw
+    public $SMTPPass = 'enterurpw';
 
     /**
      * SMTP Port
